@@ -73,6 +73,9 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     
     override func viewDidAppear(_ animated: Bool) {
         
+        if AppManager.sharedInstance().shouldGetUserInfo{
+            AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: { _ in})
+        }
         
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
 
@@ -143,14 +146,16 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         
         DispatchQueue.global(qos: .background).async {
             self.viewCount += 1
-            if self.viewCount == 3 || self.genres.count == 0 {
+            if self.viewCount == 6 || self.genres.count == 0 {
             AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
             AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
             AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
             self.genres = []
             self.banners = bannersList()
             self.viewCount = 0
-        }
+            }else if self.viewCount == 3{
+                AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
+            }
         }
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Home", detail: "")
         AppManager.sharedInstance().sendActions()
@@ -297,10 +302,19 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
 //                })
             break
         case "multi":
-            let vc = storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
-            vc.url = item.link
-            vc.name = item.title
-            self.present(vc, animated: true, completion: nil)
+            let request = RequestHandler(type: .genrePosts , requestURL: item.link, shouldShowError: true, sender: self, waiting: true, force: false)
+            
+            request.sendRequest(completionHandler: { more_posts, success, msg in
+                if success {
+                    let result = more_posts as! genre_more
+                    UserDefaults.standard.setValue(result.toJsonString(), forKey: item.link)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
+                    vc.url = item.link
+                    vc.name = item.title
+                    self.present(vc, animated: true, completion: nil)
+                }
+            })
+            
             break
         case "redirect":
               UIApplication.shared.openURL( URL(string: item.link )!)

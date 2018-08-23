@@ -34,7 +34,7 @@ class AppManager: NSObject {
             let cachedGenreList = GenresList(json: cachedListString)
         
             let news = Genre()
-            news.name = "داغ"
+            news.name = "تازه ها"
             news.files_link = AppGlobal.NewKaraokesGenre
             result.append(news)
             
@@ -43,10 +43,10 @@ class AppManager: NSObject {
             popular.files_link = AppGlobal.PopularKaraokesGenre
             result.append(popular)
           
-            let free = Genre()
-            free.name = "رایگان این هفته"
-            free.files_link = AppGlobal.FreeKaraokesGenre
-            result.append(free)
+//            let free = Genre()
+//            free.name = "رایگان این هفته"
+//            free.files_link = AppGlobal.FreeKaraokesGenre
+//            result.append(free)
             
             for item in cachedGenreList.results{
                 if item.liked_it{
@@ -69,6 +69,45 @@ class AppManager: NSObject {
     public func getHomeFeed() -> [Genre]{
         self.cachedHomeFeed()
         return self.homeFeed
+    }
+    
+    public func clearGenresCache() {
+        var result : [Genre] = []
+        
+        if let cachedListString = UserDefaults.standard.value(forKey: AppGlobal.GenresListCache) as? String {
+            let cachedGenreList = GenresList(json: cachedListString)
+            
+            let news = Genre()
+            news.name = "تازه ها"
+            news.files_link = AppGlobal.NewKaraokesGenre
+            result.append(news)
+            
+            let popular = Genre()
+            popular.name = "محبوب ها"
+            popular.files_link = AppGlobal.PopularKaraokesGenre
+            result.append(popular)
+            
+            let free = Genre()
+            free.name = "رایگان این هفته"
+            free.files_link = AppGlobal.FreeKaraokesGenre
+            result.append(free)
+            
+            for item in cachedGenreList.results{
+                if item.liked_it{
+                    result.append(item)
+                }
+            }
+            
+            for genre in result{
+                if let genreString = UserDefaults.standard.value(forKey: genre.files_link) as? String {
+                    UserDefaults.standard.set(nil, forKey: genre.files_link)
+                }
+            }
+            UserDefaults.standard.set(nil, forKey: AppGlobal.GenresListCache)
+        }
+        
+        
+        
     }
     
     
@@ -133,7 +172,7 @@ class AppManager: NSObject {
             var result : [Genre] = []
                 
                 let news = Genre()
-                news.name = "داغ"
+                news.name = "تازه ها"
                 news.files_link = AppGlobal.NewKaraokesGenre
                 result.append(news)
                 
@@ -142,10 +181,10 @@ class AppManager: NSObject {
                 popular.files_link = AppGlobal.PopularKaraokesGenre
                 result.append(popular)
                 
-                let free = Genre()
-                free.name = "رایگان این هفته"
-                free.files_link = AppGlobal.FreeKaraokesGenre
-                result.append(free)
+//                let free = Genre()
+//                free.name = "رایگان این هفته"
+//                free.files_link = AppGlobal.FreeKaraokesGenre
+//                result.append(free)
                 
           
                 for item in temp{
@@ -200,6 +239,7 @@ class AppManager: NSObject {
     //MARK: -UserInfo
     private var userInfo : user!
     
+    public var shouldGetUserInfo = false
     
     private func cachedUserInfo(){
         
@@ -226,6 +266,7 @@ class AppManager: NSObject {
                 UserDefaults.standard.setValue(self.userInfo.toJsonString(), forKey: AppGlobal.userInfoCache)
             }
             completionHandler(success)
+            self.shouldGetUserInfo = false
         })
     }
     

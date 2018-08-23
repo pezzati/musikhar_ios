@@ -35,6 +35,8 @@ class AudioMixer: NSObject {
         booster = AKBooster(voicePlayer, gain: 2)
         
         reverb = AKReverb(booster)
+        reverb.loadFactoryPreset(.largeHall)
+        reverb.dryWetMix = 0.3
         multiEcho = AKFlanger(booster)
         
         helium = AKTimePitch(booster)

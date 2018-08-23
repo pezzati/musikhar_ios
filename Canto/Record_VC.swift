@@ -92,6 +92,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     //logics
     var camera_On = true
     var isRecording = false
+    var micPlugged = false
     
     var post : karaoke = karaoke()
     var original = false
@@ -173,23 +174,25 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
 //        self.camera_On = false
         setAudioEngine()
         
-        var on = false
+        
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
         if currentRoute.outputs.count != 0 {
             for item in currentRoute.outputs{
                 if item.portType == AVAudioSessionPortHeadphones{
-                    on = true
+                    micPlugged = true
                 }else if item.portType == AVAudioSessionPortHeadsetMic{
-                    on = true
+                    micPlugged = true
                 }
             }
         }
         
-        if !on{
+        if !micPlugged{
             let dialog = DialougeView()
             dialog.plugHeadphones(sender: self)
         }
-        downloadKaraoke()
+        DispatchQueue.main.async {
+          self.downloadKaraoke()
+        }
         
     }
     
@@ -393,8 +396,9 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0))
-        var text = post.content.liveLyrics[indexPath.row].text//.replacingOccurrences(of: "\n", with: "", options: .literal, range: nil)
+        let text = post.content.liveLyrics[indexPath.row].text.replacingOccurrences(of: "\\n", with: "", options: .literal , range: nil)
 //        text = text.replacingOccurrences(of: "\\"", with: "", options: .literal, range: nil)
+        cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = text
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -834,7 +838,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             }
             
             let scrWidth = self.view.frame.width
-            let width = CGFloat(Float(self.elapsedTime) / Float(self.songDuration) * Float(self.tempoStepper.value / 100)) * scrWidth
+            let width = CGFloat(Float(self.elapsedTime) / Float(self.songDuration)) * scrWidth
             self.timeBarWidthConstraint.constant = CGFloat(width)
          
             
@@ -899,7 +903,13 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         audioMixer.setNotification()
         audioMixer.seekTo(time: 0.0)
         audioMixer.setVoiceVol(vol: 0.5)
-        audioMixer.setPlaybackVol(vol: 0.5)
+        if self.micPlugged{
+            audioMixer.setPlaybackVol(vol: 0.5)
+            playbackVolumeSlider.value = 0.5
+        }else{
+            audioMixer.setPlaybackVol(vol: 0.0)
+            playbackVolumeSlider.value = 0.0
+        }
         
 //        mixManager = MixManager(karaURL: self.karaAudioPath , recordedFileURL: self.recordedVoicePath , sound: true)
 //        mixManager.setNotification()
@@ -947,7 +957,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
 //            self.doneButton.alpha = 1
             self.PreviewView.layer.cornerRadius = 10
             self.yourVolumeSlider.value = 0.5
-            self.playbackVolumeSlider.value = 0.5
+//            self.playbackVolumeSlider.value = 0.5
             self.view.layoutIfNeeded()
         })
         

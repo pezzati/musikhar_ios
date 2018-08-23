@@ -39,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         var vc : UIViewController!
+        
+        if (UserDefaults.standard.value(forKey: "110Cache") as? Bool) == nil {
+            AppManager.sharedInstance().clearGenresCache()
+            UserDefaults.standard.setValue(true, forKey: "110Cache")
+        }
+        
+        
         if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
             if token.characters.count > 20 {
                 
@@ -52,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             vc = storyBoard.instantiateViewController(withIdentifier: "login")
         }
+        
         
         self.window!.rootViewController = vc
         self.window!.makeKeyAndVisible()
@@ -118,6 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
     
+       
         
         
         return true
