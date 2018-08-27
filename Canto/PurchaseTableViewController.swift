@@ -98,7 +98,7 @@ class PurchaseTableViewController: UITableViewController {
                 let url = data as! String
 //                UIApplication.shared.open( URL(string: url )!, options: [:], completionHandler:{ bool in self.dismiss(animated: true, completion: nil) })
                 UIApplication.shared.openURL(URL(string: url )!)
-                self.dismiss(animated: true, completion: { AppManager.sharedInstance().shouldGetUserInfo = true })
+                self.dismiss(animated: true, completion: nil)
             }else{
                 AppManager.sharedInstance().addAction(action: "Failed to get purchase link", session: "Shop", detail: "")
             }

@@ -26,6 +26,12 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     override func viewDidAppear(_ animated: Bool) {
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Search", detail: "")
+        let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+            self.searchTextField.resignFirstResponder()
+        }
+        tap?.cancelsTouchesInView = false
+        
+        self.view.addGestureRecognizer(tap!)
     }
 
     

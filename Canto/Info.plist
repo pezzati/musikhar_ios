@@ -21,11 +21,14 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.canto.application</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.243773746715-ahsopgmn3jfvqthmkn32mi75lbc69hso</string>
+				<string>com.canto.application</string>
 			</array>
 		</dict>
 	</array>

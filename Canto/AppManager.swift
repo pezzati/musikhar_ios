@@ -155,10 +155,10 @@ class AppManager: NSObject {
             }
         }
         
-        if loaded && Int(Date.timeIntervalSinceReferenceDate) - lastFetchTime < 1800{
-            completionHandler(true)
-            return
-        }
+//        if loaded && Int(Date.timeIntervalSinceReferenceDate) - lastFetchTime < 1800{
+//            completionHandler(true)
+//            return
+//        }
         
         
         
@@ -239,7 +239,7 @@ class AppManager: NSObject {
     //MARK: -UserInfo
     private var userInfo : user!
     
-    public var shouldGetUserInfo = false
+    
     
     private func cachedUserInfo(){
         
@@ -266,7 +266,7 @@ class AppManager: NSObject {
                 UserDefaults.standard.setValue(self.userInfo.toJsonString(), forKey: AppGlobal.userInfoCache)
             }
             completionHandler(success)
-            self.shouldGetUserInfo = false
+            
         })
     }
     

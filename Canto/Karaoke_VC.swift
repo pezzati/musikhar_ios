@@ -22,6 +22,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     var banners = bannersList()
     var waiting = DialougeView()
     var viewCount = 0
+    private let refreshControl = UIRefreshControl()
     
     var currentOffset : CGPoint = CGPoint.zero
 
@@ -38,6 +39,13 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         self.screen_Width = Int(view.frame.width)
         Navigation_Bar.headerViewCornerRounding()
         waiting.waitingBox(vc: self)
+        
+        Home_TableView.refreshControl = refreshControl
+        refreshControl.tintColor = UIColor(red:112/255, green:96/255, blue:251/255, alpha:1.0)
+  
+        let formattedString = NSMutableAttributedString()
+        refreshControl.attributedTitle = formattedString.bold("در حال به روز رسانی")
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         
         AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {
                                 success in
@@ -63,6 +71,8 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
             let next =  self.banners.results.count - 1 == self.pageController.currentPage ? 0 : self.pageController.currentPage + 1
             self.Carousel.scrollToItem(at: next, duration: 1)
         })
+        
+        
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -72,10 +82,6 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
 
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        if AppManager.sharedInstance().shouldGetUserInfo{
-            AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: { _ in})
-        }
         
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
 
@@ -143,23 +149,56 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     override func viewDidDisappear(_ animated: Bool) {
         
         
-        
-        DispatchQueue.global(qos: .background).async {
-            self.viewCount += 1
-            if self.viewCount == 6 || self.genres.count == 0 {
-            AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
-            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
-            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
-            self.genres = []
-            self.banners = bannersList()
-            self.viewCount = 0
-            }else if self.viewCount == 3{
-                AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
-            }
-        }
+//
+//        DispatchQueue.global(qos: .background).async {
+//            self.viewCount += 1
+//            if self.viewCount == 6 || self.genres.count == 0 {
+//            AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
+//            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
+//            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
+//            self.genres = []
+//            self.banners = bannersList()
+//            self.viewCount = 0
+//            }else if self.viewCount == 3{
+//                AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
+//            }
+//        }
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Home", detail: "")
         AppManager.sharedInstance().sendActions()
     }
+    
+    @objc private func refreshData(_ sender: Any) {
+        
+        AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
+        AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {success in
+            if success{
+                let homeFeed = AppManager.sharedInstance().getHomeFeed()
+                if !homeFeed.isEmpty {
+                    self.genres = homeFeed
+                    self.Home_TableView.reloadData()
+                    self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
+                    self.Home_TableView.isHidden = false
+                }
+            }
+            self.refreshControl.endRefreshing()
+        })
+        
+        AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {success in
+            if success{
+                let banners = AppManager.sharedInstance().getBanners()
+                if !banners.results.isEmpty{
+                    self.banners = banners
+                    self.Carousel.reloadData()
+                    self.pageController.numberOfPages = self.banners.results.count
+                    self.pageController.currentPage = self.Carousel.currentItemIndex
+                }
+            }
+            self.refreshControl.endRefreshing()
+        })
+        
+        
+    }
+    
     
     @IBAction func editFavoriteGenres(_ sender: Any) {
         AppManager.sharedInstance().addAction(action: "Genre Selection Tapped", session: "Home", detail: "")
