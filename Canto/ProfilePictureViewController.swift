@@ -166,9 +166,11 @@ class ProfilePictureViewController: UIViewController {
     func done(){
         
         if self.isFirstTime{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "genreSelection") as! GenreSelectionViewController
-            vc.firstTime = true
-            self.present(vc, animated: true, completion: nil)
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "genreSelection") as! GenreSelectionViewController
+//            vc.firstTime = true
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
+            self.present(vc!, animated: true, completion: nil)
+//            self.present(vc, animated: true, completion: nil)
         }else{
             self.dismiss(animated: true, completion: nil)
         }

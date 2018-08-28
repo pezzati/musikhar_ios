@@ -13,7 +13,7 @@ class Genre_TableViewCell: UITableViewCell {
     @IBOutlet weak var GenreNameLabel: UILabel!
     @IBOutlet weak var MoreButton: UIButton!
     
-    @IBOutlet private weak var KaraokeCollectionView: UICollectionView!
+    @IBOutlet weak var KaraokeCollectionView: UICollectionView!
     
     
     

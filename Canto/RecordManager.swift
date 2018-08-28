@@ -162,7 +162,7 @@ class RecordManager: NSObject {
                 
                 node.stop()
                 
-                if Framestoplay > 1000 {
+                if Framestoplay > 1000 && Newsampletime >= 0{
                     node.scheduleSegment(inputFile, startingFrame: Newsampletime, frameCount: Framestoplay, at: nil,completionHandler: nil)
                 }
             }
@@ -240,6 +240,7 @@ class RecordManager: NSObject {
         }
         
         if on{
+//             AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)
             self.fakeEngine.connect(fakeEngine.inputNode, to: fakeEngine.mainMixerNode, format: fakeEngine.inputNode.inputFormat(forBus: 0))
             try? fakeEngine.start()
             fakeEngine.mainMixerNode.volume = 1

@@ -44,7 +44,7 @@ class DialougeView {
         showBackgroundView(vc: vc)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
         self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         self.shadowDialogue()
         
@@ -124,7 +124,7 @@ class DialougeView {
                         self.showBackgroundView(vc: sender)
                         self.dialougeView = UIView(frame: CGRect(x: self.scrWidth/2 - 150 , y: self.scrHeight/2 - 145, width: 300, height: 290))
                         self.dialougeView.backgroundColor = UIColor.white
-                        self.dialougeView.layer.cornerRadius = 35
+                        self.dialougeView.layer.cornerRadius = 15
                         self.dialougeView.clipsToBounds = true
                         self.shadowDialogue()
                     
@@ -224,7 +224,7 @@ class DialougeView {
         showBackgroundView(vc: sender)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
         self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         self.shadowDialogue()
         
@@ -287,7 +287,7 @@ class DialougeView {
         showBackgroundView(vc: sender)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
         self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         self.shadowDialogue()
         
@@ -431,7 +431,7 @@ class DialougeView {
         showBackgroundView(vc: vc)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
         self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         self.shadowDialogue()
         
@@ -497,7 +497,7 @@ class DialougeView {
         showBackgroundView(vc: vc)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 155, width: 300, height: 310))
         self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         self.shadowDialogue()
         
@@ -584,7 +584,7 @@ class DialougeView {
         showBackgroundView(vc: vc)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 110, width: 300, height: 220))
         self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         self.shadowDialogue()
         
@@ -663,7 +663,7 @@ class DialougeView {
     
     func shadowDialogue(){
         self.dialougeView.clipsToBounds = false
-        self.dialougeView.layer.cornerRadius = 35
+        self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.layer.shadowColor = UIColor.gray.cgColor
         self.dialougeView.layer.shadowRadius = 5
         self.dialougeView.layer.shadowOpacity = 0.7

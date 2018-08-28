@@ -9,10 +9,11 @@
 import UIKit
 
 struct AppGlobal {
+    public static let debugMode = false
     //URLs
 //    public static let ServerURL = "http://77.238.122.16/"
 //    public static let ServerURL = "http://192.168.1.114:8000/"
-    public static let ServerURL = "http://stg.canto-app.ir/"
+    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"
     public static let UserProfileURL = ServerURL + "user/profile"

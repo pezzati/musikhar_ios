@@ -152,7 +152,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         LyricsTextView.isHidden = hasLyrics
         lyricTableView.isHidden = !hasLyrics
         
-        turnOnCamera()
+        
+        AppGlobal.debugMode ? turnOnCamera() : turnOffCamera()
     }
     
     override func viewDidAppear(_ animated: Bool) {

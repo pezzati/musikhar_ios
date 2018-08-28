@@ -35,6 +35,9 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         pageController.currentPage = 0
         pageController.numberOfPages = 0
         
+        let tempFrame = Carousel.frame
+        Carousel.frame = CGRect(x: tempFrame.minX, y: tempFrame.minY, width: tempFrame.width, height: tempFrame.width/2.03)
+            
         Carousel.addSubview(pageController)
         self.screen_Width = Int(view.frame.width)
         Navigation_Bar.headerViewCornerRounding()
@@ -42,6 +45,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         
         Home_TableView.refreshControl = refreshControl
         refreshControl.tintColor = UIColor(red:112/255, green:96/255, blue:251/255, alpha:1.0)
+        
   
         let formattedString = NSMutableAttributedString()
         refreshControl.attributedTitle = formattedString.bold("در حال به روز رسانی")
@@ -193,7 +197,6 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
                     self.pageController.currentPage = self.Carousel.currentItemIndex
                 }
             }
-            self.refreshControl.endRefreshing()
         })
         
         
@@ -229,6 +232,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "GenreCell", for: indexPath) as! Genre_TableViewCell
         cell.MoreButton.tag = indexPath.row
         cell.MoreButton.addTarget(self, action: #selector(genre_moreTapped(button:)), for: .touchUpInside)
+        cell.KaraokeCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         
         let genreTapped =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
@@ -297,7 +301,8 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         cell.addBadge()
         if !post.is_premium { cell.setAsFree() }
         else{ cell.setAsPremium() }
-
+        
+        cell.transform = CGAffineTransform(scaleX: -1, y: 1)
         //collectionView.tag indicates which table list row is filling up
         return cell
     }
@@ -314,7 +319,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let bannerImage = UIImageView(frame: CGRect(x: 10, y: 5, width: UIScreen.main.bounds.width - 20 , height: 140))
+        let bannerImage = UIImageView(frame: CGRect(x: 10, y: 5, width: Carousel.frame.width - 20 , height: Carousel.frame.height - 10))
         
         let banner = self.banners.results[index]
         bannerImage.sd_setImage(with: URL(string : banner.file), placeholderImage: UIImage(named : "valery"))
