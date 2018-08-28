@@ -90,7 +90,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     @IBOutlet weak var effectsVerticalConstraint: NSLayoutConstraint!
     
     //logics
-    var camera_On = true
+    var camera_On = !AppGlobal.debugMode
     var isRecording = false
     var micPlugged = false
     
@@ -140,7 +140,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         style.lineSpacing = 3
         style.alignment = .center
         self.LyricsTextView.setContentOffset(CGPoint.zero, animated: false)
-        let attributes = [NSAttributedStringKey.paragraphStyle : style]
+//        let attributes = [NSAttributedStringKey.paragraphStyle : style]
 //        self.LyricsTextView.attributedText = NSAttributedString(string: self.post.content.lyric.text, attributes: attributes)
 //        self.LyricsTextView.attributedText = NSAttributedString(string: self.post.content.liveLyrics[0].text, attributes: attributes )
         self.LyricsTextView.setContentOffset(CGPoint.zero, animated: false)
@@ -151,7 +151,17 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         let hasLyrics = post.content.liveLyrics.count > 0
         LyricsTextView.isHidden = hasLyrics
         lyricTableView.isHidden = !hasLyrics
-        
+
+        if self.original{
+            var i = 0
+            for n in 0...self.post.content.liveLyrics.count - 1 {
+                if self.post.content.liveLyrics.count > i+1 && self.post.content.liveLyrics[i].text.count < 2 {
+                    self.post.content.liveLyrics.remove(at: i)
+                }else{
+                    i += 1
+                }
+            }
+        }
         
         AppGlobal.debugMode ? turnOnCamera() : turnOffCamera()
     }
@@ -403,7 +413,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         cell.textLabel?.text = text
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-        if indexPath.row > currentLine - 1{
+
+        if indexPath.row > currentLine - 1 && !self.original {
             cell.textLabel?.textColor = UIColor.gray
         }else{
             cell.textLabel?.textColor = UIColor.black
@@ -813,28 +824,34 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
 
                 if self.recordManager != nil {
                     self.elapsedTime = self.recordManager.currentTime()
-                    
+                    if !self.original {
                     if self.post.content.liveLyrics.count > self.currentLine + 1 {
-                        if Float(self.elapsedTime)  > self.post.content.liveLyrics[self.currentLine].time {
+                        if Float(self.elapsedTime) + 0.001  >= self.post.content.liveLyrics[self.currentLine].time {
                             
                             if self.post.content.liveLyrics[self.currentLine].text.count > 1 {
-                                self.lyricTableView.beginUpdates()
-                                self.lyricTableView.endUpdates()
-                                self.lyricTableView.reloadData()
+                                
                                 let indexPath = IndexPath(row: self.currentLine, section: 0)
-//                                let _indexPath = IndexPath(row: self.currentLine - 1, section: 0)
-//                                self.lyricTableView.reloadRows(at: [indexPath, _indexPath], with: .automatic )
-                                self.lyricTableView.scrollToRow(at: indexPath, at: .top , animated: true)
+                                
+                                
+                                let deadlineTime = DispatchTime.now() + .milliseconds(1)
+                                DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+//                                    self.lyricTableView.beginUpdates()
+                                    self.lyricTableView.reloadRows(at: [indexPath], with: .none )
+                                    self.lyricTableView.scrollToRow(at: indexPath, at: .top , animated: true)
+                                   
+//                                    self.lyricTableView.endUpdates()
+                                    
+                                }
                                 
                                 self.currentLine += 1
                             }else{
                                 self.currentLine += 1
-                                self.lyricTableView.reloadData()
+//                                self.lyricTableView.reloadData()
                             }
                             
                         }
                     }
-   
+                }
                 }
             }
             

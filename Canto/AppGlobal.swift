@@ -9,7 +9,7 @@
 import UIKit
 
 struct AppGlobal {
-    public static let debugMode = false
+    public static let debugMode = true
     //URLs
 //    public static let ServerURL = "http://77.238.122.16/"
 //    public static let ServerURL = "http://192.168.1.114:8000/"
