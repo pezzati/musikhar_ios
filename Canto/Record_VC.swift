@@ -151,6 +151,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         let hasLyrics = post.content.liveLyrics.count > 0
         LyricsTextView.isHidden = hasLyrics
         lyricTableView.isHidden = !hasLyrics
+        lyricTableView.allowsSelection = !self.original
 
         if self.original{
             var i = 0
@@ -419,6 +420,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         }else{
             cell.textLabel?.textColor = UIColor.black
         }
+        cell.selectedBackgroundView?.backgroundColor = UIColor.white
+        cell.contentView.backgroundColor = UIColor.white
         
         return cell
     }
@@ -426,6 +429,21 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return post.content.liveLyrics.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        lyricTableView.deselectRow(at: indexPath, animated: false)
+        if !self.original && self.isRecording {
+            if self.post.content.liveLyrics[indexPath.row].time > 1{
+                self.recordManager.seekTo(time : Double(self.post.content.liveLyrics[indexPath.row].time - 0.4) )
+                if (indexPath.row != 0) {
+                    self.currentLine = indexPath.row - 1
+                }else{
+                    self.currentLine = 0
+                }
+                lyricTableView.reloadData()
+            }
+        }
     }
     
     
@@ -508,17 +526,19 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     @IBAction func close(_ sender: Any) {
         
         AppManager.sharedInstance().addAction(action: "Close Tapped", session: "Record" + post.id.description, detail: "")
-        if self.isRecording {
+        if self.isRecording || self.recordingDone {
         let ask = DialougeView()
+            
         ask.shouldRemove(vc: self, completionHandler: {
          remove in
             if remove {
                 ask.hide()
-                self.recordManager.stopRecording()
                 
-                try? FileManager.default.removeItem(at: self.recordedVoicePath!)
-                try? FileManager.default.removeItem(at: self.karaAudioPath!)
-                try? FileManager.default.removeItem(at: self.capturingVideoPath!)
+                if self.isRecording{  self.recordManager.stopRecording() }
+                
+//                try? FileManager.default.removeItem(at: self.recordedVoicePath!)
+//                try? FileManager.default.removeItem(at: self.karaAudioPath!)
+//                try? FileManager.default.removeItem(at: self.capturingVideoPath!)
                 
                 self.dismiss(animated: true, completion: nil)
             }else{
@@ -526,9 +546,9 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             }
         })
         }else{
-        try? FileManager.default.removeItem(at: self.recordedVoicePath!)
-        try? FileManager.default.removeItem(at: self.karaAudioPath!)
-        try? FileManager.default.removeItem(at: self.capturingVideoPath!)
+//            try? FileManager.default.removeItem(at: self.recordedVoicePath!)
+//            try? FileManager.default.removeItem(at: self.karaAudioPath!)
+//            try? FileManager.default.removeItem(at: self.capturingVideoPath!)
 
         self.dismiss(animated: true, completion: nil)
         }
@@ -720,6 +740,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         }else{
             
             self.songDuration = self.recordManager.currentTime()/Double(self.tempoStepper.value/100)
+            self.songDuration = AVAsset(url: self.karaAudioPath!).duration.seconds
             self.elapsedTime = 0.0
             stopAudioRecording()
             AppManager.sharedInstance().addAction(action: "Recording Stopped", session: "Record" + post.id.description, detail: self.songDuration.description)
@@ -739,6 +760,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             self.renderObjc.videoURL = self.capturingVideoPath.absoluteString
             self.renderObjc.captured = self.camera_On
             self.renderObjc.duration = self.songDuration
+            
             self.prepareToReview()
             
             AppManager.sharedInstance().prepareVideo(post:  self.renderObjc, completionHandler: {
@@ -746,9 +768,9 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                 if url != nil{
                 print("Video is ready")
                 DispatchQueue.main.async(execute: {
-                self.renderObjc.silentVideo = url
-                self.eventLabel.text = ""
-                self.doneButton.alpha = 1
+                    self.renderObjc.silentVideo = url
+                    self.eventLabel.text = ""
+                    self.doneButton.alpha = 1
                     AppManager.sharedInstance().addAction(action: "Silent video rendering finished", session: "Record" + self.post.id.description , detail: "")
                 })
                 }else{
@@ -937,8 +959,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
        
         self.eventLabel.text = "در حال پردازش...."
         self.backButton.setTitle("", for: .normal)
+        self.backButton.layer.cornerRadius = 10
         self.backButton.isUserInteractionEnabled = false
-        
         
         if self.camera_On{
             videoPreviewLayer?.removeFromSuperlayer()
@@ -976,6 +998,11 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             self.PreviewView.layer.cornerRadius = 10
             self.yourVolumeSlider.value = 0.5
 //            self.playbackVolumeSlider.value = 0.5
+            self.backButton.setTitle("حذف ", for: .normal)
+            self.backButton.backgroundColor = UIColor.red
+            self.backButton.setTitleColor(UIColor.white, for: .normal)
+            self.backButton.alpha = 1
+            self.backButton.isUserInteractionEnabled = true
             self.view.layoutIfNeeded()
         })
         

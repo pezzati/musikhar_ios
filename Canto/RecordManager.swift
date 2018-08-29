@@ -24,6 +24,7 @@ class RecordManager: NSObject {
     var playing = false
     var duration : Double = 0.0
     var elapsedTime : Double = 0.0
+    var skippedTime : Double = 0.0
     
     init(karaOutputURL: URL, recordOutputURL: URL, duration: Double ) {
         
@@ -66,6 +67,7 @@ class RecordManager: NSObject {
         
         do{
             try inputFile = AVAudioFile(forReading: fileUrl)
+            self.duration = Double(inputFile.length)/inputFile.sampleRate
         } catch{
             print("failed to read file")
             completionHandler(false)
@@ -170,6 +172,29 @@ class RecordManager: NSObject {
     }
 
     
+    func seekTo(time : Double){
+        if let Nodetime: AVAudioTime  = node.lastRenderTime{
+            
+            
+            let length = Float(duration) - Float(time)
+            let PlayerTime: AVAudioTime = node.playerTime(forNodeTime: Nodetime)!
+            let SampleRate = PlayerTime.sampleRate
+            
+            let Newsampletime = AVAudioFramePosition(SampleRate * time)
+            let Framestoplay = AVAudioFrameCount(Float(PlayerTime.sampleRate) * length)
+            
+            
+            node.stop()
+            
+            if Framestoplay > 1000 && Newsampletime >= 0{
+                node.scheduleSegment(inputFile, startingFrame: Newsampletime, frameCount: Framestoplay, at: nil,completionHandler: nil)
+                self.skippedTime = time
+            }
+        }
+        
+        self.play()
+    }
+    
     
     public func removeNotification(){
         NotificationCenter.default.removeObserver(self)
@@ -177,7 +202,7 @@ class RecordManager: NSObject {
     
     public func currentTime() -> TimeInterval {
         if let nodeTime: AVAudioTime = node.lastRenderTime, let playerTime: AVAudioTime = node.playerTime(forNodeTime: nodeTime) {
-            let result =  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
+            let result =  Double(Double(playerTime.sampleTime) / playerTime.sampleRate) + self.skippedTime
             self.elapsedTime = result
             
             return result

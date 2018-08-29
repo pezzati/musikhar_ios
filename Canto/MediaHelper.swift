@@ -193,15 +193,15 @@ class MediaHelper: NSObject {
             
         }
         
-        let finalExportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)
+        let finalExportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetMediumQuality)
         finalExportSession?.outputFileType = AVFileType.mp4
         finalExportSession?.outputURL = output
         finalExportSession?.exportAsynchronously(completionHandler: {
             if finalExportSession?.status == .completed{
                 
                 print("final export session completed successfully")
-                try? FileManager.default.removeItem(at: video)
-                try? FileManager.default.removeItem(at: audio)
+//                try? FileManager.default.removeItem(at: video)
+//                try? FileManager.default.removeItem(at: audio)
                 completionHandler(true)
             }else{
                 print("SHIIIIIT")
