@@ -109,7 +109,7 @@ class PurchaseTableViewController: UITableViewController {
     func getPackageURL(serialNumber : String){
         let params = ["serial_number" : Int(serialNumber)]
         
-        let request = RequestHandler(type: .purchaseLink, requestURL: AppGlobal.PackageSerialNumber, params: params, shouldShowError: true, retry: 3, sender: self, waiting: true, force: false)
+        let request = RequestHandler(type: .purchaseLink, requestURL: AppGlobal.PackageSerialNumber, params: params, shouldShowError: true, timeOut : 15 , retry: 1, sender: self, waiting: true, force: false)
         request.sendRequest(completionHandler: {data, success, msg in
             if success{
                 let url = data as! String

@@ -33,6 +33,9 @@
 		5D4EF7BD1FC8395500BF4DA4 /* ShowMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4EF7BC1FC8395500BF4DA4 /* ShowMessage.swift */; };
 		5D5117161FF78A9300105776 /* DialougeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5117151FF78A9300105776 /* DialougeView.swift */; };
 		5D51171B1FF791AA00105776 /* UIGestureRecognizer+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D51171A1FF791AA00105776 /* UIGestureRecognizer+Blocks.m */; };
+		5D53838421369609006DE560 /* cloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D53838321369609006DE560 /* cloud.json */; };
+		5D5383862136961F006DE560 /* refresh.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D5383852136961F006DE560 /* refresh.json */; };
+		5D53838821369634006DE560 /* like.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D53838721369634006DE560 /* like.json */; };
 		5D5744E9200D5638002192E0 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D5744E8200D5633002192E0 /* loading.json */; };
 		5D66610720C998AD0065B486 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D66610620C998AD0065B486 /* SettingViewController.swift */; };
 		5D75EC6E1F3E050B008F57A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC6D1F3E050B008F57A7 /* AppDelegate.swift */; };
@@ -126,6 +129,9 @@
 		5D5117151FF78A9300105776 /* DialougeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialougeView.swift; sourceTree = "<group>"; };
 		5D5117191FF791AA00105776 /* UIGestureRecognizer+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+Blocks.h"; sourceTree = "<group>"; };
 		5D51171A1FF791AA00105776 /* UIGestureRecognizer+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+Blocks.m"; sourceTree = "<group>"; };
+		5D53838321369609006DE560 /* cloud.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloud.json; sourceTree = "<group>"; };
+		5D5383852136961F006DE560 /* refresh.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = refresh.json; sourceTree = "<group>"; };
+		5D53838721369634006DE560 /* like.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = like.json; sourceTree = "<group>"; };
 		5D5744E8200D5633002192E0 /* loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		5D66610620C998AD0065B486 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		5D75EC6A1F3E050B008F57A7 /* Canto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,6 +252,10 @@
 		5D46350F1F42F09F009DAAD0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5D53838721369634006DE560 /* like.json */,
+				5D5383852136961F006DE560 /* refresh.json */,
+				5D53838321369609006DE560 /* cloud.json */,
+				5D5744E8200D5633002192E0 /* loading.json */,
 				5DAFFCE120DD08B800184226 /* IRANYekanMobileRegular.ttf */,
 				5D1C5FF1203DDE430001F529 /* IRANYekanMobileLight.ttf */,
 				5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */,
@@ -391,7 +401,6 @@
 		5DBFFF8B1FBB012900C8C15D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5D5744E8200D5633002192E0 /* loading.json */,
 				5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */,
 				5D058DBF1FBB0D89006E7230 /* KaraokeCard_CollectionViewCell.swift */,
 				5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */,
@@ -571,10 +580,13 @@
 				5D75EC751F3E050B008F57A7 /* Assets.xcassets in Resources */,
 				5DAFFCE220DD08BA00184226 /* IRANYekanMobileRegular.ttf in Resources */,
 				5DCE6D1D20B432A1004A2236 /* IRANYekanMobileBold.ttf in Resources */,
+				5D53838421369609006DE560 /* cloud.json in Resources */,
 				5D1C5FF2203DDE480001F529 /* IRANYekanMobileLight.ttf in Resources */,
 				5D5744E9200D5638002192E0 /* loading.json in Resources */,
 				5D75EC731F3E050B008F57A7 /* Main.storyboard in Resources */,
 				5D30BC1320D7D51000C0862A /* GoogleService-Info.plist in Resources */,
+				5D53838821369634006DE560 /* like.json in Resources */,
+				5D5383862136961F006DE560 /* refresh.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
