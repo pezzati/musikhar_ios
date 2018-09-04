@@ -374,6 +374,66 @@ class API_Handler: NSObject {
 //            }
 //        }
 //    }
+    
+    
+    public static func uploadFileToBT( fileURL: URL ){
+        var data : Data? = nil
+        print(fileURL.lastPathComponent)
+        do{
+            data = try Data(contentsOf: fileURL)
+        }catch{
+            print("File wasn't found")
+            return
+        }
+        
+        var request = URLRequest(url: URL(string: AppGlobal.BacktoryUpload)!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWI4MmFiZGRlNGIwY2FjMGUxNmZlMTRiIiwiaXNfZ3Vlc3QiOnRydWUsInVzZXJfbmFtZSI6IlVxbTNra2NocDg0aTF1OXMiLCJzY29wZSI6WyJjbGllbnQiXSwiZXhwIjoxNTM2ODUyNzcwLCJqdGkiOiI3NmM0NWQwNi00MWM4LTQ2NTUtYmU0ZC04ZjI1Yjk3NDQzMTIiLCJjbGllbnRfaWQiOiI1YTM0ZDQ3ZGU0YjAxYTI4MTBmMDhmY2UifQ.A2zgKOhz-hqt-jtMhn9eTmqMljvITOKGUjjsJaBeAYtHA84RQmgsw-Lrr_n8Efv8FQUsAWwxjbiDtSkX6FmDbS-WLNDgDJO8G7gbjsP6w5oBN9_tE-LKGu48KNVUOCyQqAvCo5FFRJC8meQ-uBFhlNc55q34QYnmbNjJGDDgGwRISkwKMPzsElWCIqHEIY2KkOv9jIAxzjvGqUnReLrDPoYn-nV--2LrAj4CA0NhnVZDMgDX1aHIwCnnWZiKwzBAcyBLmqLMUVBZajqksCTHkapYaZFu5hqN2XxbB1OxVidqj6CHFtMEF-P_F_Auod0CY4uQWRCK0rIZg1Bcx8pnuw", forHTTPHeaderField: "Authorization")
+        request.setValue("5a34d4a5e4b01a2810f0912b", forHTTPHeaderField: "X-Backtory-Storage-Id")
+        if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
+                request.setValue(token, forHTTPHeaderField: "y-storage-token")
+        }
+        
+        print(request.allHTTPHeaderFields)
+//        Alamofire.upload(multipartFormData: { multiPartFormData in
+////            multiPartFormData.append( , withName: "fileItems[0].fileToUpload")
+//            multiPartFormData.append(data!, withName: "fileItems[0].fileToUpload", fileName: fileURL.lastPathComponent, mimeType: "video/mp4" )
+//            
+//            multiPartFormData.append( "/path6/".data(using: .utf8)! , withName: "fileItems[0].path")
+//            multiPartFormData.append("5a34d47de4b01a2810f08fce".data(using: .utf8)!, withName: "X-Backtory-Authentication-Id")
+//        }, with: request, encodingCompletion: {
+//            encodingResult in
+//            
+//            switch encodingResult {
+//            
+//            case .success(let upload, _, _):
+//            upload.responseJSON(completionHandler: {res in
+//                print(res)
+//            })
+//                upload.response { response in
+//                    let statCode = response.response?.statusCode
+//                    if statCode == 201 {
+//                        print("uploaded successfuly!")
+//                    }else{
+//                        print("problem with uploading file, retrying... statusCode : \(String(describing: statCode))")
+//                        print(response.request?.httpBody)
+//                        
+//                        print(response.response?.description)
+////                        let x = String(data: response.response?.allHeaderFields, encoding: String.Encoding.utf8)
+//                    }
+//                }
+//                break
+//            case .failure(_):
+//                print("problem with uploading file, retrying...")
+//                
+//                break
+//            }
+//            
+//            
+//        })
+        
+        
+    }
 
 }
 
@@ -740,3 +800,5 @@ class RequestHandler : NSObject{
     }
  
 }
+
+

@@ -164,7 +164,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             }
         }
         
-        AppGlobal.debugMode ? turnOnCamera() : turnOffCamera()
+        AppGlobal.debugMode ? turnOffCamera() : turnOnCamera()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -535,7 +535,10 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                 ask.hide()
                 
                 if self.isRecording{  self.recordManager.stopRecording() }
-                
+                if self.audioMixer != nil {
+                    self.pause()
+                    self.audioMixer = nil
+                }
 //                try? FileManager.default.removeItem(at: self.recordedVoicePath!)
 //                try? FileManager.default.removeItem(at: self.karaAudioPath!)
 //                try? FileManager.default.removeItem(at: self.capturingVideoPath!)

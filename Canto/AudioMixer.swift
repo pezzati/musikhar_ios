@@ -147,7 +147,7 @@ class AudioMixer: NSObject {
         karaPlayer.pause()
         voicePlayer.pause()
         let sampleTimeZero = AVAudioTime(sampleTime: 0, atRate: AudioKit.format.sampleRate)
-        karaPlayer.setPosition(time)
+        karaPlayer.setPosition(time - 0.1)
         voicePlayer.setPosition(time) 
     }
     

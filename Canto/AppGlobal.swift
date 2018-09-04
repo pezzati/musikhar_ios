@@ -33,6 +33,7 @@ struct AppGlobal {
     public static let UserActionsLog = ServerURL + "analysis/actions/"
     public static let HandShake = ServerURL + "handshake"
     public static let GoogleSignIn = ServerURL + "user/google_signup"
+    public static let BacktoryUpload = "http://storage.backtory.com/files"
 
 //    public static let AllPoemsURL = ServerURL + "song/poems"
 //    public static let AllSongsURL = ServerURL + "song/songs/"
