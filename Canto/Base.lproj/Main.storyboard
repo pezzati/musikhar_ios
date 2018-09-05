@@ -62,7 +62,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="cVo-MN-idd"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -71,7 +71,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="dJw-o9-1DS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -296,7 +296,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" priority="500" constant="15" id="38m-L6-tt6"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -305,7 +305,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="15" id="mrb-oB-jng"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -1242,21 +1242,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z0l-xH-fL2">
-                                <rect key="frame" x="20.5" y="20.5" width="30" height="30"/>
+                                <rect key="frame" x="20.5" y="23" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="WAr-N2-efY"/>
                                     <constraint firstAttribute="width" constant="30" id="loi-CH-jgT"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DA-8B-7Yt">
-                                <rect key="frame" x="260" y="21" width="50" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="260" y="26" width="50" height="25"/>
+                                <color key="backgroundColor" red="0.0" green="0.34072165322857151" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="5aM-gm-TAI"/>
-                                    <constraint firstAttribute="height" constant="30" id="E7O-Cr-dJ1"/>
+                                    <constraint firstAttribute="height" constant="25" id="E7O-Cr-dJ1"/>
+                                    <constraint firstAttribute="width" constant="50" id="XYu-pE-Uze"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="14"/>
-                                <state key="normal" title="تمام">
+                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                <state key="normal" title="ذخیره">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -1264,12 +1264,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77V-t3-g22">
-                                <rect key="frame" x="10" y="20" width="50" height="30"/>
+                                <rect key="frame" x="10" y="25" width="50" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="DeC-hX-aHo"/>
-                                    <constraint firstAttribute="height" constant="30" id="vqu-ad-yHx"/>
+                                    <constraint firstAttribute="width" constant="50" id="t4p-h2-yTo"/>
+                                    <constraint firstAttribute="height" constant="25" id="yzz-i4-DOK"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
                                 <state key="normal" title="بازگشت">
                                     <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -1513,7 +1513,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="m3Y-bl-PhG">
-                                <rect key="frame" x="20" y="323.5" width="35" height="35"/>
+                                <rect key="frame" x="20" y="518" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Na4-On-MbL"/>
                                     <constraint firstAttribute="width" constant="35" id="dZO-PX-etT"/>
@@ -1647,7 +1647,7 @@
                                 </constraints>
                             </view>
                             <slider opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zrb-qA-Tbc" customClass="mySlider" customModule="Canto" customModuleProvider="target">
-                                <rect key="frame" x="63" y="326.5" width="229" height="31"/>
+                                <rect key="frame" x="63" y="521" width="229" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.082352941176470587" green="0.49411764705882355" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="maximumTrackTintColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.12941176470588237" green="0.50588235294117645" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1657,7 +1657,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="صدای شما" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHf-Ff-7QE">
-                                <rect key="frame" x="220" y="393.5" width="70" height="18"/>
+                                <rect key="frame" x="220" y="423" width="70" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="3ah-KV-k5M"/>
                                 </constraints>
@@ -1666,13 +1666,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="صدای آهنگ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-kb-Uz0">
-                                <rect key="frame" x="222" y="436" width="68" height="17"/>
+                                <rect key="frame" x="222" y="456" width="68" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="9IA-US-TRN" customClass="mySlider" customModule="Canto" customModuleProvider="target">
-                                <rect key="frame" x="28" y="387.5" width="179" height="31"/>
+                                <rect key="frame" x="28" y="417" width="179" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.082352941176470587" green="0.49411764705882355" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="maximumTrackTintColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.078118534533519135" green="0.49534582530838711" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1681,7 +1681,7 @@
                                 </connections>
                             </slider>
                             <slider opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="67I-TK-2np" customClass="mySlider" customModule="Canto" customModuleProvider="target">
-                                <rect key="frame" x="28" y="429" width="179" height="31"/>
+                                <rect key="frame" x="28" y="449" width="179" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.08235294118" green="0.4941176471" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="maximumTrackTintColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.078118534530000006" green="0.49534582529999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1690,7 +1690,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZx-lz-5HS">
-                                <rect key="frame" x="310" y="35.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="310" y="38" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="13"/>
                                 <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1707,10 +1707,10 @@
                             <constraint firstItem="9IA-US-TRN" firstAttribute="leading" secondItem="m3Y-bl-PhG" secondAttribute="leading" constant="10" id="6Yj-B4-RU0"/>
                             <constraint firstItem="for-yY-8rz" firstAttribute="top" secondItem="C9H-oS-pre" secondAttribute="bottom" constant="20" id="6ZU-Zg-LQ4"/>
                             <constraint firstItem="1DA-8B-7Yt" firstAttribute="centerY" secondItem="z0l-xH-fL2" secondAttribute="centerY" id="7AK-gQ-Yp8"/>
-                            <constraint firstItem="nXh-kb-Uz0" firstAttribute="top" secondItem="DHf-Ff-7QE" secondAttribute="bottom" constant="25" id="7wV-Zc-5cM"/>
+                            <constraint firstItem="nXh-kb-Uz0" firstAttribute="top" secondItem="DHf-Ff-7QE" secondAttribute="bottom" constant="15" id="7wV-Zc-5cM"/>
                             <constraint firstAttribute="trailing" secondItem="KcG-jD-BQM" secondAttribute="trailing" id="AwF-Ow-Vh2"/>
                             <constraint firstItem="nXh-kb-Uz0" firstAttribute="trailing" secondItem="DHf-Ff-7QE" secondAttribute="trailing" id="BwR-Yu-uma"/>
-                            <constraint firstItem="tpy-96-pBI" firstAttribute="top" secondItem="nXh-kb-Uz0" secondAttribute="bottom" constant="25" id="DuQ-yZ-jDW"/>
+                            <constraint firstItem="tpy-96-pBI" firstAttribute="top" secondItem="nXh-kb-Uz0" secondAttribute="bottom" constant="5" id="DuQ-yZ-jDW"/>
                             <constraint firstItem="9IA-US-TRN" firstAttribute="centerY" secondItem="DHf-Ff-7QE" secondAttribute="centerY" id="FgV-HZ-7L1"/>
                             <constraint firstItem="DHf-Ff-7QE" firstAttribute="trailing" secondItem="zrb-qA-Tbc" secondAttribute="trailing" id="Gvi-fT-8rz"/>
                             <constraint firstItem="z0l-xH-fL2" firstAttribute="centerY" secondItem="77V-t3-g22" secondAttribute="centerY" id="HRR-8i-ma5"/>
@@ -1722,7 +1722,7 @@
                             <constraint firstItem="ZZx-lz-5HS" firstAttribute="centerY" secondItem="z0l-xH-fL2" secondAttribute="centerY" id="Op9-Wi-7jI"/>
                             <constraint firstItem="sre-uW-KW2" firstAttribute="leading" secondItem="JUW-UQ-Db2" secondAttribute="leading" id="PoY-MK-mVS"/>
                             <constraint firstItem="zrb-qA-Tbc" firstAttribute="leading" secondItem="m3Y-bl-PhG" secondAttribute="trailing" constant="10" id="RIC-1J-fcl"/>
-                            <constraint firstItem="DHf-Ff-7QE" firstAttribute="top" secondItem="m3Y-bl-PhG" secondAttribute="bottom" constant="35" id="Tt4-qg-Vwm"/>
+                            <constraint firstItem="SEg-2O-6wU" firstAttribute="bottom" secondItem="m3Y-bl-PhG" secondAttribute="bottom" constant="15" id="Tt4-qg-Vwm"/>
                             <constraint firstItem="KcG-jD-BQM" firstAttribute="top" secondItem="JUW-UQ-Db2" secondAttribute="top" id="WEk-8E-flZ"/>
                             <constraint firstItem="vyf-ZW-KK0" firstAttribute="bottom" secondItem="tpy-96-pBI" secondAttribute="bottom" constant="40" id="WoP-6f-8sO"/>
                             <constraint firstItem="SEg-2O-6wU" firstAttribute="centerX" secondItem="JUW-UQ-Db2" secondAttribute="centerX" id="XQn-qQ-FuE"/>
@@ -1740,14 +1740,14 @@
                             <constraint firstItem="fFS-KK-wG8" firstAttribute="top" secondItem="tpy-96-pBI" secondAttribute="top" id="mgJ-JA-dJz"/>
                             <constraint firstItem="67I-TK-2np" firstAttribute="leading" secondItem="9IA-US-TRN" secondAttribute="leading" id="muY-jy-0L1"/>
                             <constraint firstItem="DHf-Ff-7QE" firstAttribute="leading" secondItem="9IA-US-TRN" secondAttribute="trailing" constant="15" id="rAW-bH-WQe"/>
-                            <constraint firstItem="77V-t3-g22" firstAttribute="top" secondItem="n0c-Pe-O0x" secondAttribute="bottom" id="rRd-Ev-u9k"/>
+                            <constraint firstItem="77V-t3-g22" firstAttribute="top" secondItem="n0c-Pe-O0x" secondAttribute="bottom" constant="5" id="rRd-Ev-u9k"/>
                             <constraint firstItem="C9H-oS-pre" firstAttribute="top" secondItem="77V-t3-g22" secondAttribute="bottom" constant="5" id="sQH-49-I5g"/>
                             <constraint firstAttribute="trailing" secondItem="SEg-2O-6wU" secondAttribute="trailing" id="ss2-ck-iBp"/>
                             <constraint firstItem="for-yY-8rz" firstAttribute="centerX" secondItem="JUW-UQ-Db2" secondAttribute="centerX" id="tUb-Lh-bPC"/>
                             <constraint firstItem="for-yY-8rz" firstAttribute="leading" secondItem="JUW-UQ-Db2" secondAttribute="leading" id="vDp-TU-sVT"/>
                             <constraint firstItem="fFS-KK-wG8" firstAttribute="centerX" secondItem="tpy-96-pBI" secondAttribute="centerX" id="yl0-4b-abX"/>
                             <constraint firstItem="zrb-qA-Tbc" firstAttribute="centerY" secondItem="m3Y-bl-PhG" secondAttribute="centerY" id="zOD-b6-Wdp"/>
-                            <constraint firstItem="SEg-2O-6wU" firstAttribute="top" secondItem="77V-t3-g22" secondAttribute="bottom" priority="998" constant="5" id="zVL-b5-cdc"/>
+                            <constraint firstItem="SEg-2O-6wU" firstAttribute="top" secondItem="77V-t3-g22" secondAttribute="bottom" priority="998" constant="10" id="zVL-b5-cdc"/>
                             <constraint firstItem="KcG-jD-BQM" firstAttribute="leading" secondItem="JUW-UQ-Db2" secondAttribute="leading" id="zse-3f-NVQ"/>
                         </constraints>
                     </view>
@@ -2483,7 +2483,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="yxh-Ji-Ie2"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2492,7 +2492,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="JAq-8k-T0p"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2537,8 +2537,8 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="آهنگ مورد نظر را جست و جو کنید" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfi-Mv-4t1">
-                                <rect key="frame" x="52.5" y="274.5" width="215.5" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <rect key="frame" x="59" y="275.5" width="202.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </label>

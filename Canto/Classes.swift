@@ -469,6 +469,13 @@ class banner : EVObject{
     var file : String = ""
     var link : String = ""
     var content_type : String = ""
+    var desc : String = ""
+    
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "description" {
+            self.desc = value as! String
+        }
+    }
 }
 
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 import Alamofire
 
 
@@ -230,7 +231,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         bottomBarShadowView.layer.shadowRadius = 3
         bottomBarShadowView.layer.shadowOffset = CGSize(width: 0, height: -2)
         bottomBarDarkBackground.layer.cornerRadius = bottomBarDarkBackground.frame.height/2
-        doneButton.layer.cornerRadius = 10
+        doneButton.layer.cornerRadius = 7.5
         
     }
     
@@ -768,17 +769,20 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             
             AppManager.sharedInstance().prepareVideo(post:  self.renderObjc, completionHandler: {
                 url in
+                let deadlineTime = DispatchTime.now() + .milliseconds(1)
+                DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: {
                 if url != nil{
                 print("Video is ready")
-                DispatchQueue.main.async(execute: {
+               
                     self.renderObjc.silentVideo = url
                     self.eventLabel.text = ""
-                    self.doneButton.alpha = 1
+                    self.doneButton.alpha = 0.7
                     AppManager.sharedInstance().addAction(action: "Silent video rendering finished", session: "Record" + self.post.id.description , detail: "")
-                })
+                
                 }else{
                     AppManager.sharedInstance().addAction(action: "Silent video rendering failed", session: "Record" + self.post.id.description , detail: "")
                 }
+            })
             })
         }
         }else{
@@ -961,9 +965,15 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
        
        
         self.eventLabel.text = "در حال پردازش...."
-        self.backButton.setTitle("", for: .normal)
-        self.backButton.layer.cornerRadius = 10
-        self.backButton.isUserInteractionEnabled = false
+//        self.backButton.setTitle("", for: .normal)
+        self.backButton.layer.cornerRadius = 7.5
+        self.backButton.setTitle("حذف ", for: .normal)
+        self.backButton.backgroundColor = UIColor.red
+        self.backButton.setTitleColor(UIColor.white, for: .normal)
+        self.backButton.alpha = 0.7
+        self.backButton.isUserInteractionEnabled = true
+        self.view.layoutIfNeeded()
+//        self.backButton.isUserInteractionEnabled = false
         
         if self.camera_On{
             videoPreviewLayer?.removeFromSuperlayer()
@@ -981,9 +991,10 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         
         UIView.animate(withDuration: 1.5, animations: {() -> Void in
             self.recordButtonVerticalConstraint.constant = 150
+            self.lyricTableView.alpha = 0
             self.prviewViewBottomConstraint.priority = UILayoutPriority.init(rawValue: 997)
             self.effectsVerticalConstraint.constant = -15
-            self.previewViewTrailingConstraint.constant = 35
+//            self.previewViewTrailingConstraint.constant = 35
             self.recordButton.alpha = 0.2
             self.recordImageView.alpha = 0.2
             self.previewViewTopConstraint.priority = UILayoutPriority.init(rawValue: 999)
@@ -998,14 +1009,9 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             self.playbackVolumeLabel.alpha = 1
             self.playbackVolumeSlider.alpha = 1
 //            self.doneButton.alpha = 1
-            self.PreviewView.layer.cornerRadius = 10
+            self.PreviewView.layer.cornerRadius = 15
             self.yourVolumeSlider.value = 0.5
 //            self.playbackVolumeSlider.value = 0.5
-            self.backButton.setTitle("حذف ", for: .normal)
-            self.backButton.backgroundColor = UIColor.red
-            self.backButton.setTitleColor(UIColor.white, for: .normal)
-            self.backButton.alpha = 1
-            self.backButton.isUserInteractionEnabled = true
             self.view.layoutIfNeeded()
         })
         
@@ -1217,6 +1223,10 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     
     
     @IBAction func done(_ sender: Any) {
+        
+        
+        self.dialog?.waitingBox(vc: self)
+        
         //show dialogue
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let currentDateTime = NSDate()
@@ -1235,21 +1245,21 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
 //        self.mixManager = nil
         self.viewWillDisappear(false)
 //        let audioMixer = AudioMixer(recordedFileURL: self.recordedVoicePath, karaFileURL: karaAudioPath)
-
-        audioMixer.render(url: (NSURL.fileURL(withPathComponents: akOutput))!)
-        NotificationCenter.default.removeObserver(audioMixer)
-        audioMixer = nil
+        DispatchQueue.main.async  {
+            self.audioMixer.render(url: (NSURL.fileURL(withPathComponents: akOutput))!)
+            NotificationCenter.default.removeObserver(self.audioMixer)
+            self.audioMixer = nil
         
 
-        dialog?.shouldRender(vc: self, completionHandler: {
-
-            save in
-
-            if save{
-               DispatchQueue.main.async  {
+//        dialog?.shouldRender(vc: self, completionHandler: {
+//
+//            save in
+//
+//            if save{
+        
                 AppManager.sharedInstance().addAction(action: "Save Tapped", session: "Record" + self.post.id.description, detail: "")
-                self.dialog?.hide()
-                self.dialog?.waitingBox(vc: self)
+//                self.dialog?.hide()
+//                self.dialog?.waitingBox(vc: self)
 
 //            var pieces = 1
 //
@@ -1293,10 +1303,11 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
 //            }
 //            }
 
-            let karaAudioName = [dirPath, date + "FINAL.mp4"]
-            self.renderObjc.finalVideo = NSURL.fileURL(withPathComponents: karaAudioName)
+            let finalVideoName = [dirPath, date + "FINAL.mp4"]
+            self.renderObjc.finalVideo = NSURL.fileURL(withPathComponents: finalVideoName)
             
 //            MediaHelper.mixMultipleAudioWithVideo(duration: self.songDuration ,audio: self.urlArray, delay : self.delay, length: self.chunckLength, video: self.renderObjc.silentVideo!, output: self.renderObjc.finalVideo!, completionHandler: {
+                
             MediaHelper.mixAudioVideo(audio:  (NSURL.fileURL(withPathComponents: akOutput))!, video: self.renderObjc.silentVideo!, output: self.renderObjc.finalVideo!, completionHandler: {
                 
                 success in
@@ -1309,28 +1320,42 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                     userPostObject.kara = self.post
                     userPostObject.file.link = (self.renderObjc.finalVideo!.lastPathComponent)
                     AppManager.sharedInstance().addUserPost(post: userPostObject)
-                    
+                    var placeHolder : PHObjectPlaceholder?
+                        
+                        PHPhotoLibrary.shared().performChanges({
+                            
+                            let creationRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.renderObjc.finalVideo! )
+                            placeHolder = creationRequest?.placeholderForCreatedAsset
+                            
+                        }, completionHandler: { _, _ in
+                            try? FileManager.default.removeItem(at: self.karaAudioPath)
+                            try? FileManager.default.removeItem(at: self.recordedVoicePath)
+                            try? FileManager.default.removeItem(at: self.renderObjc.silentVideo!)
+                            try? FileManager.default.removeItem(at:  self.capturingVideoPath!)
+                            for item in self.urlArray{
+                                let url = URL(string: item)
+                                try? FileManager.default.removeItem(at: url!)
+                            }
+                            let deadlineTime = DispatchTime.now() + .milliseconds(1)
+                            DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: {
+                                self.dialog?.hide()
+                                self.dialog?.videoSaved(sender: self)
+                            })
+                         
+    //                        self.dismiss(animated: true, completion: nil)
+                        })
+                
                 }
                 
-                try? FileManager.default.removeItem(at: self.karaAudioPath)
-                try? FileManager.default.removeItem(at: self.recordedVoicePath)
-                try? FileManager.default.removeItem(at: self.renderObjc.silentVideo!)
-                try? FileManager.default.removeItem(at:  self.capturingVideoPath!)
-                for item in self.urlArray{
-                    let url = URL(string: item)
-                    try? FileManager.default.removeItem(at: url!)
-                }
-                self.dialog?.hide()
-                self.dialog = nil
-                self.dismiss(animated: true, completion: nil)
+                
             })
             
             }
-            }else{
-                AppManager.sharedInstance().addAction(action: "Delete Tapped", session: "Record" + self.post.id.description, detail: "")
-                self.close(self)
-            }
-        })
+//            }else{
+//                AppManager.sharedInstance().addAction(action: "Delete Tapped", session: "Record" + self.post.id.description, detail: "")
+//                self.close(self)
+//            }
+//        })
         
     }
     

@@ -322,6 +322,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         let bannerImage = UIImageView(frame: CGRect(x: 10, y: 5, width: Carousel.frame.width - 20 , height: Carousel.frame.height - 10))
         
         let banner = self.banners.results[index]
+        
         bannerImage.sd_setImage(with: URL(string : banner.file), placeholderImage: UIImage(named : "valery"))
         bannerImage.contentMode = .scaleAspectFill
         bannerImage.clipsToBounds = true

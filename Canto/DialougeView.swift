@@ -219,7 +219,7 @@ class DialougeView {
     }
     
     
-    func waitForRendering(sender: UIViewController){
+    func videoSaved(sender: UIViewController){
         
         showBackgroundView(vc: sender)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
@@ -229,19 +229,19 @@ class DialougeView {
         self.shadowDialogue()
         
         let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 70))
-        image.image = UIImage(named: "process")
+        image.image = UIImage(named: "photos")
         image.contentMode = .scaleAspectFit
         self.dialougeView.addSubview(image)
         
         let title = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 20))
-        title.text = "در حال پردازش"
+        title.text = "ذخیره شد"
         title.adjustsFontSizeToFitWidth = true
         title.textAlignment = .center
         title.textColor = UIColor.black
         self.dialougeView.addSubview(title)
         
         let subTitle = UILabel(frame: CGRect(x: 50, y: 150, width: 200, height: 40))
-        subTitle.text = "پس از اتمام در پروفایل شما ذخیره خواهد شد و به شما اطلاع خواهیم داد"
+        subTitle.text = "موزیک ویدیو شما در گالری و صفحه کاربری شما ذخیره شد"
         subTitle.textColor = UIColor.black
         subTitle.numberOfLines = 2
         subTitle.font = UIFont.systemFont(ofSize: 12)
@@ -276,8 +276,8 @@ class DialougeView {
             self.hide()
             sender.dismiss(animated: true, completion: nil)
         }
-        self.shadowView.addGestureRecognizer(cancelTap!)
-        self.shadowView.isUserInteractionEnabled = true
+//        self.shadowView.addGestureRecognizer(cancelTap!)
+//        self.shadowView.isUserInteractionEnabled = true
         
         sender.view.addSubview(dialougeView!)
     }
@@ -345,8 +345,8 @@ class DialougeView {
             self.hide()
 //            sender.dismiss(animated: true, completion: nil)
         }
-        self.shadowView.addGestureRecognizer(cancelTap!)
-        self.shadowView.isUserInteractionEnabled = true
+//        self.shadowView.addGestureRecognizer(cancelTap!)
+//        self.shadowView.isUserInteractionEnabled = true
         
         sender.view.addSubview(dialougeView!)
     }
@@ -665,6 +665,7 @@ class DialougeView {
         self.dialougeView.clipsToBounds = false
         self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.layer.shadowColor = UIColor.gray.cgColor
+        self.dialougeView.layer.shadowOffset = CGSize(width: 0, height: 2)
         self.dialougeView.layer.shadowRadius = 5
         self.dialougeView.layer.shadowOpacity = 0.7
     }

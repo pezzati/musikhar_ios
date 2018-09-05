@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             buildVersion = Int(version)! 
         }
         
-        let params = ["build_version" : buildVersion, "device_type" : "ios" , "udid" : UIDevice.current.identifierForVendor!.uuidString, "one_signal_id" : playerId ] as [String : Any]
+        let params = ["build_version" : buildVersion, "device_type" : "ios" , "udid" : UIDevice.current.identifierForVendor!.uuidString, "one_signal_id" : playerId, "bundle" : Bundle.main.bundleIdentifier!  ] as [String : Any]
         
         let request = RequestHandler(type: .handShake , requestURL: AppGlobal.HandShake, params: params, shouldShowError: false, retry: 1, sender: vc, waiting: false, force: false)
         

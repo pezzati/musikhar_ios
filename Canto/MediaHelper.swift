@@ -153,7 +153,8 @@ class MediaHelper: NSObject {
         exporter?.outputURL = silentVideoPath
         exporter?.exportAsynchronously(completionHandler: {
             if exporter?.status == .completed{
-                DispatchQueue.main.async(execute: {
+                let deadlineTime = DispatchTime.now() + .milliseconds(1)
+                DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: {
                 print("Video Croppig completed")
                 completionHandler(true)
                     })

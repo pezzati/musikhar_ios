@@ -49,7 +49,7 @@ class CodeVerificationViewController: UIViewController {
             AppManager.sharedInstance().addAction(action: "Wrong Code", session: "Code Verification", detail: "Not 4 Digits")
         }else{
             resignResponders()
-            let params = ["code" : code.text?.englishDigits , "mobile" : self.mobile , "email" : self.email ]
+            let params = ["code" : code.text!.englishDigits, "mobile" : self.mobile , "email" : self.email, "udid" : UIDevice.current.identifierForVendor!.uuidString, "bundle" : Bundle.main.bundleIdentifier! ]  as [String : Any]
             
             let request = RequestHandler(type: .codeVerification , requestURL: AppGlobal.SubmitVerificationCode, params: params, shouldShowError: true, timeOut: 10, retry: 1, sender: self, waiting: true, force: false)
             
