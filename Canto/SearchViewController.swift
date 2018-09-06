@@ -22,6 +22,20 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     override func viewDidLoad() {
         headerView.headerViewCornerRounding()
+        DispatchQueue.global(qos: .background).async {
+            self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: AppGlobal.PopularKaraokesGenre)
+            DispatchQueue.main.async {
+                if self.results.count > 0 {
+                    self.resultCollectionView.reloadData()
+                    self.resultCollectionView.isHidden = false
+                    self.searchPlease.isHidden = true
+                }else{
+                    self.searchPlease.isHidden = false
+                    self.resultCollectionView.isHidden = true
+                }
+                
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -30,16 +44,33 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
             self.searchTextField.resignFirstResponder()
         }
         tap?.cancelsTouchesInView = false
-        
         self.view.addGestureRecognizer(tap!)
+        
+   
     }
 
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Search", detail: "")
+        if searchPlease.text ==  "نتیجه ای یافت نشد" {
         self.searchPlease.text = "آهنگ مورد نظر را جست و جو کنید"
-
+        self.searchTextField.text = ""
+        DispatchQueue.global(qos: .background).async {
+            self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: AppGlobal.PopularKaraokesGenre)
+            DispatchQueue.main.async {
+                if self.results.count > 0 {
+                    self.resultCollectionView.reloadData()
+                    self.resultCollectionView.isHidden = false
+                    self.searchPlease.isHidden = true
+                }else{
+                    self.searchPlease.isHidden = false
+                    self.resultCollectionView.isHidden = true
+                }
+                
+            }
+        }
+    }
     }
     
     @IBAction func searchTapped(_ sender: Any) {

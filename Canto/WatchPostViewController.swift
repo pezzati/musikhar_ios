@@ -116,6 +116,7 @@ class WatchPostViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.headerView.alpha = 0
+        self.Player?.replaceCurrentItem(with: nil)
         NotificationCenter.default.removeObserver(self)
         if self.timer != nil {
             self.timer?.invalidate()
@@ -156,16 +157,16 @@ class WatchPostViewController: UIViewController {
             self.Player?.pause()
             self.playImageView.image = UIImage(named: "post_play")
             self.isPlaying = false
-            AppManager.sharedInstance().addAction(action: "Pause Tapped", session: "User Post", detail: "")
+//            AppManager.sharedInstance().addAction(action: "Pause Tapped", session: "User Post", detail: "")
         }else{
             self.Player?.play()
             self.isPlaying = true
             self.playImageView.image = UIImage(named: "post_pause")
-            AppManager.sharedInstance().addAction(action: "Play Tapped", session: "User Post", detail: "")
+//            AppManager.sharedInstance().addAction(action: "Play Tapped", session: "User Post", detail: "")
         }
     }
     @IBAction func removePost(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Remove Tapped", session: "User Post", detail: "")
+        
 //        if let jsonString = UserDefaults.standard.value(forKey: AppGlobal.UserPostsList) as? String{
 //            let posts = userPostsList(json: jsonString)
 //            posts.posts.remove(at: self.index)
@@ -178,9 +179,10 @@ class WatchPostViewController: UIViewController {
         dialog.shouldRemove(vc: self, completionHandler: {
             sure in
             if sure{
-                AppManager.sharedInstance().removeUserPost(index: self.index, fileURL: self.fileURL)
                 dialog.hide()
                 self.close(self)
+                AppManager.sharedInstance().addAction(action: "Remove Tapped", session: "User Post", detail: "")
+                AppManager.sharedInstance().removeUserPost(index: self.index, fileURL: self.fileURL)
             }else{
                 dialog.hide()
             }

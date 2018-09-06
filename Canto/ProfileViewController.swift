@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import AVFoundation
 
-class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
 
     
@@ -18,8 +18,9 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
     @IBOutlet weak var noPostsView: UIView!
     @IBOutlet weak var premiumImageView: UIImageView!
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
-
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var songsCollectionView: UICollectionView!
+    
+//    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var Name: UILabel!
@@ -29,26 +30,33 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
     var posts : userPostsList = userPostsList()
     
     var selectedIndex = -1
-    var playerLayer : AVPlayerLayer? = nil
-    var Player : AVPlayer? = nil
-    var playerItem : AVPlayerItem? = nil
-    var isPlaying = false
-    var isMovingSlider = false
-    var timer : Timer? = nil
+//    var playerLayer : AVPlayerLayer? = nil
+//    var Player : AVPlayer? = nil
+//    var playerItem : AVPlayerItem? = nil
+//    var isPlaying = false
+//    var isMovingSlider = false
+//    var timer : Timer? = nil
+    
+    override func viewDidLoad() {
+        
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         
-        self.userInfo = AppManager.sharedInstance().getUserInfo()
-        self.posts = AppManager.sharedInstance().getUserPostsList()
-        self.noPostsView.isHidden = self.posts.posts.count != 0
-        self.updateInfo()
-        
-        do{
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback , with: .defaultToSpeaker)
-            try AVAudioSession.sharedInstance().setActive(true)
-        }catch{
-            print(error)
+       DispatchQueue.global(qos: .background).async {
+            self.userInfo = AppManager.sharedInstance().getUserInfo()
+            self.posts = AppManager.sharedInstance().getUserPostsList()
+        DispatchQueue.main.async {
+            self.noPostsView.isHidden = self.posts.posts.count != 0
+            self.updateInfo()
         }
+        }
+//        do{
+//            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback , with: .defaultToSpeaker)
+//            try AVAudioSession.sharedInstance().setActive(true)
+//        }catch{
+//            print(error)
+//        }
         
         if self.userInfo.first_name == ""{
             AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {
@@ -60,24 +68,24 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
             })
         }
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Profile", detail: "")
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: {
-            _ in
-            self.updateRow()
-        })
+//        self.timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: {
+//            _ in
+//            self.updateRow()
+//        })
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Profile", detail: "")
 //        AppManager.sharedInstance().sendActions()
-        self.tableView.setContentOffset(CGPoint.zero, animated: true)
-        if self.selectedIndex != -1{
-            self.closeRow(indexPath: IndexPath(row: selectedIndex, section: 0))
-        }
-        if self.timer != nil{
-            timer?.invalidate()
-            timer = nil
-        }
+//        self.tableView.setContentOffset(CGPoint.zero, animated: true)
+//        if self.selectedIndex != -1{
+//            self.closeRow(indexPath: IndexPath(row: selectedIndex, section: 0))
+//        }
+//        if self.timer != nil{
+//            timer?.invalidate()
+//            timer = nil
+//        }
     }
     
     @IBAction func editInfo(_ sender: Any) {
@@ -94,22 +102,23 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
     }
     
    
-    //MARK: -Collection View Delegate, Data source
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePost", for: indexPath) as! ProfilePostCollectionViewCell
-//        cell.contentView.layer.cornerRadius = 10
-//        cell.contentView.backgroundColor = UIColor.white
-//        cell.contentView.layer.shadowRadius = 4
-//        cell.contentView.layer.shadowOpacity = 0.3
-//        cell.contentView.layer.shadowColor = UIColor.darkGray.cgColor
-//        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-//        cell.coverPhoto.layer.cornerRadius = 10
-//        let imgURL = URL(string : self.posts.posts[indexPath.row].kara.cover_photo.link)
-//        cell.coverPhoto.sd_setImage(with: imgURL, placeholderImage: UIImage(named: "hootan"))
-//        cell.artistName.text = self.posts.posts[indexPath.row].kara.content.artist.name
-//        cell.songName.text = self.posts.posts[indexPath.row].kara.name
-//        return cell
-//    }
+   // MARK: -Collection View Delegate, Data source
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
+        cell.contentView.layer.cornerRadius = 10
+        cell.contentView.backgroundColor = UIColor.white
+        cell.contentView.layer.shadowRadius = 4
+        cell.contentView.layer.shadowOpacity = 0.3
+        cell.contentView.layer.shadowColor = UIColor.darkGray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cell.cardImage.layer.cornerRadius = 10
+        let imgURL = URL(string : self.posts.posts[indexPath.row].kara.cover_photo.link)
+        cell.cardImage.sd_setImage(with: imgURL, placeholderImage: UIImage(named: "hootan"))
+        cell.ArtistName.text = self.posts.posts[indexPath.row].kara.content.artist.name
+        cell.SongName.text = self.posts.posts[indexPath.row].kara.name
+        cell.setAsPremium()
+        return cell
+    }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let cellsAcross: CGFloat = 2
@@ -117,19 +126,27 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 //        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
 //        return CGSize(width: dim, height: dim*220/170)
 //    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.posts.posts.count
-//    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.posts.posts.count
+    }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        AppManager.sharedInstance().addAction(action: "Post Tapped", session: "Profile", detail: indexPath.row.description)
-//        let vc = storyboard?.instantiateViewController(withIdentifier: "WatchPostViewController") as! WatchPostViewController
-//        vc.index = indexPath.row
-//        self.present(vc, animated: true, completion: nil)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        AppManager.sharedInstance().addAction(action: "Post Tapped", session: "Profile", detail: indexPath.row.description)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "WatchPostViewController") as! WatchPostViewController
+        vc.index = indexPath.row
+        self.present(vc, animated: true, completion: nil)
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellsAcross: CGFloat = 2
+        let spaceBetweenCells: CGFloat = 18
+        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+        return CGSize(width: dim, height: dim*190/140)
+    }
+    
+    /*
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return self.posts.posts.count
     }
@@ -435,7 +452,8 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
 //
 //        current.setupCell(post: self.posts.posts[indexPath.row])
 //    }
-    
+ 
+ */
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        self.headerTopConstraint.constant = -scrollView.contentOffset.y/1.5
 //        
@@ -458,7 +476,7 @@ class ProfileViewController: UIViewController,UITableViewDelegate, UITableViewDa
         self.normalUserLabel.isHidden = self.userInfo.is_premium
         self.premiumImageView.isHidden = !self.userInfo.is_premium
         self.noPostsView.isHidden = self.posts.posts.count != 0
-        self.tableView.reloadData()
+        self.songsCollectionView.reloadData()
     }
     
     

@@ -33,15 +33,15 @@ class AppManager: NSObject {
         if let cachedListString = UserDefaults.standard.value(forKey: AppGlobal.GenresListCache) as? String {
             let cachedGenreList = GenresList(json: cachedListString)
         
-            let news = Genre()
-            news.name = "تازه ها"
-            news.files_link = AppGlobal.NewKaraokesGenre
-            result.append(news)
+//            let news = Genre()
+//            news.name = "تازه ها"
+//            news.files_link = AppGlobal.NewKaraokesGenre
+//            result.append(news)
             
-            let popular = Genre()
-            popular.name = "محبوب ها"
-            popular.files_link = AppGlobal.PopularKaraokesGenre
-            result.append(popular)
+//            let popular = Genre()
+//            popular.name = "محبوب ها"
+//            popular.files_link = AppGlobal.PopularKaraokesGenre
+//            result.append(popular)
           
 //            let free = Genre()
 //            free.name = "رایگان این هفته"

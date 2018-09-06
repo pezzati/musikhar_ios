@@ -203,7 +203,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             let dialog = DialougeView()
             dialog.plugHeadphones(sender: self)
         }
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .background).async {
           self.downloadKaraoke()
         }
         
@@ -292,6 +292,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                             self.downloadKaraoke()
                         }
                         else{
+                            DispatchQueue.main.async {
+                                
                             self.songDuration = AVAsset(url: self.filePath!).duration.seconds
                             self.timeBarWidthConstraint.constant = self.view.frame.width
                             self.shouldDownload = false
@@ -301,8 +303,10 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                             self.recordButton.alpha = 1
                             self.recordImageView.alpha = 1
                             self.isReady = true
+                            self.bottomBarView.isHidden = false
+                            self.bottomBarView.shake()
                             self.recordImageView.shake()
-                            
+                            }
                         }
                     })
                 }
@@ -316,7 +320,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         if !self.shouldDownload { return }
         
         self.retry = self.retry - 1
-        
+        DispatchQueue.main.async {
+    
         self.eventLabel.text = "در حال دریافت فایل"
         self.downloadRequest = Alamofire.download(url!, to: destination).downloadProgress(closure: { (progress) in
             DispatchQueue.main.async {
@@ -354,6 +359,8 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                             self.recordImageView.alpha = 1
                             print("download completed")
                             self.isReady = true
+                            self.bottomBarView.isHidden = false
+                            self.bottomBarView.shake()
                             self.recordImageView.shake()
                         }
                         
@@ -366,6 +373,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                     }
                 }
         }
+    }
     }
     
     //MARK: -config sliders
@@ -480,9 +488,11 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         
         movieOutput = AVCaptureMovieFileOutput()
         movieOutput.movieFragmentInterval = kCMTimeInvalid
+        
         captureSession?.addOutput(movieOutput)
         
-        captureSession?.sessionPreset = .high
+        captureSession?.sessionPreset = .iFrame1280x720
+        
         
         
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
@@ -853,8 +863,11 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
 
                 if self.recordManager != nil {
                     self.elapsedTime = self.recordManager.currentTime()
+                    if self.elapsedTime > self.recordManager.duration + 3{
+                        self.StartRecording(self)
+                    }
                     if !self.original {
-                    if self.post.content.liveLyrics.count > self.currentLine + 1 {
+                    if self.post.content.liveLyrics.count >= self.currentLine + 1 {
                         if Float(self.elapsedTime) + 0.001  >= self.post.content.liveLyrics[self.currentLine].time {
                             
                             if self.post.content.liveLyrics[self.currentLine].text.count > 1 {
@@ -1009,7 +1022,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
             self.playbackVolumeLabel.alpha = 1
             self.playbackVolumeSlider.alpha = 1
 //            self.doneButton.alpha = 1
-            self.PreviewView.layer.cornerRadius = 15
+//            self.PreviewView.layer.cornerRadius = 15
             self.yourVolumeSlider.value = 0.5
 //            self.playbackVolumeSlider.value = 0.5
             self.view.layoutIfNeeded()

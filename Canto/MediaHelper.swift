@@ -136,14 +136,14 @@ class MediaHelper: NSObject {
         let t : CGAffineTransform = (clipVideoTrack?.preferredTransform)!
         let t1 = t.scaledBy(x: 1, y: -1)
         let t2 = t1.translatedBy(x: -estimatedXtoCrop, y: -(clipVideoTrack?.naturalSize.height)!)
-//                 let t2 = t1.translatedBy(x: 0, y: -(clipVideoTrack?.naturalSize.height)!)
+        
         let finalTransform: CGAffineTransform = t2
         transformer.setTransform(finalTransform, at: kCMTimeZero)
         
         videoCompostition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayers: [videoLayer], in: parentlayer)
         
         instructions.layerInstructions = [transformer]
-        
+
         videoCompostition.instructions.append(instructions)
         
         let exporter = AVAssetExportSession(asset: videoAsset, presetName: AVAssetExportPresetHighestQuality)

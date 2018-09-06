@@ -642,9 +642,6 @@ class DialougeView {
         cancelButtonView.addSubview(cancelButton)
         self.dialougeView.addSubview(cancelButtonView)
         
-        
-        
-        
         let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
             completionHandler(true)
         }
@@ -656,9 +653,6 @@ class DialougeView {
         cancelButtonView.addGestureRecognizer(cancelTap!)
         
         vc.view.addSubview(dialougeView!)
-        
-        
-        
     }
     
     func shadowDialogue(){

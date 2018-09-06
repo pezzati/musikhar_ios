@@ -28,6 +28,8 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.waiting.waitingBox(vc: self)
         Carousel.dataSource = self
         Carousel.delegate = self
         Carousel.type = .rotary
@@ -41,7 +43,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         Carousel.addSubview(pageController)
         self.screen_Width = Int(view.frame.width)
         Navigation_Bar.headerViewCornerRounding()
-        waiting.waitingBox(vc: self)
+        
         
         Home_TableView.refreshControl = refreshControl
         refreshControl.tintColor = UIColor(red:112/255, green:96/255, blue:251/255, alpha:1.0)
@@ -51,15 +53,21 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         refreshControl.attributedTitle = formattedString.bold("در حال به روز رسانی")
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         
+        DispatchQueue.global(qos: .background).async {
+            
         AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {
                                 success in
+            DispatchQueue.main.async {
+                
                                 self.banners = AppManager.sharedInstance().getBanners()
                                 self.Carousel.reloadData()
                                 self.pageController.numberOfPages = self.banners.results.count
                                 self.pageController.currentPage = self.Carousel.currentItemIndex
+            }
                             })
         AppManager.sharedInstance().fetchHomeFeed(sender: self,force: false){ success in
                             if success {
+                                DispatchQueue.main.async {
                                 self.waiting.hide()
                                 self.Home_TableView.isHidden = true
                                 let homeFeed = AppManager.sharedInstance().getHomeFeed()
@@ -67,8 +75,10 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
                                 self.Home_TableView.reloadData()
                                 self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
                                 self.Home_TableView.isHidden = false
+                                }
                             }
                         }
+        }
         
         Timer.scheduledTimer(withTimeInterval: 5.0 , repeats: true, block: {_ in
 
@@ -88,7 +98,9 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     override func viewDidAppear(_ animated: Bool) {
         
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
-
+        if self.refreshControl.isRefreshing{
+            self.refreshControl.endRefreshing()
+        }
                 if self.genres.isEmpty{
                     let homeFeed = AppManager.sharedInstance().getHomeFeed()
                     if !homeFeed.isEmpty {
@@ -151,7 +163,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
+     
         
 //
 //        DispatchQueue.global(qos: .background).async {
@@ -176,6 +188,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
         AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {success in
             if success{
+                DispatchQueue.main.async {
                 let homeFeed = AppManager.sharedInstance().getHomeFeed()
                 if !homeFeed.isEmpty {
                     self.genres = homeFeed
@@ -184,11 +197,13 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
                     self.Home_TableView.isHidden = false
                 }
             }
+            }
             self.refreshControl.endRefreshing()
         })
         
         AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {success in
             if success{
+                DispatchQueue.main.async {
                 let banners = AppManager.sharedInstance().getBanners()
                 if !banners.results.isEmpty{
                     self.banners = banners
@@ -197,6 +212,8 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
                     self.pageController.currentPage = self.Carousel.currentItemIndex
                 }
             }
+            }
+            self.refreshControl.endRefreshing()
         })
         
         
