@@ -11,9 +11,13 @@ import UIKit
 struct AppGlobal {
     public static let debugMode = true
     public static let NassabVersion = true
+    public static let NassabCantoScheme = "http://nassaab.com/open/Canto"
     //URLs
 //    public static let ServerURL = "http://77.238.122.16/"
 //    public static let ServerURL = "http://192.168.1.114:8000/"
+    //Nassab Bundle : nassab.application.canto
+    //Sibapp Bundle : com.canto.application
+    
     public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"
@@ -35,6 +39,7 @@ struct AppGlobal {
     public static let HandShake = ServerURL + "handshake"
     public static let GoogleSignIn = ServerURL + "user/google_signup"
     public static let BacktoryUpload = "http://storage.backtory.com/files"
+    public static let NassabLogin = ServerURL + "user/gettoken/"
 
 //    public static let AllPoemsURL = ServerURL + "song/poems"
 //    public static let AllSongsURL = ServerURL + "song/songs/"
@@ -80,6 +85,7 @@ public enum RequestType {
     case actionLog
     case handShake
     case karaoke
+    case nassabLogin
 }
 
 public enum RequestState {

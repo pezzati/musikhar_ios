@@ -398,14 +398,14 @@ class API_Handler: NSObject {
 //        Alamofire.upload(multipartFormData: { multiPartFormData in
 ////            multiPartFormData.append( , withName: "fileItems[0].fileToUpload")
 //            multiPartFormData.append(data!, withName: "fileItems[0].fileToUpload", fileName: fileURL.lastPathComponent, mimeType: "video/mp4" )
-//            
+//
 //            multiPartFormData.append( "/path6/".data(using: .utf8)! , withName: "fileItems[0].path")
 //            multiPartFormData.append("5a34d47de4b01a2810f08fce".data(using: .utf8)!, withName: "X-Backtory-Authentication-Id")
 //        }, with: request, encodingCompletion: {
 //            encodingResult in
-//            
+//
 //            switch encodingResult {
-//            
+//
 //            case .success(let upload, _, _):
 //            upload.responseJSON(completionHandler: {res in
 //                print(res)
@@ -417,7 +417,7 @@ class API_Handler: NSObject {
 //                    }else{
 //                        print("problem with uploading file, retrying... statusCode : \(String(describing: statCode))")
 //                        print(response.request?.httpBody)
-//                        
+//
 //                        print(response.response?.description)
 ////                        let x = String(data: response.response?.allHeaderFields, encoding: String.Encoding.utf8)
 //                    }
@@ -425,11 +425,11 @@ class API_Handler: NSObject {
 //                break
 //            case .failure(_):
 //                print("problem with uploading file, retrying...")
-//                
+//
 //                break
 //            }
-//            
-//            
+//
+//
 //        })
         
         
@@ -514,6 +514,11 @@ class RequestHandler : NSObject{
             self.request.httpBody = try! JSONSerialization.data(withJSONObject: params)
             break
         case .googleSignIn:
+            self.method = .post
+            self.request.httpMethod = self.method.rawValue
+            self.request.httpBody = try! JSONSerialization.data(withJSONObject: params)
+            break
+        case .nassabLogin:
             self.method = .post
             self.request.httpMethod = self.method.rawValue
             self.request.httpBody = try! JSONSerialization.data(withJSONObject: params)
@@ -730,7 +735,7 @@ class RequestHandler : NSObject{
                 completionHandler(result, true, nil)
               }else{ completionHandler(nil, false, nil)}
             
-        }else if self.requestType == .codeVerification || self.requestType == .googleSignIn {
+        }else if self.requestType == .codeVerification || self.requestType == .googleSignIn || self.requestType == .nassabLogin {
             
             
             do{

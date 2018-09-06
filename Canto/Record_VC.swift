@@ -254,7 +254,10 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         let url = URL(string: urlString!)
         
         var fileName : String? = nil
-        let scrWidth = Float(self.view.frame.width)
+        var scrWidth = Float(0)
+        DispatchQueue.main.async {
+            scrWidth = Float(self.view.frame.width)
+        }
         if !self.original{
             fileName = self.post.id.description + "K.mp3"
         }else{

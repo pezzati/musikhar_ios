@@ -42,6 +42,53 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
     override func viewDidAppear(_ animated: Bool) {
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Signup", detail: "")
         
+        
+        if AppGlobal.NassabVersion{
+            if let email = UserDefaults.standard.value(forKey: "userNassabEmail") as? String{
+                let params = ["email" : email ,"udid" : UIDevice.current.identifierForVendor!.uuidString, "bundle" : Bundle.main.bundleIdentifier! ]  as [String : Any]
+                
+                let request = RequestHandler(type: .nassabLogin , requestURL: AppGlobal.NassabLogin, params: params, shouldShowError: true, timeOut: 10, retry: 2, sender: self, waiting: true, force: false)
+                
+                
+                
+                request.sendRequest(completionHandler: {
+                    data, success, message in
+                    if success{
+                        let json = data as? [String:Any]
+                        print(json!["token"] as! String )
+                        UserDefaults.standard.set(json!["token"] as! String, forKey: AppGlobal.Token)
+                        
+                        AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {_ in })
+                        AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
+                        AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
+                        
+                        
+    //                    if json!["new_user"] as! Bool {
+    //                        AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Signup")
+    //                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker")
+    //                        self.present(vc!, animated: true, completion: nil)
+    //                    }else{
+                            AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Login")
+                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
+                            self.present(vc!, animated: true, completion: nil)
+    //                    }
+                        
+                    }else{
+                        if message != nil {
+                            ShowMessage.message(message: message!, vc: self)
+                            AppManager.sharedInstance().addAction(action: "Failed to login", session: "Nassab Login", detail: message!)
+                        }else{
+                            ShowMessage.message(message: "خطایی در ارتباط با نصاب پیش آمده، لطفا از طریق پشتیبانی نصاب پیگیری نمایید", vc: self)
+                        }
+                    }
+                    
+                })
+            }else{
+                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: { _ in  self.dismiss(animated: false, completion: nil) })
+            }
+        }
+        
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

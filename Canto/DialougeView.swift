@@ -101,16 +101,20 @@ class DialougeView {
     }
     
     func hide(){
-        
-        self.dialougeView.removeFromSuperview()
-        self.shadowView.removeFromSuperview()
+            self.dialougeView.removeFromSuperview()
+            self.shadowView.removeFromSuperview()
     }
     
     func chooseKaraType(kara: karaoke, sender: UIViewController) {
         
         if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
+            
             let vc = sender.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
-            sender.present(vc, animated: true, completion: nil)
+            if !AppGlobal.NassabVersion{
+                sender.present(vc, animated: true, completion: nil)
+            }else{
+                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: nil)
+            }
             return
         }else{
         

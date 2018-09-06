@@ -46,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
+        UserDefaults.standard.setValue("h.ooo@fck.com", forKey: "userNassabEmail")
+        
+        
         if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
             if token.characters.count > 20 {
                 
