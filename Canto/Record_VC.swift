@@ -1334,13 +1334,19 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                     userPostObject.file.link = (self.renderObjc.finalVideo!.lastPathComponent)
                     AppManager.sharedInstance().addUserPost(post: userPostObject)
                     var placeHolder : PHObjectPlaceholder?
-                        
+//                    let photos = PHPhotoLibrary.authorizationStatus()
+//                    if photos == .notDetermined || photos == .authorized {
+                        PHPhotoLibrary.requestAuthorization({status in
+                            if status == .authorized{
+
                         PHPhotoLibrary.shared().performChanges({
                             
                             let creationRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.renderObjc.finalVideo! )
+                            
                             placeHolder = creationRequest?.placeholderForCreatedAsset
                             
-                        }, completionHandler: { _, _ in
+                        }, completionHandler: { one, two in
+                            
                             try? FileManager.default.removeItem(at: self.karaAudioPath)
                             try? FileManager.default.removeItem(at: self.recordedVoicePath)
                             try? FileManager.default.removeItem(at: self.renderObjc.silentVideo!)
@@ -1355,8 +1361,13 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
                                 self.dialog?.videoSaved(sender: self)
                             })
                          
-    //                        self.dismiss(animated: true, completion: nil)
                         })
+                } else {
+                    self.dialog?.hide()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+//        }
                 
                 }
                 
