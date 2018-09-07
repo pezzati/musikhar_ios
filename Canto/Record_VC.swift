@@ -711,6 +711,7 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     
     @IBAction func StartRecording(_ sender: Any) {
         if self.isReady{
+        
         if !isRecording && !self.recordingDone{
             if self.camera_On{
                 if (movieOutput.connection(with: AVMediaType.video)?.isActive)!{

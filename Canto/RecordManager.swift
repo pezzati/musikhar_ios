@@ -266,7 +266,7 @@ class RecordManager: NSObject {
         
         if on{
 //             AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)
-            self.fakeEngine.connect(fakeEngine.inputNode, to: fakeEngine.mainMixerNode, format: fakeEngine.inputNode.inputFormat(forBus: 0))
+            self.fakeEngine.connect(fakeEngine.inputNode, to: fakeEngine.mainMixerNode, format: fakeEngine.inputNode.outputFormat(forBus: 0))
             try? fakeEngine.start()
             fakeEngine.mainMixerNode.volume = 1
             self.monitor = true
