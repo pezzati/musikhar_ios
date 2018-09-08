@@ -140,6 +140,7 @@ class genre_more : EVObject , EVArrayConvertable{
     var next : String = ""
     var previous : String = ""
     var results : [karaoke] = []
+    var desc : String = ""
     
     override func setValue(_ value: Any!, forUndefinedKey key: String) {
 
@@ -392,6 +393,8 @@ class Genre: EVObject {
     var karas : genre_more = genre_more()
 }
 
+
+
 class GenresList : EVObject, EVArrayConvertable{
     var next : String = ""
     var previous : String = ""
@@ -412,6 +415,46 @@ class GenresList : EVObject, EVArrayConvertable{
         return [] as NSArray
     }
 }
+
+class Feed: EVObject {
+//    var link : String = ""
+    var cover_photo : File = File()
+    var files_link : String = ""
+    var liked_it : Bool = false
+    var name : String = ""
+    var karas : genre_more = genre_more()
+    
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "link" {
+            self.files_link = (value as? String)!
+        }
+    }
+    
+
+}
+
+class FeedsList : EVObject, EVArrayConvertable{
+    var next : String = ""
+    var previous : String = ""
+    var results : [Feed] = []
+    var count : Int = 0
+    
+    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+        if key == "results"{
+            if (value as? NSArray) != nil {
+                self.results = []
+                for item in results {
+                    self.results.append((item as? Feed)!)
+                }
+            }
+        }
+    }
+    func convertArray(_ key: String, array: Any) -> NSArray {
+        return [] as NSArray
+    }
+}
+
+
 
 
 class handShakeResult : EVObject{

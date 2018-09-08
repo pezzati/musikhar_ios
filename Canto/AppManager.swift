@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Crashlytics
 
 class AppManager: NSObject {
     
@@ -48,6 +49,22 @@ class AppManager: NSObject {
 //            free.files_link = AppGlobal.FreeKaraokesGenre
 //            result.append(free)
             
+            var cachedFeed = FeedsList()
+            
+            if let cachedFeedStr = UserDefaults.standard.value(forKey: AppGlobal.Feed) as? String{
+                cachedFeed = FeedsList(json: cachedFeedStr)
+                for feed in cachedFeed.results{
+                    if let feedKaras = UserDefaults.standard.value(forKey: feed.files_link) as? String{
+                        let castingGenre = Genre()
+                        castingGenre.name = feed.name
+                        castingGenre.files_link = feed.files_link
+                        result.append(castingGenre)
+                    }
+                }
+            }
+            
+            
+            
             for item in cachedGenreList.results{
                 if item.liked_it{
                     result.append(item)
@@ -62,6 +79,7 @@ class AppManager: NSObject {
                  genre.karas = genre_more()
                 }
             }
+            
             self.homeFeed = result
         }
     }
@@ -134,10 +152,7 @@ class AppManager: NSObject {
                 if !didCallBack{ completionHandler(false, nil)}
             }
         })
-        
-        
-        
-        
+ 
     }
     
     var lastFetchTime : Int = 0
@@ -161,21 +176,56 @@ class AppManager: NSObject {
 //        }
         
         
+        let feedRequest = RequestHandler(type: .feedList , requestURL: AppGlobal.Feed, shouldShowError: false, retry: 1, sender: sender, waiting: false, force: false)
+        feedRequest.sendRequest(completionHandler: {
+            data, success, msg in
+            
+            if success{
+                let temp = (data as! FeedsList).results
+                UserDefaults.standard.set((data as! FeedsList).toJsonString(), forKey: AppGlobal.Feed)
+                var result : [Genre] = []
+                
+                
+                
+                for item in temp{
+                    let tempGenre = Genre()
+                    tempGenre.name = item.name
+                    tempGenre.files_link = item.files_link
+                    result.append(tempGenre)
+                }
+                
+                
+                
+                for genre in result{
+                    let req = RequestHandler(type: .genrePosts , requestURL: genre.files_link, shouldShowError: false, retry: 1, sender: sender, waiting: false, force: false)
+                    
+                    req.sendRequest(completionHandler: {karaokes, success, msg in
+                        if success {
+                            genre.karas = karaokes as! genre_more
+                            self.homeFeed = result
+                            UserDefaults.standard.set(genre.karas.toJsonString() , forKey: genre.files_link)
+                        }
+                    })
+                }
+            }
+        })
         
         let request = RequestHandler(type: .genreList , requestURL: AppGlobal.GenresListURL, shouldShowError: force, retry: 1, sender: sender, waiting: force, force: force)
         request.sendRequest(completionHandler: {
             data, success, msg in
             
             if success{
-            var temp = (data as! GenresList).results
+                let temp = (data as! GenresList).results
             UserDefaults.standard.set((data as! GenresList).toJsonString(), forKey: AppGlobal.GenresListCache)
             var result : [Genre] = []
                 
-                let news = Genre()
-                news.name = "تازه ها"
-                news.files_link = AppGlobal.NewKaraokesGenre
-                result.append(news)
+
                 
+//                let news = Genre()
+//                news.name = "تازه ها"
+//                news.files_link = AppGlobal.NewKaraokesGenre
+//                result.append(news)
+//
                 let popular = Genre()
                 popular.name = "محبوب ها"
                 popular.files_link = AppGlobal.PopularKaraokesGenre
@@ -230,6 +280,9 @@ class AppManager: NSObject {
                 }
         }
         })
+        
+        
+
     }
     
     
@@ -265,8 +318,9 @@ class AppManager: NSObject {
                 self.userInfo = data as! user
                 UserDefaults.standard.setValue(self.userInfo.toJsonString(), forKey: AppGlobal.userInfoCache)
             }
-            completionHandler(success)
             
+            completionHandler(success)
+            Crashlytics.sharedInstance().setUserName(AppManager.sharedInstance().userInfo.username)
         })
     }
     

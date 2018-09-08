@@ -9,7 +9,7 @@
 import UIKit
 
 struct AppGlobal {
-    public static let debugMode = true
+    public static let debugMode = false
     public static let NassabVersion = true
     public static let NassabCantoScheme = "http://nassaab.com/open/Canto"
     //URLs
@@ -40,6 +40,7 @@ struct AppGlobal {
     public static let GoogleSignIn = ServerURL + "user/google_signup"
     public static let BacktoryUpload = "http://storage.backtory.com/files"
     public static let NassabLogin = ServerURL + "user/gettoken/"
+    public static let Feed = ServerURL + "song/feeds"
 
 //    public static let AllPoemsURL = ServerURL + "song/poems"
 //    public static let AllSongsURL = ServerURL + "song/songs/"
@@ -86,6 +87,7 @@ public enum RequestType {
     case handShake
     case karaoke
     case nassabLogin
+    case feedList
 }
 
 public enum RequestState {

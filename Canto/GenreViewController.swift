@@ -13,16 +13,52 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
 
     public var url : String = ""
     public var name: String = ""
+//    public var bannerDesc : String = ""
+    public var bannerURL : String = ""
     var results = genre_more()
     
+    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var genre_Label: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var bannerImageView: UIImageView!
+    @IBOutlet weak var bannerImageWidthConstraint: NSLayoutConstraint!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: self.url)
         self.collectionView.reloadData()
         self.genre_Label.text = self.name
+        self.headerView.headerViewCornerRounding()
+        
+        if results.desc != "" {
+            self.descriptionLabel.text = results.desc
+            self.descriptionLabel.superview?.layer.cornerRadius = 10
+//            self.descriptionLabel.superview?.clipsToBounds = true
+            self.descriptionLabel.superview?.backgroundColor = UIColor.white
+            self.descriptionLabel.superview?.layer.shadowRadius = 4
+            self.descriptionLabel.superview?.layer.shadowOpacity = 0.3
+            self.descriptionLabel.superview?.layer.shadowColor = UIColor.darkGray.cgColor
+            self.descriptionLabel.superview?.layer.shadowOffset = CGSize(width: 0, height: 2)
+            self.descriptionLabel.superview?.isHidden = false
+            self.descriptionLabel.isHidden = false
+        }else{
+            self.descriptionLabel.superview?.isHidden = true
+            self.descriptionLabel.isHidden = true
+            self.collectionViewTopConstraint.constant = -24
+        }
+//
+//        if bannerURL != ""{
+//            self.bannerImageWidthConstraint.constant = self.view.frame.width - 25
+//            self.bannerImageView.layer.cornerRadius = 10
+//            self.bannerImageView.clipsToBounds = true
+//            self.bannerImageView.sd_setImage(with: URL(string : self.bannerURL)!, placeholderImage: nil)
+//        }else{
+            self.bannerImageWidthConstraint.constant = 0
+//        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,5 +140,15 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
             self.getMorePosts()
         }
     }
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView.contentOffset.y != scrollView.frame.height{
+//            if -scrollView.contentOffset.y < -25{
+//                self.headerTopConstraint.constant = -scrollView.contentOffset.y
+//            }else{
+//                self.headerTopConstraint.constant = -25
+//            }
+//        }
+//    }
 
 }

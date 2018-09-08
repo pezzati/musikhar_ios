@@ -46,9 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
-        UserDefaults.standard.setValue("h.ooo@fck.com", forKey: "userNassabEmail")
-        
-        
         if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
             if token.characters.count > 20 {
                 
@@ -76,8 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false]
         
         // Replace 'YOUR_APP_ID' with your OneSignal App ID.
+        //Nassab version : f0d1c6de-76e1-4353-ac2e-28c8e77e4edb
+        //Sibapp Version: 2e88f03c-0769-4b2a-b48f-0a1c1b0a9384
         OneSignal.initWithLaunchOptions(launchOptions,
-                                        appId: "2e88f03c-0769-4b2a-b48f-0a1c1b0a9384",
+                                        appId: "f0d1c6de-76e1-4353-ac2e-28c8e77e4edb",
                                         handleNotificationAction: nil,
                                         settings: onesignalInitSettings)
         

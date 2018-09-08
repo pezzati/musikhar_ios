@@ -193,7 +193,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
                 if !homeFeed.isEmpty {
                     self.genres = homeFeed
                     self.Home_TableView.reloadData()
-                    self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
+//                    self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
                     self.Home_TableView.isHidden = false
                 }
             }
@@ -373,6 +373,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
                     vc.url = item.link
                     vc.name = item.title
+                    vc.bannerURL = item.file
                     self.present(vc, animated: true, completion: nil)
                 }
             })

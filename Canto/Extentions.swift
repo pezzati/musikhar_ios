@@ -38,7 +38,7 @@ extension UIView{
     
     func headerViewCornerRounding(){
         self.backgroundColor = UIColor.white
-        self.layer.cornerRadius = 15
+//        self.layer.cornerRadius = 15
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOpacity = 0.7
         self.layer.shadowRadius = 5

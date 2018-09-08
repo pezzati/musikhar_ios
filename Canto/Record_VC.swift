@@ -458,16 +458,14 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         }
     }
     
-    
-    
-    
+
     //MARK: -Setting Camera
     let rotator = UIImageView(image: UIImage(named: "camera_switcher"))
     
     func turnOnCamera(){
         self.setCaptureDevices()
 //        camRotatorImgView.image = UIImage(named : "switch-camera")
-        camButtonImage.image = UIImage(named: "video")
+//        camButtonImage.image = UIImage(named: "video")
         videoPreviewLayer?.removeFromSuperlayer()
         var input : AVCaptureDeviceInput? = nil
         

@@ -706,6 +706,16 @@ class RequestHandler : NSObject{
                 completionHandler(result,true,nil )
             }else{ completionHandler(nil,false,nil) }
             
+        }else if self.requestType == .feedList{
+            
+            
+            let result = FeedsList(data: response.data!)
+            if result.count != 0 {
+                let cache = result.toJsonString()
+                UserDefaults.standard.set(cache, forKey: AppGlobal.Feed)
+                completionHandler(result,true,nil )
+            }else{ completionHandler(nil,false,nil) }
+            
         }else if self.requestType == .genrePosts{
             
             

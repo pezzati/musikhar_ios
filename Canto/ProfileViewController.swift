@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import AVFoundation
 
-class ProfileViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ProfileViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
 
 
     
@@ -456,7 +456,7 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
  */
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        self.headerTopConstraint.constant = -scrollView.contentOffset.y/1.5
-//        
+//
 //    }
     
     

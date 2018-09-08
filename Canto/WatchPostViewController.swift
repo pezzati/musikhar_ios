@@ -95,6 +95,7 @@ class WatchPostViewController: UIViewController {
         self.playerView.isHidden = false
         self.headerView.alpha = 1
         Player?.play()
+        self.titleLabel.text = self.post.kara.name
         
         do{
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback , with: .defaultToSpeaker)
