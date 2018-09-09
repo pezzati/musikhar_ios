@@ -2059,11 +2059,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailBtn" destination="Ti8-jR-Ap8" id="eHU-pz-rtr"/>
                         <outlet property="emailOrPhone" destination="ydG-a3-zVI" id="RHI-cx-KjR"/>
                         <outlet property="emailOrPhone_View" destination="BOA-wc-Fmb" id="Q3t-YQ-LCA"/>
                         <outlet property="header_Image" destination="246-3C-IEk" id="hF4-ab-Qsz"/>
                         <outlet property="header_Top_Constraint" destination="QR7-dr-JSq" id="AxQ-kr-YLs"/>
+                        <outlet property="lineView" destination="dOy-eu-TBD" id="S4V-Ce-7Kv"/>
                         <outlet property="lineXConstraint" destination="59g-sq-WNE" id="JYa-e0-65v"/>
+                        <outlet property="mobileBtn" destination="FOF-bT-3UU" id="hIu-l9-tk4"/>
+                        <outlet property="nextButton" destination="Gdd-8p-ngI" id="fg7-dc-1RX"/>
+                        <outlet property="nextImageView" destination="z0L-Ca-L4k" id="ogW-su-BRt"/>
                         <outlet property="singInButton" destination="B7M-r6-ld7" id="i4i-xd-54v"/>
                     </connections>
                 </viewController>

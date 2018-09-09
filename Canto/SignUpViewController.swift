@@ -11,6 +11,11 @@ import GoogleSignIn
 
 class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDelegate{
 
+    @IBOutlet weak var lineView: UIView!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var mobileBtn: UIButton!
+    @IBOutlet weak var emailBtn: UIButton!
+    @IBOutlet weak var nextImageView: UIImageView!
     @IBOutlet weak var header_Image: UIImageView!
     @IBOutlet weak var header_Top_Constraint: NSLayoutConstraint!
     @IBOutlet weak var lineXConstraint: NSLayoutConstraint!
@@ -23,33 +28,55 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
     var byPhone = true
     
     override func viewDidLoad() {
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
         
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        lineXConstraint.constant = view.frame.width/4
-        emailOrPhone.placeholder = "موبایل (۰۹)"
-        emailOrPhone_View.round()
-        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(resignResponders))
-        self.view.addGestureRecognizer(gestureRecognizer!)
-        singInButton.style = .wide
-        
-        gestureRecognizer?.cancelsTouchesInView = false
-        GIDSignIn.sharedInstance().signOut()
-        
+        if AppGlobal.NassabVersion{
+            self.emailOrPhone.isHidden = true
+            self.emailOrPhone_View.isHidden = true
+            self.singInButton.isHidden = true
+            self.nextButton.isHidden = true
+            self.nextImageView.isHidden = true
+            self.emailBtn.isHidden = true
+            self.mobileBtn.isHidden = true
+            self.lineView.isHidden = true
+            
+            let loginWithNassabButton = UIImageView(image: UIImage( named: "nassabLogin"))
+            loginWithNassabButton.frame = CGRect(x: self.view.frame.midX - 85, y: nextImageView.frame.minY - 40, width: 170, height: 50)
+            let nassabTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+                self.loginWithNassab()
+            }
+            loginWithNassabButton.isUserInteractionEnabled = true
+            loginWithNassabButton.addGestureRecognizer(nassabTap!)
+            self.view.addSubview(loginWithNassabButton)
+            
+            
+        }else{
+            GIDSignIn.sharedInstance().uiDelegate = self
+            GIDSignIn.sharedInstance().delegate = self
+            
+                NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+            lineXConstraint.constant = view.frame.width/4
+            emailOrPhone.placeholder = "موبایل (۰۹)"
+            emailOrPhone_View.round()
+            gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(resignResponders))
+            self.view.addGestureRecognizer(gestureRecognizer!)
+            singInButton.style = .wide
+            
+            gestureRecognizer?.cancelsTouchesInView = false
+            GIDSignIn.sharedInstance().signOut()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Signup", detail: "")
-        
-        
+    }
+    
+    func loginWithNassab()  {
         if AppGlobal.NassabVersion{
+            
             if let email = UserDefaults.standard.value(forKey: "userNassabEmail") as? String{
                 let params = ["email" : email ,"udid" : UIDevice.current.identifierForVendor!.uuidString, "bundle" : Bundle.main.bundleIdentifier! ]  as [String : Any]
                 
                 let request = RequestHandler(type: .nassabLogin , requestURL: AppGlobal.NassabLogin, params: params, shouldShowError: true, timeOut: 10, retry: 2, sender: self, waiting: true, force: false)
-                
-                
                 
                 request.sendRequest(completionHandler: {
                     data, success, message in
@@ -62,16 +89,9 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
                         AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
                         AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
                         
-                        
-    //                    if json!["new_user"] as! Bool {
-    //                        AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Signup")
-    //                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker")
-    //                        self.present(vc!, animated: true, completion: nil)
-    //                    }else{
-                            AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Login")
-                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
-                            self.present(vc!, animated: true, completion: nil)
-    //                    }
+                        AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Login")
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
+                        self.present(vc!, animated: true, completion: nil)
                         
                     }else{
                         if message != nil {
@@ -84,11 +104,9 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
                     
                 })
             }else{
-                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: { _ in  self.dismiss(animated: false, completion: nil) })
+                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler:  nil)
             }
         }
-        
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
