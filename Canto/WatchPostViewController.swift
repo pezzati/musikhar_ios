@@ -182,7 +182,7 @@ class WatchPostViewController: UIViewController {
             if sure{
                 dialog.hide()
                 self.close(self)
-                AppManager.sharedInstance().addAction(action: "Remove Tapped", session: "User Post", detail: "")
+                AppManager.sharedInstance().addAction(action: "Remove Tapped", session: "User Post", detail: self.post.kara.id)
                 AppManager.sharedInstance().removeUserPost(index: self.index, fileURL: self.fileURL)
             }else{
                 dialog.hide()

@@ -272,7 +272,6 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
         documentsURL.appendPathComponent(fileName!)
         filePath = documentsURL
         
-        
         let destination: DownloadRequest.DownloadFileDestination = { _, _ in
             return (documentsURL, [.removePreviousFile])
         }
