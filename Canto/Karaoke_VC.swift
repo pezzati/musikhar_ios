@@ -32,56 +32,51 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         self.waiting.waitingBox(vc: self)
         Carousel.dataSource = self
         Carousel.delegate = self
-        Carousel.type = .rotary
+        Carousel.type = .linear
         Carousel.isPagingEnabled = true
         pageController.currentPage = 0
         pageController.numberOfPages = 0
-        
-        let tempFrame = Carousel.frame
-        Carousel.frame = CGRect(x: tempFrame.minX, y: tempFrame.minY, width: tempFrame.width, height: tempFrame.width/2.03)
-            
-        Carousel.addSubview(pageController)
+        Carousel.clipsToBounds = true
+        pageController.alpha = 0
         self.screen_Width = Int(view.frame.width)
         Navigation_Bar.headerViewCornerRounding()
         
         
         Home_TableView.refreshControl = refreshControl
-        refreshControl.tintColor = UIColor(red:112/255, green:96/255, blue:251/255, alpha:1.0)
-        
-  
+        refreshControl.tintColor = UIColor.lightGray
         let formattedString = NSMutableAttributedString()
         refreshControl.attributedTitle = formattedString.bold("در حال به روز رسانی")
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         
         DispatchQueue.global(qos: .background).async {
             
-        AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {
-                                success in
-            DispatchQueue.main.async {
-                
-                                self.banners = AppManager.sharedInstance().getBanners()
-                                self.Carousel.reloadData()
-                                self.pageController.numberOfPages = self.banners.results.count
-                                self.pageController.currentPage = self.Carousel.currentItemIndex
+            AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {
+                success in
+                DispatchQueue.main.async {
+                    
+                    self.banners = AppManager.sharedInstance().getBanners()
+                    self.Carousel.reloadData()
+                    self.pageController.numberOfPages = self.banners.results.count
+                    self.pageController.currentPage = self.Carousel.currentItemIndex
+                }
+            })
+            AppManager.sharedInstance().fetchHomeFeed(sender: self,force: false){ success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.waiting.hide()
+                        self.Home_TableView.isHidden = true
+                        let homeFeed = AppManager.sharedInstance().getHomeFeed()
+                        self.genres = homeFeed
+                        self.Home_TableView.reloadData()
+                        self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
+                        self.Home_TableView.isHidden = false
+                    }
+                }
             }
-                            })
-        AppManager.sharedInstance().fetchHomeFeed(sender: self,force: false){ success in
-                            if success {
-                                DispatchQueue.main.async {
-                                self.waiting.hide()
-                                self.Home_TableView.isHidden = true
-                                let homeFeed = AppManager.sharedInstance().getHomeFeed()
-                                self.genres = homeFeed
-                                self.Home_TableView.reloadData()
-                                self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
-                                self.Home_TableView.isHidden = false
-                                }
-                            }
-                        }
         }
         
         Timer.scheduledTimer(withTimeInterval: 5.0 , repeats: true, block: {_ in
-
+            
             let next =  self.banners.results.count - 1 == self.pageController.currentPage ? 0 : self.pageController.currentPage + 1
             self.Carousel.scrollToItem(at: next, duration: 1)
         })
@@ -93,9 +88,15 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
 //        super.viewWillAppear(true)
 //    }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        let tempFrame = Carousel.frame
+        Carousel.frame = CGRect(x: tempFrame.minX, y: tempFrame.minY, width: tempFrame.width, height: tempFrame.width/2.03)
         
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
         if self.refreshControl.isRefreshing{
@@ -250,6 +251,7 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         cell.MoreButton.tag = indexPath.row
         cell.MoreButton.addTarget(self, action: #selector(genre_moreTapped(button:)), for: .touchUpInside)
         cell.KaraokeCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        cell.KaraokeCollectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
         
         let genreTapped =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
@@ -273,10 +275,6 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
         
     }
-    
- 
-    
-    
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? Genre_TableViewCell else { return }
@@ -307,15 +305,16 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         cell.ArtistName.adjustsFontSizeToFitWidth = true
         cell.SongName.text = post.name
         cell.contentView.layer.cornerRadius = 10
-        cell.contentView.backgroundColor = UIColor.white
+        cell.contentView.backgroundColor = UIColor.clear
         cell.contentView.layer.shadowRadius = 4
         cell.contentView.layer.shadowOpacity = 0.3
         cell.contentView.layer.shadowColor = UIColor.darkGray.cgColor
         cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cell.SingButton.layer.cornerRadius = cell.SingButton.frame.height/2
+//        cell.SingButton.layer.cornerRadius = cell.SingButton.frame.height/2
         cell.cardImage.layer.cornerRadius = 10
-        cell.cardImage.sd_setImage(with: URL(string: post.cover_photo.link), placeholderImage: UIImage(named: "hootan"))
+        cell.cardImage.sd_setImage(with: URL(string: post.cover_photo.link), placeholderImage: nil)
         cell.addBadge()
+        cell.setUp(post: post)
         if !post.is_premium { cell.setAsFree() }
         else{ cell.setAsPremium() }
         
@@ -336,15 +335,18 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let bannerImage = UIImageView(frame: CGRect(x: 10, y: 5, width: Carousel.frame.width - 20 , height: Carousel.frame.height - 10))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Carousel.frame.width , height: Carousel.frame.height))
+        let bannerImage = UIImageView(frame: CGRect(x: 20, y: 0, width: Carousel.frame.width - 40, height:  (Carousel.frame.width - 40)/2.03))
         
         let banner = self.banners.results[index]
         
         bannerImage.sd_setImage(with: URL(string : banner.file), placeholderImage: UIImage(named : "valery"))
         bannerImage.contentMode = .scaleAspectFill
         bannerImage.clipsToBounds = true
-        bannerImage.layer.cornerRadius = 10
-        return bannerImage
+//        bannerImage.layer.cornerRadius = 10
+        bannerImage.round(corners:   [.topLeft , .bottomLeft , .topRight, .bottomRight], radius: 15)
+        view.addSubview(bannerImage)
+        return view
     }
 
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
@@ -388,10 +390,19 @@ class Karaoke_VC: UIViewController,UITableViewDataSource, UITableViewDelegate, U
         }
     }
     
+    func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
+        
+        if option == iCarouselOption.wrap {
+            return 1
+        }
+        return value
+    }
+    
     func carouselDidScroll(_ carousel: iCarousel) {
 //        AppManager.sharedInstance().addAction(action: "Banner Scrolled", session: "Home", detail: "")
         pageController.currentPage = carousel.currentItemIndex
     }
+    
   
 }
 

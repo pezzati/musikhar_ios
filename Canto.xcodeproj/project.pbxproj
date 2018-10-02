@@ -28,6 +28,7 @@
 		5D3DBEDC1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */; };
 		5D3DBEDE1FE1585A006FE33C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3DBEDD1FE1585A006FE33C /* ProfileViewController.swift */; };
 		5D3DBEE11FE17EC3006FE33C /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3DBEE01FE17EC3006FE33C /* CameraHandler.swift */; };
+		5D4034DD21528EC700A1D4D1 /* WHRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */; };
 		5D43D6852091F5EF0016C64B /* MediaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43D6842091F5EF0016C64B /* MediaHelper.swift */; };
 		5D4EF7BB1FC8381E00BF4DA4 /* AppGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4EF7BA1FC8381E00BF4DA4 /* AppGlobal.swift */; };
 		5D4EF7BD1FC8395500BF4DA4 /* ShowMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4EF7BC1FC8395500BF4DA4 /* ShowMessage.swift */; };
@@ -46,6 +47,8 @@
 		5D75EC831F3E050C008F57A7 /* CantoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC821F3E050C008F57A7 /* CantoTests.swift */; };
 		5D75EC8E1F3E050C008F57A7 /* CantoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC8D1F3E050C008F57A7 /* CantoUITests.swift */; };
 		5D7730A61FBF0E7D004C4EC3 /* Record_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7730A51FBF0E7D004C4EC3 /* Record_VC.swift */; };
+		5D7CFC332153FC6900E51ACC /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D7CFC2E2153FC5700E51ACC /* GPUImage.framework */; };
+		5D7CFC342153FC7200E51ACC /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5D7CFC2E2153FC5700E51ACC /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DA64E311FBAEE8A006184E4 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA64E301FBAEE8A006184E4 /* Extentions.swift */; };
 		5DA6D9C8209F4713003218B6 /* AudioMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA6D9C7209F4713003218B6 /* AudioMixer.swift */; };
 		5DACF1B02010E96D006CC612 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DACF1AF2010E96D006CC612 /* SearchViewController.swift */; };
@@ -59,6 +62,7 @@
 		5DBFFF911FBB020500C8C15D /* Genre_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */; };
 		5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFFF921FBB07CE00C8C15D /* Classes.swift */; };
 		5DCE6D1D20B432A1004A2236 /* IRANYekanMobileBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */; };
+		5DEFB12A215C6ECF00DC045A /* KaraokeCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */; };
 		D43B72403482F8A298A67BD0 /* Pods_CantoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB0E397099A23349EBC7B60 /* Pods_CantoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +88,41 @@
 			remoteGlobalIDString = 5D75EC691F3E050B008F57A7;
 			remoteInfo = Canto;
 		};
+		5D7CFC292153FC5700E51ACC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC6E7CAB1C39A9D8006DF678;
+			remoteInfo = GPUImage_macOS;
+		};
+		5D7CFC2B2153FC5700E51ACC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC6E7CB51C39A9D8006DF678;
+			remoteInfo = GPUImageTests_macOS;
+		};
+		5D7CFC2D2153FC5700E51ACC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9E34E91E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
+		5D7CFC2F2153FC5700E51ACC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9E34F11E524A2200B8604F;
+			remoteInfo = GPUImageTests_iOS;
+		};
+		5D7CFC312153FC6000E51ACC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9E34E81E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,6 +135,16 @@
 				5D17FB392055B95E007E8270 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DC224B3215295F10000853D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5D7CFC342153FC7200E51ACC /* GPUImage.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -123,6 +172,7 @@
 		5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		5D3DBEDD1FE1585A006FE33C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5D3DBEE01FE17EC3006FE33C /* CameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
+		5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHRecordVC.swift; sourceTree = "<group>"; };
 		5D43D6842091F5EF0016C64B /* MediaHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHelper.swift; sourceTree = "<group>"; };
 		5D4EF7BA1FC8381E00BF4DA4 /* AppGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobal.swift; sourceTree = "<group>"; };
 		5D4EF7BC1FC8395500BF4DA4 /* ShowMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMessage.swift; sourceTree = "<group>"; };
@@ -148,6 +198,7 @@
 		5D75EC8D1F3E050C008F57A7 /* CantoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CantoUITests.swift; sourceTree = "<group>"; };
 		5D75EC8F1F3E050C008F57A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D7730A51FBF0E7D004C4EC3 /* Record_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record_VC.swift; sourceTree = "<group>"; };
+		5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage2/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		5DA64E301FBAEE8A006184E4 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		5DA6D9C7209F4713003218B6 /* AudioMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMixer.swift; sourceTree = "<group>"; };
 		5DACF1AF2010E96D006CC612 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +214,7 @@
 		5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANYekanMobileBold.ttf; sourceTree = "<group>"; };
 		5DD997B3205E844600AC4597 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		5DD997B4205E849D00AC4597 /* Canto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Canto.entitlements; sourceTree = "<group>"; };
+		5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KaraokeCard.xib; sourceTree = "<group>"; };
 		68FB4526F371BB6CB0C6CCAE /* Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		734F14C1EB06A7A848359D16 /* Pods-CantoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoUITests/Pods-CantoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8407EE8CDE64237567484C6B /* Pods-Canto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Canto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Canto/Pods-Canto.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D7CFC332153FC6900E51ACC /* GPUImage.framework in Frameworks */,
 				5D17126E1FC2CEF60041E74A /* QuartzCore.framework in Frameworks */,
 				1F3871D6F373CCA08DA43475 /* Pods_Canto.framework in Frameworks */,
 			);
@@ -215,6 +268,7 @@
 		324F1B2A6B57776653A0709E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */,
 				5D17126C1FC2CEC90041E74A /* QuartzCore.framework */,
 				EB424D168FE0071700F7652F /* Pods_Canto.framework */,
 				EDB0E397099A23349EBC7B60 /* Pods_CantoTests.framework */,
@@ -280,6 +334,7 @@
 				5D7730A51FBF0E7D004C4EC3 /* Record_VC.swift */,
 				5D1E260E2020DA3800A044EA /* WatchPostViewController.swift */,
 				5D66610620C998AD0065B486 /* SettingViewController.swift */,
+				5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -398,6 +453,17 @@
 			path = CantoUITests;
 			sourceTree = "<group>";
 		};
+		5D7CFC232153FC5700E51ACC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D7CFC2A2153FC5700E51ACC /* GPUImage.framework */,
+				5D7CFC2C2153FC5700E51ACC /* GPUImageTests_macOS.xctest */,
+				5D7CFC2E2153FC5700E51ACC /* GPUImage.framework */,
+				5D7CFC302153FC5700E51ACC /* GPUImageTests_iOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5DBFFF8B1FBB012900C8C15D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +472,7 @@
 				5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */,
 				5D1C3BCC1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift */,
 				5DAFFCDF20D976EE00184226 /* PostListTableViewCell.swift */,
+				5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -444,10 +511,12 @@
 				5D17FB3D2055B95E007E8270 /* Embed App Extensions */,
 				D0704489AC03BD9B7AC373CC /* [CP] Copy Pods Resources */,
 				5DD7197A20DE3CC9008CD170 /* ShellScript */,
+				5DC224B3215295F10000853D /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5D7CFC322153FC6000E51ACC /* PBXTargetDependency */,
 				5D17FB382055B95E007E8270 /* PBXTargetDependency */,
 			);
 			name = Canto;
@@ -554,6 +623,12 @@
 			mainGroup = 5D75EC611F3E050B008F57A7;
 			productRefGroup = 5D75EC6B1F3E050B008F57A7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5D7CFC232153FC5700E51ACC /* Products */;
+					ProjectRef = 5D7CFC222153FC5700E51ACC /* GPUImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5D75EC691F3E050B008F57A7 /* Canto */,
@@ -563,6 +638,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5D7CFC2A2153FC5700E51ACC /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 5D7CFC292153FC5700E51ACC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D7CFC2C2153FC5700E51ACC /* GPUImageTests_macOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests_macOS.xctest;
+			remoteRef = 5D7CFC2B2153FC5700E51ACC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D7CFC2E2153FC5700E51ACC /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 5D7CFC2D2153FC5700E51ACC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D7CFC302153FC5700E51ACC /* GPUImageTests_iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests_iOS.xctest;
+			remoteRef = 5D7CFC2F2153FC5700E51ACC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5D17FB302055B95E007E8270 /* Resources */ = {
@@ -580,6 +686,7 @@
 				5D75EC751F3E050B008F57A7 /* Assets.xcassets in Resources */,
 				5DAFFCE220DD08BA00184226 /* IRANYekanMobileRegular.ttf in Resources */,
 				5DCE6D1D20B432A1004A2236 /* IRANYekanMobileBold.ttf in Resources */,
+				5DEFB12A215C6ECF00DC045A /* KaraokeCard.xib in Resources */,
 				5D53838421369609006DE560 /* cloud.json in Resources */,
 				5D1C5FF2203DDE480001F529 /* IRANYekanMobileLight.ttf in Resources */,
 				5D5744E9200D5638002192E0 /* loading.json in Resources */,
@@ -773,6 +880,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D4034DD21528EC700A1D4D1 /* WHRecordVC.swift in Sources */,
 				5D3DBEE11FE17EC3006FE33C /* CameraHandler.swift in Sources */,
 				5DBFFF911FBB020500C8C15D /* Genre_TableViewCell.swift in Sources */,
 				5D29A87020A3426E00086F73 /* MixManager.swift in Sources */,
@@ -843,6 +951,11 @@
 			target = 5D75EC691F3E050B008F57A7 /* Canto */;
 			targetProxy = 5D75EC8A1F3E050C008F57A7 /* PBXContainerItemProxy */;
 		};
+		5D7CFC322153FC6000E51ACC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage_iOS;
+			targetProxy = 5D7CFC312153FC6000E51ACC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -878,7 +991,7 @@
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -899,7 +1012,7 @@
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1031,7 +1144,7 @@
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto;
+				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Canto/Canto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1054,7 +1167,7 @@
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto;
+				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Canto/Canto-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;

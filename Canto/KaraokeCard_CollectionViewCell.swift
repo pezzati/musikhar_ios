@@ -20,6 +20,7 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
     
     var freeBadge = UIImageView()
     var BadgeAdded = false
+    var gradiantAdded = false
     
     public func addBadge (){
         
@@ -46,4 +47,19 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
         self.SongName.adjustsFontSizeToFitWidth = true
         self.freeBadge.isHidden = true
     }
+    
+    public func setUp(post : karaoke){
+        if gradiantAdded{ return }
+        cardImage.doubleDarkGradiantLayer()
+        cardImage.darkGradiantLayer()
+        gradiantAdded = true
+    }
+
 }
+
+
+
+
+
+
+

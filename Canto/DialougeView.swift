@@ -9,6 +9,7 @@
 import UIKit
 import Lottie
 
+
 class DialougeView {
 
     var dialougeView : UIView!
@@ -195,7 +196,7 @@ class DialougeView {
                     
                         let karaTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
                             AppManager.sharedInstance().addAction(action: "Tapped Karaoke File", session: "" , detail: _kara.id.description)
-                            let vc = sender.storyboard?.instantiateViewController(withIdentifier: "Record") as! Record_VC
+                            let vc = sender.storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
                             vc.post = _kara
                             vc.original = false
                             sender.present(vc, animated: true, completion: nil)

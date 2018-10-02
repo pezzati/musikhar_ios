@@ -16,11 +16,6 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
-    
-
-
-
-    
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
         -> Bool {
             return GIDSignIn.sharedInstance().handle(url,
@@ -66,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppManager.initialize()
         
         Fabric.with([Crashlytics.self])
+        logUser()
         
         UIFont.overrideInitialize()
         // Override point for customization after application launch.
@@ -164,9 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func logUser() {
         // TODO: Use the current user's information
         // You can call any combination of these three methods
-        if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
-            Crashlytics.sharedInstance().setUserIdentifier("token")
-        }
+        Crashlytics.sharedInstance().setUserIdentifier(AppManager.sharedInstance().getUserInfo().username)
         
     }
 
