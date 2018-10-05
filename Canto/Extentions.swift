@@ -45,7 +45,7 @@ extension UIView{
 //        self.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    func darkGradiantLayer(){
+    func darkGradiantLayer() -> CALayer{
         
         let gradiantLayer = CAGradientLayer()
         let topColor = UIColor(red: 36/255, green: 37/255, blue: 41/255, alpha: 0).cgColor
@@ -53,11 +53,12 @@ extension UIView{
         gradiantLayer.colors = [topColor, bottomColor]
         gradiantLayer.startPoint = CGPoint(x: 0.0, y: 0.3)
         gradiantLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradiantLayer.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-        self.layer.insertSublayer(gradiantLayer, at: 0)
+//        gradiantLayer.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+       
+        return gradiantLayer
     }
     
-    func doubleDarkGradiantLayer(){
+    func doubleDarkGradiantLayer() -> CALayer{
         
         let gradiantLayer = CAGradientLayer()
         let bottomColor =  UIColor(red: 36/255, green: 37/255, blue: 41/255, alpha: 1).cgColor
@@ -65,8 +66,9 @@ extension UIView{
         gradiantLayer.colors = [topColor, bottomColor]
         gradiantLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradiantLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradiantLayer.frame = CGRect(x: 0, y: self.frame.height - 20, width: self.frame.width, height: 20)
-        self.layer.insertSublayer(gradiantLayer, at: 0)
+//        gradiantLayer.frame = CGRect(x: 0, y: self.frame.height - 20, width: self.frame.width, height: 20)
+        
+        return gradiantLayer
     }
     
     func roundAndShadow(){

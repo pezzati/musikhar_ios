@@ -318,7 +318,6 @@ class AppManager: NSObject {
                 self.userInfo = data as! user
                 UserDefaults.standard.setValue(self.userInfo.toJsonString(), forKey: AppGlobal.userInfoCache)
             }
-            
             completionHandler(success)
             Crashlytics.sharedInstance().setUserName(AppManager.sharedInstance().userInfo.username)
         })
@@ -336,10 +335,6 @@ class AppManager: NSObject {
             }
         }
     }
-    
-    
-    
-    
     
 
     //MARK: -UserPosts

@@ -108,15 +108,15 @@ class GenreSelectionViewController: UIViewController, UITableViewDelegate, UITab
                 
                 UserDefaults.standard.set(self.genres.toJsonString(), forKey: AppGlobal.GenresListCache)
                 AppManager.sharedInstance().getGenreList()
-                AppManager.sharedInstance().fetchHomeFeed(sender: self, completionHandler: { _ in 
+//                AppManager.sharedInstance().fetchHomeFeed(sender: self, completionHandler: { _ in
                 
                 if self.shouldReturn{
-                    self.dismiss(animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: true)
                 }else{
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
                     self.present(vc!, animated: true, completion: nil)
                 }
-                })
+//                })
             }})
     }
     

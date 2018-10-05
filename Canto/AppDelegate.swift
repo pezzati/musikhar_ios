@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = "243773746715-ahsopgmn3jfvqthmkn32mi75lbc69hso.apps.googleusercontent.com"
         
         AppManager.initialize()
+        let customFont = UIFont(name: "IRANYekanMobile", size: 17.0)!
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: customFont], for: .normal)
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         var vc : UIViewController!

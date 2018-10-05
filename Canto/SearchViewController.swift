@@ -36,6 +36,7 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
                 
             }
         }
+        self.navigationItem.title = "جست و جو"
     }
     
     override func viewDidAppear(_ animated: Bool) {

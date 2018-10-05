@@ -38,7 +38,8 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
 //    var timer : Timer? = nil
     
     override func viewDidLoad() {
-        
+        songsCollectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,18 +106,20 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
    // MARK: -Collection View Delegate, Data source
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.backgroundColor = UIColor.white
-        cell.contentView.layer.shadowRadius = 4
-        cell.contentView.layer.shadowOpacity = 0.3
-        cell.contentView.layer.shadowColor = UIColor.darkGray.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cell.cardImage.layer.cornerRadius = 10
-        let imgURL = URL(string : self.posts.posts[indexPath.row].kara.cover_photo.link)
-        cell.cardImage.sd_setImage(with: imgURL, placeholderImage: UIImage(named: "hootan"))
-        cell.ArtistName.text = self.posts.posts[indexPath.row].kara.content.artist.name
-        cell.SongName.text = self.posts.posts[indexPath.row].kara.name
-        cell.setAsPremium()
+//        cell.contentView.layer.cornerRadius = 10
+//        cell.contentView.backgroundColor = UIColor.white
+//        cell.contentView.layer.shadowRadius = 4
+//        cell.contentView.layer.shadowOpacity = 0.3
+//        cell.contentView.layer.shadowColor = UIColor.darkGray.cgColor
+//        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        cell.cardImage.layer.cornerRadius = 10
+//        let imgURL = URL(string : self.posts.posts[indexPath.row].kara.cover_photo.link)
+//        cell.cardImage.sd_setImage(with: imgURL, placeholderImage: UIImage(named: "hootan"))
+//        cell.ArtistName.text = self.posts.posts[indexPath.row].kara.content.artist.name
+//        cell.SongName.text = self.posts.posts[indexPath.row].kara.name
+//        cell.setAsPremium()
+        cell.setUp(post: posts.posts[indexPath.row].kara)
+        cell.freeBadge.isHidden = true
         return cell
     }
     
@@ -470,8 +473,9 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
     
     func updateInfo(){
 //        self.profilePicture.sd_setImage(with: URL(string: self.userInfo.image), placeholderImage: UIImage(named: "hootan"))
+        navigationItem.title = userInfo.first_name
         self.profilePicture.image = AppManager.sharedInstance().userAvatar
-        self.Name.text = self.userInfo.first_name
+        self.Name.text = "هوتن حسینی"
         self.Credit.isHidden = !self.userInfo.is_premium
         self.normalUserLabel.isHidden = self.userInfo.is_premium
         self.premiumImageView.isHidden = !self.userInfo.is_premium

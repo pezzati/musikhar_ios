@@ -18,13 +18,10 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
     var results = genre_more()
     
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var genre_Label: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var bannerImageView: UIImageView!
-    @IBOutlet weak var bannerImageWidthConstraint: NSLayoutConstraint!
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -33,7 +30,9 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
         self.genre_Label.text = self.name
         self.headerView.headerViewCornerRounding()
         
-        if results.desc != "" {
+        self.navigationItem.title = name
+        
+       /* if results.desc != "" {
             self.descriptionLabel.text = results.desc
             self.descriptionLabel.superview?.layer.cornerRadius = 10
 //            self.descriptionLabel.superview?.clipsToBounds = true
@@ -48,7 +47,7 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
             self.descriptionLabel.superview?.isHidden = true
             self.descriptionLabel.isHidden = true
             self.collectionViewTopConstraint.constant = -24
-        }
+        }  */
 //
 //        if bannerURL != ""{
 //            self.bannerImageWidthConstraint.constant = self.view.frame.width - 25
@@ -56,9 +55,15 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
 //            self.bannerImageView.clipsToBounds = true
 //            self.bannerImageView.sd_setImage(with: URL(string : self.bannerURL)!, placeholderImage: nil)
 //        }else{
-            self.bannerImageWidthConstraint.constant = 0
+//            self.bannerImageWidthConstraint.constant = 0
 //        }
         
+    }
+    
+    override func viewDidLoad() {
+        
+        collectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,23 +114,7 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
         let post = self.results.results[indexPath.row]
-        
-        cell.ArtistName.text = post.artist.name
-        cell.ArtistName.adjustsFontSizeToFitWidth = true
-//        cell.SongName.adjustsFontSizeToFitWidth = true
-        cell.SongName.text = post.name
-        cell.contentView.layer.cornerRadius = 10
-        cell.contentView.backgroundColor = UIColor.white
-        cell.contentView.layer.shadowRadius = 4
-        cell.contentView.layer.shadowOpacity = 0.3
-        cell.contentView.layer.shadowColor = UIColor.darkGray.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cell.SingButton.layer.cornerRadius = cell.SingButton.frame.height/2
-        cell.cardImage.layer.cornerRadius = 10
-        cell.cardImage.sd_setImage(with: URL(string: post.cover_photo.link), placeholderImage: UIImage(named: "hootan"))
-        cell.addBadge()
-        if !post.is_premium { cell.setAsFree() }
-        else{ cell.setAsPremium() }
+        cell.setUp(post: post)
         return cell
     }
     
@@ -141,14 +130,5 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
     }
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.contentOffset.y != scrollView.frame.height{
-//            if -scrollView.contentOffset.y < -25{
-//                self.headerTopConstraint.constant = -scrollView.contentOffset.y
-//            }else{
-//                self.headerTopConstraint.constant = -25
-//            }
-//        }
-//    }
 
 }
