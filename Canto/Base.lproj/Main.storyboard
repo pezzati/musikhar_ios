@@ -241,9 +241,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="571"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="paE-qU-L5j">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="paE-qU-L5j">
                                 <rect key="frame" x="5" y="105" width="404" height="466"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="pVa-ox-6v6">
                                     <size key="itemSize" width="140" height="190"/>
@@ -338,20 +337,26 @@
                         </subviews>
                         <color key="backgroundColor" red="0.14117647059999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="paE-qU-L5j" firstAttribute="leading" secondItem="ohI-SX-PI6" secondAttribute="leading" constant="5" id="4YJ-Q3-3Y7"/>
+                            <constraint firstAttribute="trailing" secondItem="paE-qU-L5j" secondAttribute="trailing" constant="5" id="5nK-JH-1z3"/>
                             <constraint firstItem="f1d-f4-xqg" firstAttribute="leading" secondItem="ohI-SX-PI6" secondAttribute="leading" constant="4.5" id="Jly-Lg-9Nv"/>
-                            <constraint firstItem="ciV-th-iHG" firstAttribute="top" secondItem="ohI-SX-PI6" secondAttribute="top" id="TnK-Nl-USw"/>
+                            <constraint firstItem="V5s-ZJ-jZV" firstAttribute="top" secondItem="paE-qU-L5j" secondAttribute="bottom" id="OsA-om-OFh"/>
+                            <constraint firstItem="ciV-th-iHG" firstAttribute="top" secondItem="IPX-Oc-MG0" secondAttribute="bottom" id="Pn0-3f-4ut"/>
                             <constraint firstItem="V5s-ZJ-jZV" firstAttribute="top" secondItem="f1d-f4-xqg" secondAttribute="bottom" id="pRq-am-kdZ"/>
                             <constraint firstAttribute="trailing" secondItem="f1d-f4-xqg" secondAttribute="trailing" constant="5" id="pdq-hZ-L1E"/>
                             <constraint firstItem="f1d-f4-xqg" firstAttribute="top" secondItem="ciV-th-iHG" secondAttribute="bottom" constant="15" id="sIq-bI-b1E"/>
                             <constraint firstItem="ciV-th-iHG" firstAttribute="leading" secondItem="ohI-SX-PI6" secondAttribute="leading" id="uiu-1L-KeO"/>
                             <constraint firstAttribute="trailing" secondItem="ciV-th-iHG" secondAttribute="trailing" id="wSG-AA-zkq"/>
+                            <constraint firstItem="paE-qU-L5j" firstAttribute="top" secondItem="ciV-th-iHG" secondAttribute="bottom" constant="5" id="zHw-Ud-xTk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="پروفایل" id="YJI-HM-t6D"/>
+                    <navigationItem key="navigationItem" title="پروفایل" id="YJI-HM-t6D">
+                        <barButtonItem key="backBarButtonItem" title="پروفایل" id="VJZ-Xu-JdZ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="Credit" destination="XN3-an-BGF" id="hjK-KC-1Ks"/>
                         <outlet property="Name" destination="ZSf-wq-Rxe" id="E0y-7e-6oK"/>
-                        <outlet property="headerTopConstraint" destination="TnK-Nl-USw" id="cLs-Oz-ktk"/>
+                        <outlet property="headerTopConstraint" destination="Pn0-3f-4ut" id="cah-Zl-UKa"/>
                         <outlet property="headerView" destination="ciV-th-iHG" id="sg5-2V-Jfd"/>
                         <outlet property="noPostsView" destination="f1d-f4-xqg" id="7uG-S9-Z9T"/>
                         <outlet property="normalUserLabel" destination="85O-q2-h9F" id="qYZ-3y-3Lw"/>
@@ -2127,6 +2132,11 @@
                         <color key="backgroundColor" red="0.14117647059999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.14117647059999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="37j-Sc-kyR" kind="relationship" relationship="viewControllers" id="9GW-W1-AAB"/>
@@ -2325,7 +2335,7 @@
         <scene sceneID="GYy-MB-hzs">
             <objects>
                 <navigationController id="37j-Sc-kyR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="home_icon" id="LUN-RP-U3z">
+                    <tabBarItem key="tabBarItem" title="" image="home_deselected" id="LUN-RP-U3z">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-15"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -2363,6 +2373,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="blackTranslucent" translucent="NO" largeTitles="YES" id="kqe-56-qRr">
                         <rect key="frame" x="0.0" y="20" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.14117647059999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="28"/>
@@ -2397,8 +2408,9 @@
                     </textAttributes>
                 </navigationBar>
                 <navigationController title="search" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="n43-HR-LUm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="search_icon" id="aJL-kj-sVh">
+                    <tabBarItem key="tabBarItem" title="" image="search_deselected" id="aJL-kj-sVh">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-15"/>
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QNA-XC-zAB">
@@ -2426,7 +2438,7 @@
         <image name="gradiant" width="200" height="200"/>
         <image name="grunge-d" width="25" height="25"/>
         <image name="helium-d" width="25" height="25"/>
-        <image name="home_icon" width="30" height="30"/>
+        <image name="home_deselected" width="30" height="30"/>
         <image name="hootan" width="324" height="324"/>
         <image name="more" width="33" height="13"/>
         <image name="next" width="366" height="366"/>
@@ -2440,7 +2452,7 @@
         <image name="record" width="28" height="28"/>
         <image name="reverb-d" width="25" height="25"/>
         <image name="search" width="63" height="66"/>
-        <image name="search_icon" width="30" height="30"/>
+        <image name="search_deselected" width="30" height="30"/>
         <image name="signup-header" width="500" height="375"/>
         <image name="speed_icon" width="40" height="40"/>
         <image name="unchecked" width="56" height="56"/>

@@ -177,8 +177,8 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
 extension Karaoke_VC : UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return self.genres[collectionView.tag].karas.results.count
+        let count = genres[collectionView.tag].karas.results.count
+        return count > 4 ? 5 : count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
