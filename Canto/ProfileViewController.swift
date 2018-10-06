@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import AVFoundation
 
-class ProfileViewController: UIViewController,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class ProfileViewController: UIViewController {
     
     
     
@@ -19,8 +19,6 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
     @IBOutlet weak var premiumImageView: UIImageView!
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var songsCollectionView: UICollectionView!
-    
-    //    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var Name: UILabel!
@@ -30,7 +28,7 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
     var posts : userPostsList = userPostsList()
     
     override func viewDidLoad() {
-        songsCollectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
+        songsCollectionView.register(UINib(nibName: "UserPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
         let genreItem = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(self.onSettingClicked))
         self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
@@ -84,12 +82,14 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
         profilePicture.round(corners: [.topLeft , .bottomLeft , .topRight, .bottomRight], radius: 15)
     }
     
+}
+
+
+extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    // MARK: -Collection View Delegate, Data source
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
-        cell.setUp(post: posts.posts[indexPath.row].kara)
-        cell.freeBadge.isHidden = true
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! UserPostCollectionViewCell
+        cell.setUp(post: posts.posts[indexPath.row])
         return cell
     }
     
@@ -108,11 +108,14 @@ class ProfileViewController: UIViewController,UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellsAcross: CGFloat = 2
-        let spaceBetweenCells: CGFloat = 18
-        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
-        return CGSize(width: dim, height: dim*190/140)
+        let spaceBetweenCells: CGFloat = 11
+        let dim = (collectionView.bounds.width - 60 - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+        return CGSize(width: dim, height: dim*4/3 + 10)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 25, 0, 25)
+    }
     
     
     func updateInfo(){

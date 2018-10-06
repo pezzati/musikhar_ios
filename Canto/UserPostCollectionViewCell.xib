@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="UserPostCollectionViewCell" customModule="Canto" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="201"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="201"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4tO-w1-07g">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="201"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QTu-8l-KCa">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.30385809079999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QTu-8l-KCa" secondAttribute="height" multiplier="1:1" id="TTR-J8-MUT"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ERc-IM-0di">
+                                <rect key="frame" x="107.5" y="158" width="34.5" height="34.5"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.30385809079999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ERc-IM-0di" secondAttribute="height" multiplier="1:1" id="tdE-nY-DU6"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="pgd-Eo-BVx">
+                                <rect key="frame" x="8" y="163" width="88.5" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUx-73-mZP">
+                                        <rect key="frame" x="0.0" y="0.0" width="88.5" height="14"/>
+                                        <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="13"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOME SOME" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lna-iY-d2p">
+                                        <rect key="frame" x="0.0" y="14" width="88.5" height="11"/>
+                                        <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="10"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ERc-IM-0di" firstAttribute="leading" secondItem="pgd-Eo-BVx" secondAttribute="trailing" constant="11" id="14A-ir-wiM"/>
+                            <constraint firstItem="pgd-Eo-BVx" firstAttribute="centerY" secondItem="ERc-IM-0di" secondAttribute="centerY" id="8jW-s9-SGD"/>
+                            <constraint firstItem="QTu-8l-KCa" firstAttribute="leading" secondItem="4tO-w1-07g" secondAttribute="leading" id="LIf-VI-6q1"/>
+                            <constraint firstAttribute="trailing" secondItem="ERc-IM-0di" secondAttribute="trailing" constant="8" id="MrJ-Xt-Luq"/>
+                            <constraint firstItem="ERc-IM-0di" firstAttribute="top" secondItem="QTu-8l-KCa" secondAttribute="bottom" constant="8" id="TFH-LU-yAW"/>
+                            <constraint firstItem="ERc-IM-0di" firstAttribute="width" secondItem="QTu-8l-KCa" secondAttribute="width" multiplier="0.23" id="VwK-aY-2dP"/>
+                            <constraint firstItem="pgd-Eo-BVx" firstAttribute="leading" secondItem="4tO-w1-07g" secondAttribute="leading" constant="8" id="Zz7-Cu-nkC"/>
+                            <constraint firstItem="QTu-8l-KCa" firstAttribute="top" secondItem="4tO-w1-07g" secondAttribute="top" id="bjn-Nx-jTT"/>
+                            <constraint firstAttribute="trailing" secondItem="QTu-8l-KCa" secondAttribute="trailing" id="qIp-Or-dSb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="4tO-w1-07g" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Bae-ia-W6z"/>
+                <constraint firstAttribute="bottom" secondItem="4tO-w1-07g" secondAttribute="bottom" id="J30-VK-OBX"/>
+                <constraint firstItem="4tO-w1-07g" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LcQ-8z-IBy"/>
+                <constraint firstAttribute="trailing" secondItem="4tO-w1-07g" secondAttribute="trailing" id="ppQ-Mh-dVW"/>
+            </constraints>
+            <size key="customSize" width="220" height="201"/>
+            <connections>
+                <outlet property="artistLabel" destination="gUx-73-mZP" id="oD3-ka-nh8"/>
+                <outlet property="karaImage" destination="ERc-IM-0di" id="Jxp-0e-Bwm"/>
+                <outlet property="karaSizeConstraint" destination="VwK-aY-2dP" id="Feh-yO-jSV"/>
+                <outlet property="postImage" destination="QTu-8l-KCa" id="bvH-L0-Dwu"/>
+                <outlet property="songNameLabel" destination="Lna-iY-d2p" id="wnU-Yd-R5B"/>
+            </connections>
+            <point key="canvasLocation" x="-171" y="47.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -11,13 +11,7 @@ import UIKit
 class Genre_TableViewCell: UITableViewCell {
 
     @IBOutlet weak var GenreNameLabel: UILabel!
-    @IBOutlet weak var MoreButton: UIButton!
-    
     @IBOutlet weak var KaraokeCollectionView: UICollectionView!
-    
-    
-    
-    
     
     var collectionViewOffset: CGFloat {
         get {return KaraokeCollectionView.contentOffset.x}

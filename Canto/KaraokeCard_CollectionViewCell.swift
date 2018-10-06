@@ -21,19 +21,11 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
     var bottomDarkGradient : CALayer!
     
     public func addBadge (){
-
+        
         self.freeBadge = UIImageView(frame: CGRect(x: 5 , y: 5, width: 35, height: 15))
         self.freeBadge.contentMode = .scaleAspectFit
         self.freeBadge.image = UIImage(named: "free")
         self.contentView.addSubview(self.freeBadge)
-    }
-    
-    public func setAsFree(){
-        self.freeBadge.isHidden = false
-    }
-    
-    public func setAsPremium(){
-        self.freeBadge.isHidden = true
     }
     
     public func setUp(post : karaoke){
@@ -49,8 +41,8 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
             bottomDarkGradient = cardImage.doubleDarkGradiantLayer()
         }
         
-        darkGradient.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width)
-        bottomDarkGradient.frame = CGRect(x: 0, y: self.frame.width - 20, width: self.frame.width, height: 20)
+        darkGradient.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width + 1)
+        bottomDarkGradient.frame = CGRect(x: 0, y: self.frame.width - 20, width: self.frame.width, height: 21)
         
         if subviewsAdded{ return }
         cardImage.layer.insertSublayer(darkGradient, at: 0)
@@ -59,7 +51,7 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
         freeBadge.isHidden = post.is_premium
         subviewsAdded = true
     }
-
+    
 }
 
 

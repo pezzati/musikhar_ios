@@ -9,61 +9,28 @@
 import UIKit
 import SDWebImage
 
-class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+class GenreViewController: UIViewController {
+    
     public var url : String = ""
     public var name: String = ""
-//    public var bannerDesc : String = ""
+    //    public var bannerDesc : String = ""
     public var bannerURL : String = ""
     var results = genre_more()
     
-    @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var genre_Label: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: self.url)
         self.collectionView.reloadData()
-        self.genre_Label.text = self.name
-        self.headerView.headerViewCornerRounding()
-        
         self.navigationItem.title = name
-        
-       /* if results.desc != "" {
-            self.descriptionLabel.text = results.desc
-            self.descriptionLabel.superview?.layer.cornerRadius = 10
-//            self.descriptionLabel.superview?.clipsToBounds = true
-            self.descriptionLabel.superview?.backgroundColor = UIColor.white
-            self.descriptionLabel.superview?.layer.shadowRadius = 4
-            self.descriptionLabel.superview?.layer.shadowOpacity = 0.3
-            self.descriptionLabel.superview?.layer.shadowColor = UIColor.darkGray.cgColor
-            self.descriptionLabel.superview?.layer.shadowOffset = CGSize(width: 0, height: 2)
-            self.descriptionLabel.superview?.isHidden = false
-            self.descriptionLabel.isHidden = false
-        }else{
-            self.descriptionLabel.superview?.isHidden = true
-            self.descriptionLabel.isHidden = true
-            self.collectionViewTopConstraint.constant = -24
-        }  */
-//
-//        if bannerURL != ""{
-//            self.bannerImageWidthConstraint.constant = self.view.frame.width - 25
-//            self.bannerImageView.layer.cornerRadius = 10
-//            self.bannerImageView.clipsToBounds = true
-//            self.bannerImageView.sd_setImage(with: URL(string : self.bannerURL)!, placeholderImage: nil)
-//        }else{
-//            self.bannerImageWidthConstraint.constant = 0
-//        }
         
     }
     
     override func viewDidLoad() {
         
         collectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
-        self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +44,7 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
     func getMorePosts(){
         
         let request = RequestHandler(type: .genrePosts , requestURL: self.results.next, shouldShowError: true, sender: self, waiting: false, force: false)
- 
+        
         request.sendRequest(completionHandler: { more_posts, success, msg in
             if success {
                 let result = more_posts as! genre_more
@@ -99,16 +66,25 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
         AppManager.sharedInstance().addAction(action: "Back Tapped", session: "Genre More", detail: name)
         self.dismiss(animated: true, completion: nil)
     }
-    //collection view delegate and source
+    
+}
+
+
+extension GenreViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.results.results.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellsAcross: CGFloat = 2
-        let spaceBetweenCells: CGFloat = 18
-        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
-        return CGSize(width: dim, height: dim*190/140)
+        let spaceBetweenCells: CGFloat = 11
+        let dim = (collectionView.bounds.width - 60 - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+        return CGSize(width: dim, height: dim*5/4 + 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 30, 0, 30)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -130,5 +106,5 @@ class GenreViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
     }
     
-
+    
 }
