@@ -38,6 +38,7 @@
 		5D5383862136961F006DE560 /* refresh.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D5383852136961F006DE560 /* refresh.json */; };
 		5D53838821369634006DE560 /* like.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D53838721369634006DE560 /* like.json */; };
 		5D5744E9200D5638002192E0 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D5744E8200D5633002192E0 /* loading.json */; };
+		5D5DC71F21694D9700E9A29F /* ModeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5DC71E21694D9700E9A29F /* ModeSelectionViewController.swift */; };
 		5D66610720C998AD0065B486 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D66610620C998AD0065B486 /* SettingViewController.swift */; };
 		5D75EC6E1F3E050B008F57A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC6D1F3E050B008F57A7 /* AppDelegate.swift */; };
 		5D75EC701F3E050B008F57A7 /* Karaoke_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC6F1F3E050B008F57A7 /* Karaoke_VC.swift */; };
@@ -185,6 +186,7 @@
 		5D5383852136961F006DE560 /* refresh.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = refresh.json; sourceTree = "<group>"; };
 		5D53838721369634006DE560 /* like.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = like.json; sourceTree = "<group>"; };
 		5D5744E8200D5633002192E0 /* loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		5D5DC71E21694D9700E9A29F /* ModeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeSelectionViewController.swift; sourceTree = "<group>"; };
 		5D66610620C998AD0065B486 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		5D75EC6A1F3E050B008F57A7 /* Canto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D75EC6D1F3E050B008F57A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				5D1E260E2020DA3800A044EA /* WatchPostViewController.swift */,
 				5D66610620C998AD0065B486 /* SettingViewController.swift */,
 				5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */,
+				5D5DC71E21694D9700E9A29F /* ModeSelectionViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -901,6 +904,7 @@
 				5D4EF7BB1FC8381E00BF4DA4 /* AppGlobal.swift in Sources */,
 				5D1C3BCD1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift in Sources */,
 				5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */,
+				5D5DC71F21694D9700E9A29F /* ModeSelectionViewController.swift in Sources */,
 				5D1C3BCB1FE2D9D400B7574B /* GenreSelectionViewController.swift in Sources */,
 				5DAE3B741FD427FC007CE210 /* API_Handler.swift in Sources */,
 				5DAE3B6E1FD4205C007CE210 /* ProfilePictureViewController.swift in Sources */,

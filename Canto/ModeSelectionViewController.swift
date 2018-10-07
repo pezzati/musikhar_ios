@@ -10,26 +10,52 @@ import UIKit
 
 class ModeSelectionViewController: UIViewController {
 
+    @IBOutlet weak var carousel: iCarousel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        carousel.dataSource = self
+        carousel.delegate = self
+        carousel.type = .linear
+        carousel.isPagingEnabled = true
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
+    
+    func numberOfItems(in carousel: iCarousel) -> Int {
+        return 3
     }
-    */
-
+    
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        let cardView = UIView()
+        
+        switch index {
+        case 0:
+            cardView.backgroundColor = UIColor.white
+            break
+        case 1:
+            cardView.backgroundColor = UIColor.red
+            break
+        case 2:
+            cardView.backgroundColor = UIColor.blue
+            break
+        default:
+            break
+        }
+        cardView.frame = CGRect(x: 0, y: 0, width: carousel.frame.height/1.8, height: carousel.frame.height)
+        return cardView
+    }
+    
+    func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
+        
+        if option == iCarouselOption.spacing {
+            return 1.2
+        }
+        return value
+    }
+    
+    
 }
