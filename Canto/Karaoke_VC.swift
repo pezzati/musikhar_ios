@@ -172,6 +172,7 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    
 }
 
 extension Karaoke_VC : UICollectionViewDataSource, UICollectionViewDelegate{

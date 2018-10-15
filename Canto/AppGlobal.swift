@@ -60,6 +60,14 @@ struct AppGlobal {
     public static let UserPostsList = "UserPostsList"
     public static let UnrenderedPostsList = "UnrederedPostsList"
     public static let ActionLogList = "ActionLogList"
+    
+    //Modes Info
+    public static let modeNames = [Modes.dubsmash : "دابسمش" ,
+                                   Modes.karaoke : "کارایوکی" ,
+                                   Modes.singing : "خوانندگی"]
+    public static let modesDescription = [Modes.dubsmash : "با انتخاب این حالت میتوانید روی آهنگ انتخاب شده از خود فیلم بگیرید و دابسمش بسازید. صدای شما ضبط نخواهد شد ولی قادر به تغییر تنظیمات موزیک به دلخواه خود هستید.",
+                                          Modes.karaoke : "با انتخاب این حالت پارتی شما اصن یه حال دیگه ای میده، همه میان گوشیو میگیرن داد و بیداد میکنن و با صدای خودشون حال میکنن.",
+                                          Modes.singing : "با انتخاب این حالت میتوانید روی آهنگ مورد نظر بازخوانی کنید. صدای شما ضبط خواهد شد و میتوانید فیلم بگیرید یا نگیرید یا هرچی که حال میکنید ما هم باهاش حال میکنیم."]
 }
 
 
@@ -102,6 +110,12 @@ public enum soundFx{
     case multiline
     case helium
     case grunge
+}
+
+public enum Modes : Int {
+    case dubsmash = 0
+    case karaoke = 1
+    case singing = 2
 }
 
 

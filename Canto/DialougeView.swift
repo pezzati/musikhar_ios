@@ -108,6 +108,12 @@ class DialougeView {
     
     func chooseKaraType(kara: karaoke, sender: UIViewController) {
         
+        let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
+        vc.hidesBottomBarWhenPushed = true
+        sender.navigationController?.pushViewController(vc, animated: true)
+        
+        return
+        
         if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
             
             let vc = sender.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
@@ -221,10 +227,8 @@ class DialougeView {
                     
                     self.shadowView.addGestureRecognizer(cancelTap!)
                     self.shadowView.isUserInteractionEnabled = true
-                    let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
-                    vc.hidesBottomBarWhenPushed = true
-                    sender.navigationController?.pushViewController(vc, animated: true)
-                    //                            sender.view.addSubview(self.dialougeView!)
+                   
+                    
                 }
             })
             

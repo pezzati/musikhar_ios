@@ -28,6 +28,8 @@
 		5D3DBEDC1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */; };
 		5D3DBEDE1FE1585A006FE33C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3DBEDD1FE1585A006FE33C /* ProfileViewController.swift */; };
 		5D3DBEE11FE17EC3006FE33C /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3DBEE01FE17EC3006FE33C /* CameraHandler.swift */; };
+		5D3E881E2171047300F16642 /* CameraHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3E881D2171047300F16642 /* CameraHelper.swift */; };
+		5D3E88232171048F00F16642 /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3E88222171048F00F16642 /* AudioHelper.swift */; };
 		5D4034DD21528EC700A1D4D1 /* WHRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */; };
 		5D43D6852091F5EF0016C64B /* MediaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D43D6842091F5EF0016C64B /* MediaHelper.swift */; };
 		5D4EF7BB1FC8381E00BF4DA4 /* AppGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4EF7BA1FC8381E00BF4DA4 /* AppGlobal.swift */; };
@@ -175,6 +177,8 @@
 		5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		5D3DBEDD1FE1585A006FE33C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5D3DBEE01FE17EC3006FE33C /* CameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
+		5D3E881D2171047300F16642 /* CameraHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHelper.swift; sourceTree = "<group>"; };
+		5D3E88222171048F00F16642 /* AudioHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
 		5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHRecordVC.swift; sourceTree = "<group>"; };
 		5D43D6842091F5EF0016C64B /* MediaHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHelper.swift; sourceTree = "<group>"; };
 		5D4EF7BA1FC8381E00BF4DA4 /* AppGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobal.swift; sourceTree = "<group>"; };
@@ -376,6 +380,8 @@
 				5D0C81622095D791002D9A21 /* RecordManager.swift */,
 				5DA6D9C7209F4713003218B6 /* AudioMixer.swift */,
 				5D29A86F20A3426E00086F73 /* MixManager.swift */,
+				5D3E881D2171047300F16642 /* CameraHelper.swift */,
+				5D3E88222171048F00F16642 /* AudioHelper.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -892,6 +898,7 @@
 			files = (
 				5D4034DD21528EC700A1D4D1 /* WHRecordVC.swift in Sources */,
 				5D3DBEE11FE17EC3006FE33C /* CameraHandler.swift in Sources */,
+				5D3E88232171048F00F16642 /* AudioHelper.swift in Sources */,
 				5DBFFF911FBB020500C8C15D /* Genre_TableViewCell.swift in Sources */,
 				5D29A87020A3426E00086F73 /* MixManager.swift in Sources */,
 				5D3DBEDE1FE1585A006FE33C /* ProfileViewController.swift in Sources */,
@@ -922,6 +929,7 @@
 				5D0C81632095D791002D9A21 /* RecordManager.swift in Sources */,
 				5D75EC6E1F3E050B008F57A7 /* AppDelegate.swift in Sources */,
 				5DBDA4CB208A3AD5003A709A /* AppManager.swift in Sources */,
+				5D3E881E2171047300F16642 /* CameraHelper.swift in Sources */,
 				5DA6D9C8209F4713003218B6 /* AudioMixer.swift in Sources */,
 				5D1E260F2020DA3800A044EA /* WatchPostViewController.swift in Sources */,
 				5D2EC90520220B400025AB0D /* PurchaseTableViewController.swift in Sources */,

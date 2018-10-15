@@ -120,7 +120,7 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     
     func updateInfo(){
         //        self.profilePicture.sd_setImage(with: URL(string: self.userInfo.image), placeholderImage: UIImage(named: "hootan"))
-        navigationItem.title = userInfo.first_name
+        navigationItem.title = "Whotan"
         self.profilePicture.image = AppManager.sharedInstance().userAvatar
         self.Name.text = "هوتن حسینی"
         self.Credit.isHidden = !self.userInfo.is_premium

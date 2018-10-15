@@ -58,6 +58,17 @@ extension UIView{
         return gradiantLayer
     }
     
+    func selectModeGradient(mode: Modes) -> CALayer{
+        let gradiantLayer = CAGradientLayer()
+        let topColor = UIColor(red: 0/255, green: 248/255, blue: 248/255, alpha: 0.7).cgColor
+        let bottomColor =  UIColor(red: 14/255, green: 72/255, blue: 172/255, alpha: 0.7).cgColor
+        gradiantLayer.colors = [topColor, bottomColor]
+        gradiantLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradiantLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+        
+        return gradiantLayer
+    }
+    
     func doubleDarkGradiantLayer() -> CALayer{
         
         let gradiantLayer = CAGradientLayer()
@@ -266,4 +277,30 @@ extension UIFont {
     }
 }
 
+extension UIImage {
+    
+    func maskWithColor(color: UIColor) -> UIImage? {
+        let maskImage = cgImage!
+        
+        let width = size.width
+        let height = size.height
+        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+        
+        context.clip(to: bounds, mask: maskImage)
+        context.setFillColor(color.cgColor)
+        context.fill(bounds)
+        
+        if let cgImage = context.makeImage() {
+            let coloredImage = UIImage(cgImage: cgImage)
+            return coloredImage
+        } else {
+            return nil
+        }
+    }
+    
+}
 
