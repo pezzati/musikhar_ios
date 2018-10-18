@@ -69,9 +69,10 @@ class Karaoke_VC: UIViewController {
     func setupNavBar() {
         
         let genreItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(self.onEditClicked))
-        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        self.navigationItem.title = "کانتو"
+        navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
+        navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        navigationItem.title = "کانتو"
+        navigationController?.view.backgroundColor = view.backgroundColor
     }
     
     func setupRefreshController() {

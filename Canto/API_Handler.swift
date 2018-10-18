@@ -605,6 +605,7 @@ class RequestHandler : NSObject{
             Alamofire.request(self.request!).responseJSON(completionHandler:{
                 response in
                 
+                
                 switch response.result{
                 case .failure( _):
                     self.failed(){ Data,Success,msg in

@@ -13,22 +13,45 @@ class CameraHelper: NSObject {
 
     var camera : Camera!
     var blendFilter : AddBlend!
-    
-    public func initCamera(cameraView : RenderView){
-        
-//        let blendInput = PictureInput(image: blendLayerImage())
-//        blendFilter = AddBlend()
+    var cameraView : RenderView?
+
+    init(inView : UIView) {
+        //let blendInput = PictureInput(image: blendLayerImage())
+        //blendFilter = AddBlend()
+        cameraView = RenderView(frame: inView.bounds)
+        inView.addSubview(cameraView!)
         
         do {
             camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
-            cameraView.fillMode = .preserveAspectRatioAndFill
-//            blendInput.processImage()
-//            blendInput --> blendFilter
-            camera --> cameraView
+            cameraView?.fillMode = .preserveAspectRatioAndFill
+            //blendInput.processImage()
+            //blendInput --> blendFilter
+            camera --> cameraView!
             camera.startCapture()
-            
         } catch {
-            fatalError("Could not initialize rendering pipeline: \(error)")
+            print("Could not initialize rendering pipeline: \(error)")
+        }
+        
+    }
+    
+    func updateView(inView : UIView){
+        if cameraView != nil {
+            cameraView?.removeFromSuperview()
+            cameraView = RenderView(frame: inView.bounds)
+            cameraView?.fillMode = .preserveAspectRatioAndFill
+            inView.addSubview(cameraView!)
+            camera --> cameraView!
+            camera.startCapture()
+        }
+    }
+    
+    func rotateCamera(front : Bool, inView : UIView){
+        let location : PhysicalCameraLocation = front ? .frontFacing : .backFacing
+        do {
+            camera = try Camera(sessionPreset: .hd1280x720 , location: location )
+            updateView(inView: inView)
+        } catch {
+            print("Could not initialize rendering pipeline: \(error)")
         }
     }
     

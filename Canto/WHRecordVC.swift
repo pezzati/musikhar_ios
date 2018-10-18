@@ -12,15 +12,20 @@ import AVFoundation
 
 class WHRecordVC: UIViewController {
     
-    @IBOutlet weak var cameraView: RenderView!
+    @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var fullScreenConstraint: NSLayoutConstraint!
     @IBOutlet weak var squareConstraint: NSLayoutConstraint!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var recordingToolbarView: UIView!
+    
+    @IBOutlet weak var darkLayerView: UIView!
     
     public var post : karaoke?
     public var original = false
     var mode : Modes!
-    var cameraHelper = CameraHelper()
+    var cameraHelper : CameraHelper?
+    var isSquare = true
+    var isFrontCamera = true
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -30,8 +35,7 @@ class WHRecordVC: UIViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
-        closeButton.setImage(#imageLiteral(resourceName: "close").maskWithColor(color: UIColor.white), for: .normal)
-        cameraHelper.initCamera(cameraView: cameraView)
+        setup()
     }
     
     @IBAction func closeTapped(_ sender: Any) {
@@ -40,4 +44,67 @@ class WHRecordVC: UIViewController {
         navigationController?.isNavigationBarHidden = false
     }
     
+    func setup(){
+        closeButton.setImage(#imageLiteral(resourceName: "close").maskWithColor(color: UIColor.white), for: .normal)
+        if mode != .karaoke {
+            cameraHelper = CameraHelper(inView: cameraView)
+            cameraView.isHidden = false
+            darkLayerView.isHidden = false
+            recordingToolbarView.isHidden = false
+        }
+    }
+    
+    //MARK: -Recording Toolbar Actions
+    
+    @IBAction func recordTapped(_ sender: UIButton) {
+    }
+    
+    @IBAction func rotateTapped(_ sender: UIButton) {
+        cameraHelper?.rotateCamera(front: !isFrontCamera, inView: cameraView)
+        isFrontCamera = !isFrontCamera
+    }
+    
+    @IBAction func toggleRatioTapped(_ sender: UIButton) {
+        UIView.animate(withDuration: 1) {
+            
+            if self.isSquare{
+                self.squareConstraint.priority = UILayoutPriority(rawValue: 998)
+                self.fullScreenConstraint.priority = UILayoutPriority(rawValue: 999)
+                sender.setTitle("Square", for: .normal)
+            }else{
+                self.squareConstraint.priority = UILayoutPriority(rawValue: 999)
+                self.fullScreenConstraint.priority = UILayoutPriority(rawValue: 998)
+                sender.setTitle("Full", for: .normal)
+            }
+            self.isSquare = !self.isSquare
+            self.view.layoutIfNeeded()
+            self.cameraHelper?.updateView(inView: self.cameraView)
+        }
+    }
+    
+    @IBAction func settingTapped(_ sender: UIButton) {
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
