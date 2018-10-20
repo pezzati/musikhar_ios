@@ -65,21 +65,19 @@ class WHRecordVC: UIViewController {
     }
     
     @IBAction func toggleRatioTapped(_ sender: UIButton) {
-        UIView.animate(withDuration: 1) {
-            
-            if self.isSquare{
-                self.squareConstraint.priority = UILayoutPriority(rawValue: 998)
-                self.fullScreenConstraint.priority = UILayoutPriority(rawValue: 999)
-                sender.setTitle("Square", for: .normal)
-            }else{
-                self.squareConstraint.priority = UILayoutPriority(rawValue: 999)
-                self.fullScreenConstraint.priority = UILayoutPriority(rawValue: 998)
-                sender.setTitle("Full", for: .normal)
-            }
-            self.isSquare = !self.isSquare
-            self.view.layoutIfNeeded()
-            self.cameraHelper?.updateView(inView: self.cameraView)
+        
+        if self.isSquare{
+            self.squareConstraint.priority = UILayoutPriority(rawValue: 998)
+            self.fullScreenConstraint.priority = UILayoutPriority(rawValue: 999)
+            sender.setTitle("Square", for: .normal)
+        }else{
+            self.squareConstraint.priority = UILayoutPriority(rawValue: 999)
+            self.fullScreenConstraint.priority = UILayoutPriority(rawValue: 998)
+            sender.setTitle("Full", for: .normal)
         }
+        self.isSquare = !self.isSquare
+        self.view.layoutIfNeeded()
+        self.cameraHelper?.updateView(inView: self.cameraView)
     }
     
     @IBAction func settingTapped(_ sender: UIButton) {

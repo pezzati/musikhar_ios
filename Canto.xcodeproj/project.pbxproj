@@ -364,6 +364,7 @@
 		5D4635121F42F13A009DAAD0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5D713C07217A2C4C0013F006 /* Record Helpers */,
 				5D5117181FF791AA00105776 /* UIGestureRecognizerCategories */,
 				5D4EF7BC1FC8395500BF4DA4 /* ShowMessage.swift */,
 				5DBDA4CA208A3AD5003A709A /* AppManager.swift */,
@@ -380,8 +381,6 @@
 				5D0C81622095D791002D9A21 /* RecordManager.swift */,
 				5DA6D9C7209F4713003218B6 /* AudioMixer.swift */,
 				5D29A86F20A3426E00086F73 /* MixManager.swift */,
-				5D3E881D2171047300F16642 /* CameraHelper.swift */,
-				5D3E88222171048F00F16642 /* AudioHelper.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -409,6 +408,15 @@
 				5D51171A1FF791AA00105776 /* UIGestureRecognizer+Blocks.m */,
 			);
 			path = UIGestureRecognizerCategories;
+			sourceTree = "<group>";
+		};
+		5D713C07217A2C4C0013F006 /* Record Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5D3E881D2171047300F16642 /* CameraHelper.swift */,
+				5D3E88222171048F00F16642 /* AudioHelper.swift */,
+			);
+			path = "Record Helpers";
 			sourceTree = "<group>";
 		};
 		5D75EC611F3E050B008F57A7 = {

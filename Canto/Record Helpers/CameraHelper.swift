@@ -16,22 +16,18 @@ class CameraHelper: NSObject {
     var cameraView : RenderView?
 
     init(inView : UIView) {
-        //let blendInput = PictureInput(image: blendLayerImage())
-        //blendFilter = AddBlend()
         cameraView = RenderView(frame: inView.bounds)
         inView.addSubview(cameraView!)
         
         do {
             camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
             cameraView?.fillMode = .preserveAspectRatioAndFill
-            //blendInput.processImage()
-            //blendInput --> blendFilter
+           
             camera --> cameraView!
             camera.startCapture()
         } catch {
             print("Could not initialize rendering pipeline: \(error)")
         }
-        
     }
     
     func updateView(inView : UIView){
@@ -40,6 +36,7 @@ class CameraHelper: NSObject {
             cameraView = RenderView(frame: inView.bounds)
             cameraView?.fillMode = .preserveAspectRatioAndFill
             inView.addSubview(cameraView!)
+            if camera == nil { return }
             camera --> cameraView!
             camera.startCapture()
         }
@@ -56,17 +53,22 @@ class CameraHelper: NSObject {
     }
     
     
-    func blendLayerImage()->UIImage {
-        
-        UIGraphicsBeginImageContext(CGSize(width: 720, height: 720))
-        let _img = UIImage(named: "watermark")
-        _img?.draw(in: CGRect(x: 15, y: 720 - 15 - 80, width: 80*3.2, height: 80))
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
-    }
-    
+//    func blendLayerImage()->UIImage {
+//
+//        UIGraphicsBeginImageContext(CGSize(width: 720, height: 720))
+//        let _img = UIImage(named: "watermark")
+//        _img?.draw(in: CGRect(x: 15, y: 720 - 15 - 80, width: 80*3.2, height: 80))
+//        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//
+//        return finalImage!
+//    }
+//
+//    let blendInput = PictureInput(image: blendLayerImage())
+//    blendFilter = AddBlend()
+//    blendInput.processImage()
+//    blendInput --> blendFilter
+//    
     
     
 }
