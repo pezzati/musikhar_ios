@@ -12,11 +12,13 @@ import GPUImage
 class ModeSelectionViewController: UIViewController {
     
     @IBOutlet weak var carousel: iCarousel!
-    @IBOutlet weak var modeNameLabel: UILabel!
+	@IBOutlet weak var carouselTopConstraint: NSLayoutConstraint!
+	@IBOutlet weak var modeNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var camera : Camera!
     let cropFilter = Crop()
+    var post : karaoke!
     
     var attributes : [NSAttributedStringKey: NSMutableParagraphStyle]!
     
@@ -35,11 +37,11 @@ class ModeSelectionViewController: UIViewController {
         style.lineSpacing = 4
         style.alignment = .right
         attributes = [NSAttributedStringKey.paragraphStyle : style]
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         initializeCamera()
+		carouselTopConstraint.constant = 120*(UIScreen.main.bounds.height/568.0) - 80
         carousel.reloadData()
         carousel.scroll(toOffset: 0.00001, duration: 0.0001)
     }
@@ -52,8 +54,6 @@ class ModeSelectionViewController: UIViewController {
             print("Could not initialize rendering pipeline: \(error)")
         }
     }
-    
-    
 }
 
 extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
@@ -93,9 +93,11 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
     }
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
-        
+		
         if option == iCarouselOption.spacing {
-            return 1.1
+//			print(UIScreen.main.bounds.height.description)
+//            return 1.2*(568/UIScreen.main.bounds.height)
+			return 1 + 30/(carousel.frame.height/1.8)
         }
         return value
     }
@@ -121,6 +123,7 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
+        vc.post = post
         vc.mode = Modes(rawValue: index)
         navigationController?.pushViewController(vc, animated: true)
     }

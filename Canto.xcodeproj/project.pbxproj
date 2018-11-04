@@ -21,7 +21,9 @@
 		5D1C3BCD1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1C3BCC1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift */; };
 		5D1C5FF2203DDE480001F529 /* IRANYekanMobileLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D1C5FF1203DDE430001F529 /* IRANYekanMobileLight.ttf */; };
 		5D1E260F2020DA3800A044EA /* WatchPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1E260E2020DA3800A044EA /* WatchPostViewController.swift */; };
+		5D25BDB5218E110F00FFCB17 /* WHTrimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D25BDB4218E110F00FFCB17 /* WHTrimmer.swift */; };
 		5D29A87020A3426E00086F73 /* MixManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D29A86F20A3426E00086F73 /* MixManager.swift */; };
+		5D2AD12D21839D49007C152C /* WHSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2AD12C21839D49007C152C /* WHSlider.swift */; };
 		5D2D00F11FCEBE0E00D642C9 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2D00F01FCEBE0E00D642C9 /* GenreViewController.swift */; };
 		5D2EC90520220B400025AB0D /* PurchaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2EC90420220B400025AB0D /* PurchaseTableViewController.swift */; };
 		5D30BC1320D7D51000C0862A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D30BC1220D7D51000C0862A /* GoogleService-Info.plist */; };
@@ -170,7 +172,9 @@
 		5D1C3BCC1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGenres_TableViewCell.swift; sourceTree = "<group>"; };
 		5D1C5FF1203DDE430001F529 /* IRANYekanMobileLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANYekanMobileLight.ttf; sourceTree = "<group>"; };
 		5D1E260E2020DA3800A044EA /* WatchPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPostViewController.swift; sourceTree = "<group>"; };
+		5D25BDB4218E110F00FFCB17 /* WHTrimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHTrimmer.swift; sourceTree = "<group>"; };
 		5D29A86F20A3426E00086F73 /* MixManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixManager.swift; sourceTree = "<group>"; };
+		5D2AD12C21839D49007C152C /* WHSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHSlider.swift; sourceTree = "<group>"; };
 		5D2D00F01FCEBE0E00D642C9 /* GenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		5D2EC90420220B400025AB0D /* PurchaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewController.swift; sourceTree = "<group>"; };
 		5D30BC1220D7D51000C0862A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -313,6 +317,22 @@
 			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
+		5D25BDB0218E10E300FFCB17 /* WHTrimmer */ = {
+			isa = PBXGroup;
+			children = (
+				5D25BDB4218E110F00FFCB17 /* WHTrimmer.swift */,
+			);
+			name = WHTrimmer;
+			sourceTree = "<group>";
+		};
+		5D2AD12821834C30007C152C /* WHSlider */ = {
+			isa = PBXGroup;
+			children = (
+				5D2AD12C21839D49007C152C /* WHSlider.swift */,
+			);
+			name = WHSlider;
+			sourceTree = "<group>";
+		};
 		5D46350F1F42F09F009DAAD0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +373,8 @@
 		5D4635111F42F0FF009DAAD0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5D25BDB0218E10E300FFCB17 /* WHTrimmer */,
+				5D2AD12821834C30007C152C /* WHSlider */,
 				5DBFFF8B1FBB012900C8C15D /* Cells */,
 				5D17126F1FC2CFBE0041E74A /* Canto-Bridging-Header.h */,
 				5D75EC711F3E050B008F57A7 /* Main.storyboard */,
@@ -921,6 +943,7 @@
 				5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */,
 				5D5DC71F21694D9700E9A29F /* ModeSelectionViewController.swift in Sources */,
 				5D1C3BCB1FE2D9D400B7574B /* GenreSelectionViewController.swift in Sources */,
+				5D25BDB5218E110F00FFCB17 /* WHTrimmer.swift in Sources */,
 				5DAE3B741FD427FC007CE210 /* API_Handler.swift in Sources */,
 				5DAE3B6E1FD4205C007CE210 /* ProfilePictureViewController.swift in Sources */,
 				5DAE3B6A1FD4201C007CE210 /* SignUpViewController.swift in Sources */,
@@ -942,6 +965,7 @@
 				5D1E260F2020DA3800A044EA /* WatchPostViewController.swift in Sources */,
 				5D2EC90520220B400025AB0D /* PurchaseTableViewController.swift in Sources */,
 				5DA64E311FBAEE8A006184E4 /* Extentions.swift in Sources */,
+				5D2AD12D21839D49007C152C /* WHSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,7 +1041,7 @@
 				DEVELOPMENT_TEAM = 3M536NNGRQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1038,7 +1062,7 @@
 				DEVELOPMENT_TEAM = 3M536NNGRQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";

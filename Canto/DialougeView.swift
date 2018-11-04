@@ -108,11 +108,8 @@ class DialougeView {
     
     func chooseKaraType(kara: karaoke, sender: UIViewController) {
         
-        let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
-        vc.hidesBottomBarWhenPushed = true
-        sender.navigationController?.pushViewController(vc, animated: true)
+
         
-        return
         
         if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
             
@@ -128,7 +125,12 @@ class DialougeView {
             AppManager.sharedInstance().getContent(url: kara.link, sender: sender, completionHandler: { success, post in
                 
                 if success{
+                    let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
+                    vc.hidesBottomBarWhenPushed = true
+                    vc.post = post
+                    sender.navigationController?.pushViewController(vc, animated: true)
                     
+                    return
                     
                     let _kara = post as! karaoke
                     
@@ -178,9 +180,8 @@ class DialougeView {
                          vc.post = _kara
                          vc.original = true
                          sender.present(vc, animated: true, completion: nil)*/
-                        let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
-                        sender.navigationController?.pushViewController(vc, animated: true)
-                        //                            sender.tabBarController?.tabBar.isHidden = true
+             
+                        
                         self.hide()
                         self.hide()
                     }

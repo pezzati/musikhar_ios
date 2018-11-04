@@ -12,8 +12,7 @@ import SDWebImage
 class Karaoke_VC: UIViewController {
     
     @IBOutlet weak var Home_TableView: UITableView!
-    @IBOutlet weak var pageController: UIPageControl!
-    @IBOutlet weak var Carousel: iCarousel!
+    var Carousel = iCarousel()
     var storedOffsets = [Int: CGFloat]()
     var genres : [Genre] = []
     var banners = bannersList()
@@ -37,7 +36,7 @@ class Karaoke_VC: UIViewController {
         refreshData(refreshControl)
         Timer.scheduledTimer(withTimeInterval: 5.0 , repeats: true, block: {_ in
             
-            let next =  self.banners.results.count - 1 == self.pageController.currentPage ? 0 : self.pageController.currentPage + 1
+            let next =  self.banners.results.count - 1 == self.Carousel.currentItemIndex ? 0 : self.Carousel.currentItemIndex + 1
             self.Carousel.scrollToItem(at: next, duration: 1)
         })
         
@@ -90,12 +89,8 @@ class Karaoke_VC: UIViewController {
         Carousel.delegate = self
         Carousel.type = .linear
         Carousel.isPagingEnabled = true
-        pageController.currentPage = 0
-        pageController.numberOfPages = 0
         Carousel.clipsToBounds = true
-        pageController.alpha = 0
-        let tempFrame = Carousel.frame
-        Carousel.frame = CGRect(x: tempFrame.minX, y: tempFrame.minY, width: tempFrame.width, height: tempFrame.width/2.03)
+        Carousel.frame = CGRect(x: 0, y: 0, width:view.bounds.width, height:view.bounds.width/2.03)
     }
     
     @objc func onEditClicked() {
@@ -114,8 +109,6 @@ class Karaoke_VC: UIViewController {
         view.layoutIfNeeded()
         genres = AppManager.sharedInstance().getHomeFeed()
         banners = AppManager.sharedInstance().getBanners()
-        pageController.numberOfPages = banners.results.count
-        pageController.currentPage = Carousel.currentItemIndex
         Carousel.reloadData()
         Home_TableView.reloadData()
         refreshControl.endRefreshing()
@@ -132,20 +125,42 @@ class Karaoke_VC: UIViewController {
         AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: { success in
             self.banners = AppManager.sharedInstance().getBanners()
             self.Carousel.reloadData()
-            self.pageController.numberOfPages = self.banners.results.count
-            self.pageController.currentPage = self.Carousel.currentItemIndex
         })
     }
     
 }
 
 extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
-    
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return banners.count > 0 ? 2 : 1
+	}
+	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.genres.count
+		if section == 0 && banners.count > 0 {
+			return 1
+		}
+		return self.genres.count
     }
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if indexPath.section == 0 && banners.count > 0 {
+			return view.bounds.width/2.03
+		}
+		return 240
+	}
+	
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		if banners.count > 0 && indexPath.section == 0 {
+			let cell = UITableViewCell(frame: CGRect.zero)
+			cell.backgroundColor = UIColor.clear
+			cell.addSubview(Carousel)
+			Carousel.frame = CGRect(x: 0, y: 0, width:view.bounds.width, height:view.bounds.width/2.03)
+			Carousel.reloadData()
+			cell.selectionStyle = .none
+			return cell
+		}
         let cell = tableView.dequeueReusableCell(withIdentifier: "GenreCell", for: indexPath) as! Genre_TableViewCell
         cell.KaraokeCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         cell.KaraokeCollectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
@@ -158,7 +173,6 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
         guard let tableViewCell = cell as? Genre_TableViewCell else { return }
         tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
         tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
-        
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -167,6 +181,9 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if indexPath.section == 0 && banners.count > 0 {
+			return
+		}
         let vc = storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
         vc.url = self.genres[indexPath.row].files_link
         vc.name = self.genres[indexPath.row].name
@@ -260,11 +277,7 @@ extension Karaoke_VC : iCarouselDelegate, iCarouselDataSource{
         }
         return value
     }
-    
-    func carouselDidScroll(_ carousel: iCarousel) {
-        
-        pageController.currentPage = carousel.currentItemIndex
-    }
+	
     
 }
 

@@ -118,6 +118,13 @@ public enum Modes : Int {
     case singing = 2
 }
 
+public enum controller {
+	case micVolume
+	case reverb
+	case pitch
+	case rate
+}
+
 
 
 

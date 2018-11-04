@@ -559,6 +559,7 @@ class RequestHandler : NSObject{
             Alamofire.request(self.request!).response(completionHandler:{
                 response in
                 if response.error == nil {
+					print(self.requestType.debugDescription + " done with code: \(response.response?.statusCode)")
                     if  response.response?.statusCode == 202 || response.response?.statusCode == 201 || response.response?.statusCode == 200 {
                         completionHandler(nil, true, nil)
                     }else{
@@ -569,6 +570,10 @@ class RequestHandler : NSObject{
                     }
                     
                 }else{
+					print(self.requestType.debugDescription + " failed request)")
+					print("headers: " + ( self.request.allHTTPHeaderFields?.description ?? "" ))
+					print("body: " + (self.params != nil ? self.params.description : "no params"))
+					
                     self.failed(){ Data,Success,msg in
                         completionHandler(Data, Success, msg)
                         if self.showWaiting { self.dialougeBox.hide() }
@@ -586,6 +591,7 @@ class RequestHandler : NSObject{
                     }
                     break
                 case .success( _):
+					print(self.requestType.debugDescription + " done with code: \(response.response?.statusCode)")
                    if (response.response?.statusCode)! == 200 {
                         print(response.result.value!)
                         var url = response.result.value!
@@ -593,6 +599,9 @@ class RequestHandler : NSObject{
                         url.remove(at: url.index(of: "\"")!)
                     completionHandler(url, true, nil)
                    }else{
+					print(self.requestType.debugDescription + " failed request)")
+					print("headers: " + ( self.request.allHTTPHeaderFields?.description ?? "" ))
+					print("body: " + (self.params != nil ? self.params.description : "no params"))
                     self.failed(){ Data,Success,msg in
                         completionHandler(Data, Success, msg)
                         if self.showWaiting { self.dialougeBox.hide() }
@@ -608,6 +617,11 @@ class RequestHandler : NSObject{
                 
                 switch response.result{
                 case .failure( _):
+					print(self.requestType.debugDescription + " failed request)")
+					print("headers: " + ( self.request.allHTTPHeaderFields?.description ?? "" ))
+					print("body: " + (self.params != nil ? self.params.description : "no params"))
+					print(self.request.url?.absoluteString)
+					print(response.error)
                     self.failed(){ Data,Success,msg in
                         completionHandler(Data, Success, msg)
                         if self.showWaiting { self.dialougeBox.hide() }
@@ -615,7 +629,7 @@ class RequestHandler : NSObject{
                     break
                 case .success( _):
                     
-                    print(response.response?.statusCode)
+                    print(self.requestType.debugDescription + " done with code: \(response.response?.statusCode)")
                     
                     if (response.response?.statusCode)! == 200 {
                         self.parseRecievedData(response: response){

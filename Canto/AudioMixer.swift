@@ -63,9 +63,7 @@ class AudioMixer: NSObject {
             try AVAudioSession.sharedInstance().setActive(true)
          
         } catch{
-            
             print("Initializing AudioMixer (AudioKit) Failed" + error.localizedDescription)
-            
         }
     }
     
