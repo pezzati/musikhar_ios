@@ -43,32 +43,29 @@ class Karaoke_VC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         if shouldRefresh { refreshData(refreshControl) }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Home", detail: "")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         currentOffset =  Home_TableView.contentOffset
         refreshControl.endRefreshing()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
+		
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Home", detail: "")
         AppManager.sharedInstance().sendActions()
     }
     
     func setupNavBar() {
-        
-        let genreItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(self.onEditClicked))
-        navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
+		
+//        let genreItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .plain, target: self, action: #selector(self.onEditClicked))
+//        navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
         navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         navigationItem.title = "کانتو"
         navigationController?.view.backgroundColor = view.backgroundColor
@@ -93,7 +90,7 @@ class Karaoke_VC: UIViewController {
         Carousel.frame = CGRect(x: 0, y: 0, width:view.bounds.width, height:view.bounds.width/2.03)
     }
     
-    @objc func onEditClicked() {
+/*    @objc func onEditClicked() {
         
         AppManager.sharedInstance().addAction(action: "Genre Selection Tapped", session: "Home", detail: "")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "genreSelection") as! GenreSelectionViewController
@@ -103,6 +100,7 @@ class Karaoke_VC: UIViewController {
         Home_TableView.reloadData()
         navigationController?.pushViewController(vc, animated: true)
     }
+*/
     
     @objc private func refreshData(_ sender: Any) {
         

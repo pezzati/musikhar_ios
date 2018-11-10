@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,18 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="O1M-hN-5O0">
-                                <rect key="frame" x="95.666666666666686" y="303.66666666666669" width="184" height="205"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="184" id="0cF-d0-IOF"/>
-                                    <constraint firstAttribute="height" constant="205" id="JhT-Lp-7s3"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="O1M-hN-5O0">
+                                <rect key="frame" x="0.0" y="-94" width="375" height="1000"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.14099776744842529" green="0.14481735229492188" blue="0.16141298413276672" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="O1M-hN-5O0" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5LT-x7-QCE"/>
                             <constraint firstItem="O1M-hN-5O0" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5YE-Ot-xT9"/>
+                            <constraint firstAttribute="trailing" secondItem="O1M-hN-5O0" secondAttribute="trailing" id="euE-HX-ZlX"/>
+                            <constraint firstItem="O1M-hN-5O0" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="odi-Hi-WfG"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -42,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="184" height="205"/>
+        <image name="logo" width="1000" height="1000"/>
     </resources>
 </document>

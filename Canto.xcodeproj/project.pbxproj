@@ -69,6 +69,7 @@
 		5DBFFF911FBB020500C8C15D /* Genre_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */; };
 		5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFFF921FBB07CE00C8C15D /* Classes.swift */; };
 		5DCE6D1D20B432A1004A2236 /* IRANYekanMobileBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */; };
+		5DD065752192EC990011DA56 /* circularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD065742192EC990011DA56 /* circularProgress.swift */; };
 		5DEFB12A215C6ECF00DC045A /* KaraokeCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */; };
 		D43B72403482F8A298A67BD0 /* Pods_CantoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB0E397099A23349EBC7B60 /* Pods_CantoTests.framework */; };
 /* End PBXBuildFile section */
@@ -226,6 +227,7 @@
 		5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre_TableViewCell.swift; sourceTree = "<group>"; };
 		5DBFFF921FBB07CE00C8C15D /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANYekanMobileBold.ttf; sourceTree = "<group>"; };
+		5DD065742192EC990011DA56 /* circularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = circularProgress.swift; sourceTree = "<group>"; };
 		5DD997B3205E844600AC4597 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		5DD997B4205E849D00AC4597 /* Canto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Canto.entitlements; sourceTree = "<group>"; };
 		5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KaraokeCard.xib; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 			children = (
 				5D1712701FC2CFBF0041E74A /* iCarousel.h */,
 				5D1712721FC2D07F0041E74A /* iCarousel.m */,
+				5DD065742192EC990011DA56 /* circularProgress.swift */,
 			);
 			path = "third-party libraries";
 			sourceTree = "<group>";
@@ -938,6 +941,7 @@
 				5D1712731FC2D07F0041E74A /* iCarousel.m in Sources */,
 				5DACF1B02010E96D006CC612 /* SearchViewController.swift in Sources */,
 				5D4EF7BD1FC8395500BF4DA4 /* ShowMessage.swift in Sources */,
+				5DD065752192EC990011DA56 /* circularProgress.swift in Sources */,
 				5D4EF7BB1FC8381E00BF4DA4 /* AppGlobal.swift in Sources */,
 				5D1C3BCD1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift in Sources */,
 				5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */,

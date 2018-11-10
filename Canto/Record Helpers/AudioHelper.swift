@@ -32,13 +32,15 @@ class AudioHelper: NSObject {
 	var timePitch : AKTimePitch!
 	var timer : Timer?
 	var mode : Modes!
+	var maxValue : Float = 1.0
+	var minValue : Float = 0.0
 	
 	init(mode: Modes) {
 		
 		self.mode = mode
 		mainMixer = AKMixer()
 		mic = AKMicrophone()
-		micReverb = AKReverb(mic, dryWetMix: mode == .karaoke ? 0.5 : 0.0)
+		micReverb = AKReverb(mic, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
 		micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeChamber)
 		monitorBooster = AKBooster(micReverb, gain: mode == .dubsmash ? 0.0 : 1.0)
 		mainMixer.connect(input: monitorBooster)
@@ -68,6 +70,7 @@ class AudioHelper: NSObject {
 	func getAudioFile(post: karaoke) {
 		
 		let urlString = mode == .dubsmash ? post.content.original_file_url : post.content.karaoke_file_url
+		if urlString.isEmpty { return }
 		let fileName = (urlString as NSString).lastPathComponent
 		var filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 		filePath.appendPathComponent("karaokes")
@@ -85,11 +88,7 @@ class AudioHelper: NSObject {
 		let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 			return (filePath, [.removePreviousFile])
 		}
-		
-		if downloadRequest != nil {
-		
-		}
-		
+
 		downloadRequest = Alamofire.download(url!, to: destination).downloadProgress(closure: { (progress) in
 			DispatchQueue.main.async {
 				self.downloadPercent = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
@@ -110,6 +109,7 @@ class AudioHelper: NSObject {
 		if filePlayer != nil{
 			fileIsRead = true
 			delegate.fileIsReady(duration: filePlayer.duration)
+			maxValue = Float(60.0/filePlayer.duration)
 			timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateTimer) , userInfo: nil, repeats: true)
 		}else{
 			try? FileManager.default.removeItem(at: url)
@@ -126,7 +126,10 @@ class AudioHelper: NSObject {
 	func seekTo(time: Float){
 		if filePlayer != nil && fileIsRead {
 			let seekTime = Double(time)*filePlayer.duration
-			filePlayer.setPosition(seekTime)
+//			filePlayer.setPosition(seekTime)
+			filePlayer.pause()
+			filePlayer.play(from: seekTime)
+//			filePlayer.resume()
 		}
 		delegate.playerToggled()
 	}
@@ -152,56 +155,52 @@ class AudioHelper: NSObject {
 			break
 		case 6 ... 15:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.mediumRoom)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		case 16 ... 25:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeRoom)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		case 26 ... 35:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.mediumHall)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		case 36 ... 50:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeChamber)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		case 51 ... 65:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeHall)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		case 66 ... 80:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeHall2)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		case 81 ... 100:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.cathedral)
-			micReverb.dryWetMix = 0.5
+			micReverb.dryWetMix = 0.3
 			break
 		default:
 			break
 		}
-		
-////		micReverb.minDelayTime = Double((reverb+0.01)/62.5 + 0.0001) //def : 0.008 , min: 0.0001 , max: 0.1
-////		micReverb.maxDelayTime = Double((reverb+0.01)/10 + 0.0001) //def : 0.050 , min : 0.0001 , max: 0.1
-////		micReverb.randomizeReflections = Double(Int(reverb*10)+1)
-//
-//		micReverb.minDelayTime = Double((reverb)/60 + 0.0001)
-//		micReverb.maxDelayTime = Double((reverb)/10 + 0.0001)
-////		micReverb.randomizeReflections = (Double(reverb*999) + 1)
-//
-//
-//		print(micReverb.minDelayTime)
-//		print(micReverb.maxDelayTime)
-////		print(micReverb.randomizeReflections)
 	}
-	
-	
 	
 	@objc func updateTimer(){
 		if filePlayer != nil && filePlayer.isPlaying{
 			delegate.updatePlayerTime(elapsed: filePlayer.currentTime)
+			let crr = filePlayer.currentTime/filePlayer.duration
+			if crr > Double(maxValue) {
+				seekTo(time: minValue)
+			}
 		}
+	}
+	
+	func startRecording(){
+		seekTo(time: minValue)
+		
+		
+		
 	}
 	
 }

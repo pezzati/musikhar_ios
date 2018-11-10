@@ -18,7 +18,8 @@ struct AppGlobal {
     //Nassab Bundle : nassab.application.canto
     //Sibapp Bundle : com.canto.application
     
-    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
+//    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
+	public static let ServerURL = "http://192.168.1.145:8000/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"
     public static let UserProfileURL = ServerURL + "user/profile"
@@ -118,11 +119,11 @@ public enum Modes : Int {
     case singing = 2
 }
 
-public enum controller {
-	case micVolume
-	case reverb
-	case pitch
-	case rate
+public enum controller : String {
+	case micVolume = "mic"
+	case reverb = "reverb"
+	case pitch = "pitch"
+	case rate = "speed"
 }
 
 

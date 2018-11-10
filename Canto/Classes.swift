@@ -116,11 +116,14 @@ class karaoke_content : EVObject, EVArrayConvertable{
 //                        }
 //                    }
                     if let data = line as? NSDictionary{
-                        let _line = LyricLine(dictionary:data)
+                        var _line = LyricLine(dictionary:data)
                         
 //                        _line.text = _line.text.replacingOccurrences(of: "\\", with: "\"" , options: .literal, range: nil)
 //                        _line.text = _line.text
-                        self.liveLyrics.append(_line)
+						_line.text = _line.text.replacingOccurrences(of: "\\n", with: "", options: .literal , range: nil)
+						if _line.text.count > 0{
+                        	self.liveLyrics.append(_line)
+						}
                         
                     }
                 }
@@ -699,7 +702,7 @@ class mySlider: UISlider{
         var result = super.trackRect(forBounds: bounds)
         result.origin.x = 0
         result.size.width = bounds.size.width
-        result.size.height = 6 //added height for desired effect
+        result.size.height = 11 //added height for desired effect
         return result
     }
     
