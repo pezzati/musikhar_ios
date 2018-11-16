@@ -30,10 +30,15 @@ class AudioHelper: NSObject {
 	var mainMixer : AKMixer!
 	var filePlayer : AKPlayer!
 	var timePitch : AKTimePitch!
+	var fileWriter: AKAudioFile!
+	var fileRecorder: AKNodeRecorder!
+	var voiceWriter: AKAudioFile!
+	var voiceRecorder: AKNodeRecorder!
 	var timer : Timer?
 	var mode : Modes!
 	var maxValue : Float = 1.0
 	var minValue : Float = 0.0
+	var isRecording = false
 	
 	init(mode: Modes) {
 		
@@ -69,7 +74,8 @@ class AudioHelper: NSObject {
 	
 	func getAudioFile(post: karaoke) {
 		
-		let urlString = mode == .dubsmash ? post.content.original_file_url : post.content.karaoke_file_url
+//		let urlString = mode == .dubsmash ? post.content.original_file_url : post.content.karaoke_file_url
+		let urlString = post.content.karaoke_file_url
 		if urlString.isEmpty { return }
 		let fileName = (urlString as NSString).lastPathComponent
 		var filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -109,8 +115,9 @@ class AudioHelper: NSObject {
 		if filePlayer != nil{
 			fileIsRead = true
 			delegate.fileIsReady(duration: filePlayer.duration)
-			maxValue = Float(60.0/filePlayer.duration)
+			maxValue = mode == .karaoke ? 1.0 : Float(60.0/filePlayer.duration)
 			timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateTimer) , userInfo: nil, repeats: true)
+			
 		}else{
 			try? FileManager.default.removeItem(at: url)
 			delegate.failedToReadFile()
@@ -118,12 +125,24 @@ class AudioHelper: NSObject {
 	}
 	
 	func togglePlay(){
-		if filePlayer.isPlaying{ filePlayer.pause() }
-		else{ filePlayer.resume() }
+		
+		do{
+			try AudioKit.start()
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker)
+			try AVAudioSession.sharedInstance().setActive(true)
+		} catch{
+			print("Initializing AudioMixer (AudioKit) Failed" + error.localizedDescription)
+		}
+		if AudioKit.engine.isRunning{
+			if filePlayer.isPlaying{ filePlayer.pause() }
+			else{ filePlayer.resume() }
+		}else{ togglePlay() }
 		delegate.playerToggled()
+		
 	}
 	
 	func seekTo(time: Float){
+		
 		if filePlayer != nil && fileIsRead {
 			let seekTime = Double(time)*filePlayer.duration
 //			filePlayer.setPosition(seekTime)
@@ -186,6 +205,7 @@ class AudioHelper: NSObject {
 		}
 	}
 	
+	
 	@objc func updateTimer(){
 		if filePlayer != nil && filePlayer.isPlaying{
 			delegate.updatePlayerTime(elapsed: filePlayer.currentTime)
@@ -197,10 +217,33 @@ class AudioHelper: NSObject {
 	}
 	
 	func startRecording(){
-		seekTo(time: minValue)
+		filePlayer.pause()
+		fileWriter = try! AKAudioFile(forWriting: AppManager.karaURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount as Any], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
+		fileRecorder = try! AKNodeRecorder(node: timePitch, file: fileWriter)
 		
+		if mode == .singing{
+			let format = mic.outputNode.outputFormat(forBus: 0)
+			voiceWriter = try! AKAudioFile(forWriting: AppManager.voiceURL(), settings:[AVNumberOfChannelsKey:format.channelCount as Any], commonFormat: format.commonFormat, interleaved: format.isInterleaved)
+			voiceRecorder = try! AKNodeRecorder(node: mic, file: voiceWriter)
+		}
+		filePlayer.play(from: Double(minValue)*filePlayer.duration)
 		
+		let when = DispatchTime.now() + 0.1
+		DispatchQueue.main.asyncAfter(deadline: when, execute: {
+			try! self.fileRecorder.record()
+			if self.mode == .singing {
+				try! self.voiceRecorder.record()
+			}
+		})
 		
+		isRecording = true
+	}
+	
+	func stopRecording(){
+		togglePlay()
+		fileRecorder.stop()
+		if mode == .singing{ voiceRecorder.stop() }
+		isRecording = false
 	}
 	
 }

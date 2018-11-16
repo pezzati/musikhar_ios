@@ -18,8 +18,8 @@ struct AppGlobal {
     //Nassab Bundle : nassab.application.canto
     //Sibapp Bundle : com.canto.application
     
-//    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
-	public static let ServerURL = "http://192.168.1.145:8000/"
+    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
+//	public static let ServerURL = "http://192.168.1.145:8000/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"
     public static let UserProfileURL = ServerURL + "user/profile"
@@ -69,6 +69,8 @@ struct AppGlobal {
     public static let modesDescription = [Modes.dubsmash : "با انتخاب این حالت میتوانید روی آهنگ انتخاب شده از خود فیلم بگیرید و دابسمش بسازید. صدای شما ضبط نخواهد شد ولی قادر به تغییر تنظیمات موزیک به دلخواه خود هستید.",
                                           Modes.karaoke : "با انتخاب این حالت پارتی شما اصن یه حال دیگه ای میده، همه میان گوشیو میگیرن داد و بیداد میکنن و با صدای خودشون حال میکنن.",
                                           Modes.singing : "با انتخاب این حالت میتوانید روی آهنگ مورد نظر بازخوانی کنید. صدای شما ضبط خواهد شد و میتوانید فیلم بگیرید یا نگیرید یا هرچی که حال میکنید ما هم باهاش حال میکنیم."]
+
+
 }
 
 

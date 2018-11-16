@@ -1499,7 +1499,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMi-80-z9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5955" y="-621"/>
+            <point key="canvasLocation" x="6639" y="-622"/>
         </scene>
         <!--RecordVC-->
         <scene sceneID="gje-b5-ONJ">
@@ -1520,7 +1520,7 @@
                                     <constraint firstAttribute="height" constant="910" id="u2D-HK-P70"/>
                                 </constraints>
                             </imageView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GyS-oK-H1b">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GyS-oK-H1b" customClass="GPUImageView">
                                 <rect key="frame" x="0.0" y="-1" width="320" height="569"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1677,7 +1677,7 @@
                                             <action selector="rotateTapped:" destination="9vt-d9-8cb" eventType="touchUpInside" id="2hn-gJ-dNn"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5n9-V5-uS8">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5n9-V5-uS8">
                                         <rect key="frame" x="267" y="70" width="35" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="MKK-qE-X4P"/>
@@ -1689,7 +1689,7 @@
                                             <action selector="toggleRatioTapped:" destination="9vt-d9-8cb" eventType="touchUpInside" id="7CB-Lu-jJ1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZT-5H-bQC">
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZT-5H-bQC">
                                         <rect key="frame" x="69" y="70" width="35" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="UOX-R5-oFO"/>
@@ -1845,6 +1845,7 @@
                         <outlet property="recordButton" destination="FEI-lp-f7d" id="HyZ-qp-zIT"/>
                         <outlet property="recordDownloadProgress" destination="g3K-c6-czX" id="cKQ-s5-k7V"/>
                         <outlet property="recordingToolbarView" destination="pqe-Vy-5yZ" id="L7t-QS-l2x"/>
+                        <outlet property="rotateButton" destination="fYI-cF-59Q" id="h6y-DC-N5W"/>
                         <outlet property="settingButton" destination="uZT-5H-bQC" id="rxl-vp-9qF"/>
                         <outlet property="slider1" destination="yDf-CG-LwD" id="Yi7-Oc-kT6"/>
                         <outlet property="slider2" destination="1sj-Eo-4uL" id="5FD-wL-UU5"/>
@@ -1857,6 +1858,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wOh-Fb-Jef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4886.25" y="-622.18309859154931"/>
+        </scene>
+        <!--EditVC-->
+        <scene sceneID="6eg-LZ-hXn">
+            <objects>
+                <viewController storyboardIdentifier="EditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="U0N-f4-p3V" customClass="EditVC" customModule="Canto" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rUn-BC-is7"/>
+                        <viewControllerLayoutGuide type="bottom" id="Eeq-Cg-MUr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="933-Vb-h3I">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fFU-1f-0Fp" customClass="RenderView" customModule="GPUImage">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1409977674" green="0.14481735230000001" blue="0.16141298409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="fFU-1f-0Fp" firstAttribute="leading" secondItem="933-Vb-h3I" secondAttribute="leading" id="XU0-7O-oec"/>
+                            <constraint firstAttribute="trailing" secondItem="fFU-1f-0Fp" secondAttribute="trailing" id="ZZD-wX-mdg"/>
+                            <constraint firstItem="fFU-1f-0Fp" firstAttribute="top" secondItem="933-Vb-h3I" secondAttribute="top" id="kFA-k0-rB9"/>
+                            <constraint firstItem="Eeq-Cg-MUr" firstAttribute="top" secondItem="fFU-1f-0Fp" secondAttribute="bottom" id="scP-AF-KeG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="videoView" destination="fFU-1f-0Fp" id="du1-8k-AsX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G1s-hd-t17" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5674" y="-622"/>
         </scene>
         <!--login-->
         <scene sceneID="VOz-7A-MQ6">
@@ -2460,11 +2494,11 @@
                         <viewControllerLayoutGuide type="bottom" id="XSW-L2-z9g"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SJk-47-4Pl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="403"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JM2-HS-O8F">
-                                <rect key="frame" x="0.0" y="99" width="320" height="309"/>
+                                <rect key="frame" x="0.0" y="99" width="320" height="304"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="EYO-Ys-FNY">
                                     <size key="itemSize" width="140" height="190"/>
@@ -2479,7 +2513,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="آهنگ مورد نظر را جست و جو کنید" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfi-Mv-4t1">
-                                <rect key="frame" x="59" y="195" width="202.5" height="18"/>
+                                <rect key="frame" x="59" y="192.5" width="202.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2541,7 +2575,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" largeTitles="YES" id="2F3-fq-4jg">
-                        <rect key="frame" x="0.0" y="20" width="320" height="91"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.14117647059999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

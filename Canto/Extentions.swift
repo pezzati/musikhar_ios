@@ -153,6 +153,7 @@ extension CMTime {
 
 extension Double {
 	var durationText:String {
+		if self.isNaN { return "00:00"}
 		let hours:Int = Int(self / 3600)
 		let minutes:Int = Int(self.truncatingRemainder(dividingBy: 3600) / 60)
 		let seconds:Int = Int(self.truncatingRemainder(dividingBy: 60))

@@ -26,6 +26,7 @@ class WHRecordVC: UIViewController {
 	@IBOutlet weak var recordButton: UIButton!
 	@IBOutlet weak var settingButton: UIButton!
 	@IBOutlet weak var trimmer: WHTrimmer!
+	@IBOutlet weak var rotateButton: UIButton!
 	
 	
 	//Karaoke player bar
@@ -53,8 +54,6 @@ class WHRecordVC: UIViewController {
 	@IBOutlet weak var slider3: WHSlider!
 	@IBOutlet weak var slider4: WHSlider!
 	
-	
-	
 	//Background
 	@IBOutlet weak var LubiaBackgroundIV: UIImageView!
 	
@@ -66,6 +65,8 @@ class WHRecordVC: UIViewController {
     var isSquare = false
     var isFrontCamera = true
 	var songDuration : Double = 0
+	var currentLyra = 0
+	var isRecording = false
 	
     override var prefersStatusBarHidden: Bool {
         return true
@@ -91,7 +92,6 @@ class WHRecordVC: UIViewController {
 	}
 	
 	func setup(){
-		
 		closeButton.setImage(#imageLiteral(resourceName: "close").maskWithColor(color: UIColor.white), for: .normal)
 		playerTimeSlider.setThumbImage(UIImage(named: "thumb"), for: .normal)
 		cameraHelper = mode == .karaoke ? nil : CameraHelper(inView: cameraView)
@@ -105,9 +105,11 @@ class WHRecordVC: UIViewController {
 		lyricsCloseButton.isHidden = true
 		lyricBoxHeightConstraint.constant = 0
 		lyricsBoxTopConstraint.constant = 58
+		line1.adjustsFontSizeToFitWidth = true
+		line2.adjustsFontSizeToFitWidth = true
+		line3.adjustsFontSizeToFitWidth = true
 		setupSliders()
 		prepareAudio()
-		
 	}
 	
 	func setupSliders(){
@@ -172,6 +174,23 @@ class WHRecordVC: UIViewController {
 	
     //MARK: -Recording Toolbar Actions
     @IBAction func recordTapped(_ sender: UIButton) {
+		
+		if !isRecording{
+			trimmer.inactivate()
+			cameraHelper?.startRecording()
+			audioHelper?.startRecording()
+			rotateButton.isHidden = true
+			isRecording = true
+			sender.setImage(UIImage(named: "stop"), for: .normal)
+		}else{
+			audioHelper?.stopRecording()
+			cameraHelper?.stopRecording()
+			sender.setImage(UIImage(named: "record"), for: .normal)
+			isRecording = false
+			let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
+			editVC.mode = mode
+			navigationController?.pushViewController(editVC, animated: true)
+		}
     }
     
     @IBAction func rotateTapped(_ sender: UIButton) {
@@ -207,6 +226,7 @@ class WHRecordVC: UIViewController {
 	}
 	
 	@IBAction func playerSliderTouchUpInside(_ sender: mySlider) {
+		print(sender.value)
 		audioHelper?.seekTo(time: sender.value)
 	}
 }
@@ -225,12 +245,23 @@ extension WHRecordVC: AudioHelperDelegate{
 			trimmer.updatePlayLine(end: elapsed/songDuration)
 		}
 		
-		return
+		let lyrics = post.content.liveLyrics
+		if currentLyra + 1 < lyrics.count {
+			if Float(elapsed) > lyrics[currentLyra+1].time{
+				updateLyrics()
+			}
+		}
+	}
+	
+	func updateLyrics() {
+		
+		if !(audioHelper?.fileIsRead)! { return }
 		
 		let lives = post.content.liveLyrics
-		if let current = lives.last(where: {$0.time < Float(elapsed)}) {
+		if let current = lives.last(where: {$0.time < Float((audioHelper?.filePlayer.currentTime)!)}) {
 			line2.text = current.text
 			if let currentIndex = lives.lastIndex(of: current){
+				currentLyra = currentIndex
 				line3.text = currentIndex + 1 < lives.count ? lives[currentIndex+1].text : ""
 				line1.text = currentIndex == 0 ? "" :  lives[currentIndex-1].text
 			}else{
@@ -243,10 +274,12 @@ extension WHRecordVC: AudioHelperDelegate{
 		if audioHelper!.filePlayer != nil && audioHelper!.fileIsRead {
 			playButton.setImage(UIImage(named: audioHelper?.filePlayer.isPlaying ?? false ? "pause" : "play"), for: .normal)
 		}
+		updateLyrics()
 	}
 	
 	func fileIsReady(duration : Double) {
 		songDuration = duration
+		
 		
 		if mode == .karaoke{
 			playerRemainingTimeLabel.text = duration.durationText
@@ -284,7 +317,7 @@ extension WHRecordVC: AudioHelperDelegate{
 			self.closeLyrics(UIButton())
 		}
 		
-		controllersToolbarView.isHidden = false
+//		controllersToolbarView.isHidden = false
 		if !(audioHelper?.filePlayer.isPlaying)!{ audioHelper?.togglePlay()}
 	}
 

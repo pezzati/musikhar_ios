@@ -16,8 +16,7 @@ class ModeSelectionViewController: UIViewController {
 	@IBOutlet weak var modeNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    var camera : Camera!
-    let cropFilter = Crop()
+    var camera : GPUImageVideoCamera!
     var post : karaoke!
     
     var attributes : [NSAttributedStringKey: NSMutableParagraphStyle]!
@@ -48,7 +47,8 @@ class ModeSelectionViewController: UIViewController {
     
     func initializeCamera(){
         do {
-            camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
+//            camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
+			camera = GPUImageVideoCamera(sessionPreset:  AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: .front)
             camera.startCapture()
         } catch {
             print("Could not initialize rendering pipeline: \(error)")
@@ -67,11 +67,12 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
         let cardView = UIView()
         let height = carousel.frame.height
         cardView.frame = CGRect(x: 0, y: 0, width: height/1.8, height: height)
-        let cameraView = RenderView(frame: cardView.bounds)
+		let cameraView = GPUImageView(frame: cardView.bounds)
         cameraView.fillMode = .preserveAspectRatioAndFill
         cardView.addSubview(cameraView)
         if camera != nil {
-            camera --> cameraView
+//            camera --> cameraView
+			camera.addTarget(cameraView)
         }
         
         cardView.backgroundColor = UIColor.clear

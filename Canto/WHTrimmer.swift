@@ -50,7 +50,6 @@ class WHTrimmer: UIView {
 		trimLine.backgroundColor = UIColor.white
 		trimLine.clipsToBounds = true
 		
-		
 		playingLine = UIView(frame: CGRect.zero)
 //		playingLine.round(corners: [.topRight, .bottomRight], radius: 5)
 		playingLine.backgroundColor = UIColor.green
@@ -93,21 +92,17 @@ class WHTrimmer: UIView {
 	}
 	
 	func updatePlayLine(end: Double){
-		
 		let length = end - minValue
 		if length > maxLength || length < 0{ return }
 		playingLine.alpha = 1
 		playingLine.frame = CGRect(x: 15, y: 0, width: CGFloat(length/(maxValue-minValue))*(trimLine.frame.width - 30)  , height: 10)
-		
 	}
 	
 	@objc func draggedMax(_ sender: UIPanGestureRecognizer) {
-		
 		let translation = sender.translation(in: self)
-		
 		if sender.state == .began{
 			return
-		}else if sender.state == .changed || sender.state == .ended {
+		}else {
 			let newVal = maxValue + Double((translation.x)/(frame.width-30))
 			if newVal > 1 || newVal < minValue {
 				return
@@ -135,7 +130,7 @@ class WHTrimmer: UIView {
 		
 		if sender.state == .began{
 			return
-		}else if sender.state == .changed || sender.state == .ended {
+		}else {
 			let newVal = minValue + Double((translation.x)/(frame.width-30))
 			
 			if newVal < 0 || newVal > maxValue {
@@ -155,8 +150,12 @@ class WHTrimmer: UIView {
 			if delegate != nil {
 				delegate?.valueChanged(sender: self, minVal: Float(minValue), maxVal: Float(maxValue))
 			}
-			
 		}
 	}
-
+	
+	func inactivate(){
+		isUserInteractionEnabled = false
+		maxThumb.isUserInteractionEnabled = false
+		minThumb.isUserInteractionEnabled = false
+	}
 }

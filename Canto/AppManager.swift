@@ -691,7 +691,60 @@ class AppManager: NSObject {
             })
         }
     }
-    
+	
+	class func karaURL()->URL{
+		
+		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let name = [dirPath, "Temp" + "K.caf"]
+		let url = NSURL.fileURL(withPathComponents: name)
+//		try? FileManager.default.removeItem(at: url!)
+		return url!
+	}
+	
+	class func voiceURL()->URL{
+		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let name = [dirPath, "Temp" + "R.caf"]
+		let url = NSURL.fileURL(withPathComponents: name)
+//		try? FileManager.default.removeItem(at: url!)
+		return url!
+	}
+	
+	class func videoURL()->URL{
+		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let name = [dirPath, "Temp" + "C.mp4"]
+		let url = NSURL.fileURL(withPathComponents: name)
+//		try? FileManager.default.removeItem(at: url!)
+		return url!
+	}
+	
+	class func mixedAudioURL()->URL{
+		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let name = [dirPath, "Temp" + "AudioKit.caf"]
+		let url = NSURL.fileURL(withPathComponents: name)
+//		try? FileManager.default.removeItem(at: url!)
+		return url!
+	}
+	
+	class func silentVideoURL()->URL{
+		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let name = [dirPath, "Temp" + "S.mp4"]
+		let url = NSURL.fileURL(withPathComponents: name)
+//		try? FileManager.default.removeItem(at: url!)
+		return url!
+	}
+	
+	class func finalOutputURL()->URL{
+		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let currentDateTime = NSDate()
+		let formatter = DateFormatter()
+		formatter.dateFormat = "ddMMyyyy-HHmmss"
+		let date = formatter.string(from: currentDateTime as Date)
+		let name = [dirPath, date + ".mp4"]
+		let url = NSURL.fileURL(withPathComponents: name)
+//		try? FileManager.default.removeItem(at: url!)
+		return url!
+	}
+	
     
     /*
     private func renderPost(post: unrenderedPost, completionHandler: @escaping (URL?) -> ()){
