@@ -8,34 +8,121 @@
 
 import UIKit
 import GPUImage
+import Photos
 import AVFoundation
 
 class EditVC: UIViewController {
 
-	@IBOutlet weak var videoView: RenderView!
+	@IBOutlet weak var videoView: GPUImageView!
 	
 	public var mode : Modes!
-	var movie : MovieInput!
-	var filter = SaturationAdjustment()
+	var movie : GPUImageMovie!
+	var playerItem: AVPlayerItem!
+	var mainPlayer: AVPlayer!
+	var audioPlayer: AVPlayer!
+	var audioPlayerItem: AVPlayerItem!
+	@IBOutlet weak var timeLineView: UIView!
+	@IBOutlet weak var elapsedTimeLineView: UIView!
+	var timer: Timer!
+	var post: karaoke!
 	
-	
+	@IBOutlet weak var elapsedWidthConstraint: NSLayoutConstraint!
 	override var prefersStatusBarHidden: Bool {
 		return true
 	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
 		loadVideo()
+		timeLineView.layer.cornerRadius = 5
+		elapsedTimeLineView.layer.cornerRadius = 5
+		
+		timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: {_ in
+			let elapsedPercent = self.mainPlayer.currentTime().seconds/self.playerItem.duration.seconds
+			self.elapsedWidthConstraint.constant = self.timeLineView.frame.width*CGFloat(elapsedPercent)
+		})
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	func loadVideo(){
-		movie = try? MovieInput(url:AppManager.videoURL(), playAtActualSpeed:true)
-		movie --> filter --> videoView
-		movie.start()
+		let playerItem = AVPlayerItem(url: AppManager.videoURL())
+		mainPlayer = AVPlayer(playerItem: playerItem)
+		movie = GPUImageMovie(playerItem: playerItem)
+		movie.addTarget(videoView)
+		movie.startProcessing()
+		audioPlayerItem = AVPlayerItem(url: AppManager.karaURL())
+		audioPlayer = AVPlayer(playerItem: audioPlayerItem)
+		NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidPlayToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+	}
+	
+	func setFilter(){
 		
 		
 		
 	}
-
+	
+	override func viewDidAppear(_ animated: Bool) {
+		mainPlayer.play()
+		audioPlayer.play()
+		do{
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback , with: .defaultToSpeaker)
+			try AVAudioSession.sharedInstance().setActive(true)
+		}catch{
+			print(error)
+		}
+	}
+	
+	@IBAction func saveTapped(_ sender: Any) {
+		closeTapped(sender)
+	}
+	
+	@IBAction func closeTapped(_ sender: Any) {
+		navigationController?.popToRootViewController(animated: true)
+	}
+	
+	@objc func playerItemDidPlayToEndTime(){
+		mainPlayer.seek(to: kCMTimeZero)
+		audioPlayer.seek(to: kCMTimeZero)
+		mainPlayer.play()
+		audioPlayer.play()
+	}
+	
+	func saveVideo(){
+		
+		let finalURL = AppManager.finalOutputURL()
+		MediaHelper.mixAudioVideo(audio: mode == .dubsmash ? AppManager.karaURL() : AppManager.mixedAudioURL() , video: AppManager.silentVideoURL(), output: finalURL, completionHandler: {
+			
+			success in
+			
+			
+			if success {
+				
+				let userPostObject = userPost()
+				userPostObject.kara = self.post
+				userPostObject.file.link = (finalURL.lastPathComponent)
+				AppManager.sharedInstance().addUserPost(post: userPostObject)
+				var placeHolder : PHObjectPlaceholder?
+				PHPhotoLibrary.requestAuthorization({status in
+					if status == .authorized{
+						
+						PHPhotoLibrary.shared().performChanges({
+							let creationRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: finalURL )
+							placeHolder = creationRequest?.placeholderForCreatedAsset
+						}, completionHandler: { one, two in
+							let deadlineTime = DispatchTime.now() + .milliseconds(1)
+							DispatchQueue.main.asyncAfter(deadline: deadlineTime, execute: {
+								//saved to gallery !
+							})
+						})
+					} else {
+						//gallery access not granted
+					}
+				})
+			}
+		})
+	}
+	
 }

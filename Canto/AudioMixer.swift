@@ -21,6 +21,7 @@ class AudioMixer: NSObject {
     var booster : AKBooster!
     var isPlaying = false
     var fakePitch : AKTimePitch!
+	
     
     init(recordedFileURL: URL, karaFileURL: URL) {
         

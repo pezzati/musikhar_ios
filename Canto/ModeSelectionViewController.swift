@@ -46,13 +46,12 @@ class ModeSelectionViewController: UIViewController {
     }
     
     func initializeCamera(){
-        do {
 //            camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
 			camera = GPUImageVideoCamera(sessionPreset:  AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: .front)
+		if camera == nil { return }
+			camera.outputImageOrientation = .portrait
             camera.startCapture()
-        } catch {
-            print("Could not initialize rendering pipeline: \(error)")
-        }
+			
     }
 }
 

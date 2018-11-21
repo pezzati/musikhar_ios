@@ -183,12 +183,14 @@ class WHRecordVC: UIViewController {
 			isRecording = true
 			sender.setImage(UIImage(named: "stop"), for: .normal)
 		}else{
-			audioHelper?.stopRecording()
 			cameraHelper?.stopRecording()
+			audioHelper?.stopRecording()
 			sender.setImage(UIImage(named: "record"), for: .normal)
 			isRecording = false
 			let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
 			editVC.mode = mode
+			audioHelper!.close()
+			audioHelper = nil
 			navigationController?.pushViewController(editVC, animated: true)
 		}
     }

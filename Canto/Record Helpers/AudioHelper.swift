@@ -218,8 +218,16 @@ class AudioHelper: NSObject {
 	
 	func startRecording(){
 		filePlayer.pause()
-		fileWriter = try! AKAudioFile(forWriting: AppManager.karaURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount as Any], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
+		try? FileManager.default.removeItem(at: AppManager.karaURL())
+		fileWriter = try! AKAudioFile(forWriting: AppManager.karaURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount, AVSampleRateKey: filePlayer.processingFormat!.sampleRate], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
 		fileRecorder = try! AKNodeRecorder(node: timePitch, file: fileWriter)
+		
+		print(filePlayer.processingFormat?.channelCount)
+		print(fileWriter.processingFormat.channelCount)
+		print(filePlayer.processingFormat)
+		print(fileWriter.processingFormat)
+		
+		
 		
 		if mode == .singing{
 			let format = mic.outputNode.outputFormat(forBus: 0)
