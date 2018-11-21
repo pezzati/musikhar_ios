@@ -11,58 +11,59 @@ import GPUImage
 
 class CameraHelper: NSObject {
 
-    var camera : Camera!
-    var blendFilter : AddBlend!
-    var cameraView : RenderView?
-	var movieWriter: MovieOutput!
-	var size = Size(width: 720, height: 720)
+    var camera : GPUImageVideoCamera!
+    var blendFilter : GPUImageAddBlendFilter!
+    var cameraView : GPUImageView?
+	var movieWriter: GPUImageMovieWriter!
+	var size = CGSize(width: 720, height: 720)
 
     init(inView : UIView) {
-        cameraView = RenderView(frame: inView.bounds)
+        cameraView = GPUImageView(frame: inView.bounds)
         inView.addSubview(cameraView!)
-        
-        do {
-            camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
-            cameraView?.fillMode = .preserveAspectRatioAndFill
-            camera --> cameraView!
-            camera.startCapture()
-			size = Size(width: 720, height: Float(720*(inView.frame.height/inView.frame.width)))
-        } catch {
-            print("Could not initialize rendering pipeline: \(error)")
-        }
-    }
+		camera = GPUImageVideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: AVCaptureDevice.Position.front )
+		if camera == nil{ return }
+		camera.outputImageOrientation = .portrait
+		cameraView?.fillMode = .preserveAspectRatioAndFill
+		camera.addTarget(cameraView)
+		camera.startCapture()
+		size = CGSize(width: 720, height: Int(Float(720*(inView.frame.height/inView.frame.width))))
+	}
     
     func updateView(inView : UIView){
         if cameraView != nil {
             cameraView?.removeFromSuperview()
-            cameraView = RenderView(frame: inView.bounds)
-			size = Size(width: 720, height: Float(720*(inView.frame.height/inView.frame.width)))
+            cameraView = GPUImageView(frame: inView.bounds)
+			size = CGSize(width: 720.0, height: Double(Float(720*(inView.frame.height/inView.frame.width))))
             cameraView?.fillMode = .preserveAspectRatioAndFill
             inView.addSubview(cameraView!)
             if camera == nil { return }
-            camera --> cameraView!
+			camera.addTarget(cameraView)
+			camera.outputImageOrientation = .portrait
             camera.startCapture()
         }
     }
     
     func rotateCamera(front : Bool, inView : UIView){
-        let location : PhysicalCameraLocation = front ? .frontFacing : .backFacing
-        do {
-            camera = try Camera(sessionPreset: .hd1280x720 , location: location )
-            updateView(inView: inView)
-        } catch {
-            print("Could not initialize rendering pipeline: \(error)")
-        }
+		let location : AVCaptureDevice.Position = front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back
+		camera = GPUImageVideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: location )
+		if camera == nil{ return }
+		camera.outputImageOrientation = .portrait
+		updateView(inView: inView)
     }
 	
 	func startRecording(){
-		movieWriter = try! MovieOutput(URL: AppManager.videoURL(), size: size)
-		let blendInput = PictureInput(image: blendLayerImage())
-		blendFilter = AddBlend()
-		blendInput.processImage()
-		blendInput --> blendFilter
+		try? FileManager.default.removeItem(at: AppManager.videoURL())
+		movieWriter = GPUImageMovieWriter(movieURL: AppManager.videoURL(), size: size)
+//		let blendInput = GP
+//		let blendInput = PictureInput(image: blendLayerImage())
+//		blendFilter = AddBlend()
+//		blendInput.processImage()
+//		blendInput --> blendFilter
 //		camera --> blendFilter -->  movieWriter
-		camera --> movieWriter
+//		camera --> movieWriter
+		if camera == nil{ return }
+		camera.addTarget(movieWriter)
+		camera.horizontallyMirrorFrontFacingCamera = true
 		movieWriter.startRecording()
 	}
 	
