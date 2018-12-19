@@ -189,6 +189,7 @@ class WHRecordVC: UIViewController {
 			isRecording = false
 			let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
 			editVC.mode = mode
+			editVC.post = post
 			audioHelper!.close()
 			audioHelper = nil
 			navigationController?.pushViewController(editVC, animated: true)

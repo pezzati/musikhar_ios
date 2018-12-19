@@ -89,9 +89,9 @@ class WatchPostViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let userInfo = AppManager.sharedInstance().getUserInfo()
+//        let userInfo = AppManager.sharedInstance().getUserInfo()
         self.userImageView.image = AppManager.sharedInstance().userAvatar
-        self.userNameLabel.text = userInfo.first_name 
+//        self.userNameLabel.text = userInfo.first_name 
         self.playerView.isHidden = false
         self.headerView.alpha = 1
         Player?.play()

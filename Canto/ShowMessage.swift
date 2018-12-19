@@ -23,6 +23,7 @@ class ShowMessage: NSObject {
         let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "باشه", style: UIAlertActionStyle.default, handler: nil))
         vc.present(alert, animated: true, completion: nil)
+
     }
     
     public static func message(title: String, message: String, vc: UIViewController){

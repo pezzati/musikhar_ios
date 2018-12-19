@@ -22,10 +22,10 @@ class GenreViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: self.url)
+//        self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: self.url)
+		getMorePosts()
         self.collectionView.reloadData()
         self.navigationItem.title = name
-        
     }
     
     override func viewDidLoad() {
@@ -42,8 +42,8 @@ class GenreViewController: UIViewController {
     }
     
     func getMorePosts(){
-        
-        let request = RequestHandler(type: .genrePosts , requestURL: self.results.next, shouldShowError: true, sender: self, waiting: false, force: false)
+		
+		let request = RequestHandler(type: .genrePosts , requestURL: results.count == 0 ? self.url : self.results.next, shouldShowError: true, sender: self, waiting: false, force: false)
         
         request.sendRequest(completionHandler: { more_posts, success, msg in
             if success {

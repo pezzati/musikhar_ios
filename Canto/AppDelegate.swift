@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         GIDSignIn.sharedInstance().clientID = "243773746715-ahsopgmn3jfvqthmkn32mi75lbc69hso.apps.googleusercontent.com"
@@ -38,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var vc : UIViewController!
         
         if (UserDefaults.standard.value(forKey: "110Cache") as? Bool) == nil {
-            AppManager.sharedInstance().clearGenresCache()
+//            AppManager.sharedInstance().clearGenresCache()
             UserDefaults.standard.setValue(true, forKey: "110Cache")
         }
         
@@ -46,17 +45,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
             if token.characters.count > 20 {
                 
-                if AppManager.sharedInstance().getUserInfo().first_name == ""{
-                    vc = storyBoard.instantiateViewController(withIdentifier: "PhotoPicker")
-                }
+//                if AppManager.sharedInstance().getUserInfo().first_name == ""{
+//                    vc = storyBoard.instantiateViewController(withIdentifier: "PhotoPicker")
+//                }
                 vc = storyBoard.instantiateViewController(withIdentifier: "mainTabBar")
             }else{
-                vc = storyBoard.instantiateViewController(withIdentifier: "login")
+                vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
             }
         }else{
-            vc = storyBoard.instantiateViewController(withIdentifier: "login")
+            vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
         }
-        
+		
+		
         
         self.window!.rootViewController = vc
         self.window!.makeKeyAndVisible()
@@ -158,8 +158,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func logUser() {
         // TODO: Use the current user's information
         // You can call any combination of these three methods
-        Crashlytics.sharedInstance().setUserIdentifier(AppManager.sharedInstance().getUserInfo().username)
-        
+//        Crashlytics.sharedInstance().setUserIdentifier(AppManager.sharedInstance().getUserInfo().username)
+		
     }
 
 }

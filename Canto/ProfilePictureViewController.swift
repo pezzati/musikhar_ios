@@ -37,8 +37,8 @@ class ProfilePictureViewController: UIViewController {
         if !isFirstTime{
             imageView.image = AppManager.sharedInstance().userAvatar
             hasImage = true
-            nameTF.text = AppManager.sharedInstance().getUserInfo().first_name
-            lastNameTF.text = AppManager.sharedInstance().getUserInfo().last_name
+//            nameTF.text = AppManager.sharedInstance().getUserInfo().first_name
+//            lastNameTF.text = AppManager.sharedInstance().getUserInfo().last_name
         }
         
     }
@@ -49,8 +49,8 @@ class ProfilePictureViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if isFirstTime{
-            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
-            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
+//            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
+//            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
         }
         
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Profile Info", detail: "")
@@ -149,7 +149,7 @@ class ProfilePictureViewController: UIViewController {
                 if success {
                     let user = data as! user
                     UserDefaults.standard.setValue(user.toJsonString(), forKey: AppGlobal.userInfoCache)
-                    AppManager.sharedInstance().getUserInfo()
+//                    AppManager.sharedInstance().getUserInfo()
                     self.done()
                 }
             })

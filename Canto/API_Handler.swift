@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import EVReflection
 
 class API_Handler: NSObject {
     
@@ -777,7 +778,19 @@ class RequestHandler : NSObject{
         }else if self.requestType == .karaoke {
             let result = karaoke(data: response.data!)
             completionHandler(result, true, nil)
-        }
+		}else if self.requestType == .homeFeed{
+			
+			let json = try! JSONSerialization.jsonObject(with: response.data!, options: []) as! [NSDictionary]
+			var results : [karaList] = []
+			
+			for item in json{
+				let list = karaList(dictionary: item)
+				results.append(list)
+			}
+			
+			
+			completionHandler(results, true, nil)
+		}
     }
     
     

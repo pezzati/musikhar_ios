@@ -42,6 +42,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             }
         }
         self.navigationItem.title = "جستجو"
+		
+		searchTextField.attributedPlaceholder = NSAttributedString(string: "جست و جو",
+															   attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
     }
     
     override func viewDidAppear(_ animated: Bool) {

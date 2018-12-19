@@ -8,32 +8,39 @@
 
 import UIKit
 
-class CodeVerificationViewController: UIViewController {
+class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var code: UITextField!
     @IBOutlet weak var code_View: UIView!
     var gestureRecognizer : UITapGestureRecognizer?
+	@IBOutlet weak var titleLbl: UILabel!
+	@IBOutlet weak var descLbl: UILabel!
+	@IBOutlet weak var addressLbl: UILabel!
+	
     var email = ""
     var mobile = ""
     
     override func viewDidLoad() {
         code_View.round()
-        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(resignResponders))
-        self.view.addGestureRecognizer(gestureRecognizer!)
-        let text = "کد تایید برای " +  email + mobile + "  " + "ارسال شد"
-        
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 3
-        style.alignment = .center
-        let attributes = [NSAttributedStringKey.paragraphStyle : style]
-        numLabel.attributedText = NSAttributedString(string: text, attributes: attributes)
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Code Verification", detail: "")
+		code.delegate = self
+		code.attributedPlaceholder = NSAttributedString(string: "1234", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedString.Key(rawValue: NSAttributedString.Key.kern.rawValue) : 30.0])
+		AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Code Verification", detail: "")
+		titleLbl.text = mobile.count == 0 ? "تایید آدرس ایمیل" : "تایید شماره همراه"
+		descLbl.text = mobile.count == 0 ? "کد تایید برای آدرس ایمیل زیر ارسال شد" : "کد تایید برای شماره موبایل زیر ارسال شد"
+		code.defaultTextAttributes.updateValue(30.0,forKey: NSAttributedString.Key.kern.rawValue)
+		addressLbl.text = mobile + email
+		code.becomeFirstResponder()
+		navigationController?.title = "تایید کد"
+		navigationController?.navigationItem.title = "تایید کد"
     }
-    
-    @objc func resignResponders(){
-        code.resignFirstResponder()
-    }
+
+	
+	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		nextTapped(textField)
+		return false
+	}
+	
     
     override func viewDidDisappear(_ animated: Bool) {
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Code Verification", detail: "")
@@ -48,7 +55,6 @@ class CodeVerificationViewController: UIViewController {
             code_View.shake()
             AppManager.sharedInstance().addAction(action: "Wrong Code", session: "Code Verification", detail: "Not 4 Digits")
         }else{
-            resignResponders()
             let params = ["code" : code.text!.englishDigits, "mobile" : self.mobile , "email" : self.email, "udid" : UIDevice.current.identifierForVendor!.uuidString, "bundle" : Bundle.main.bundleIdentifier! ]  as [String : Any]
             
             let request = RequestHandler(type: .codeVerification , requestURL: AppGlobal.SubmitVerificationCode, params: params, shouldShowError: true, timeOut: 10, retry: 1, sender: self, waiting: true, force: false)
@@ -60,10 +66,10 @@ class CodeVerificationViewController: UIViewController {
                     print(json!["token"] as! String )
                     UserDefaults.standard.set(json!["token"] as! String, forKey: AppGlobal.Token)
                     
-                    AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {_ in })
-                    AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
-                    AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
-                    
+//                    AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {_ in })
+//                    AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
+//                    AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
+					
                     
                     if json!["new_user"] as! Bool {
                         AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Signup")
@@ -119,12 +125,6 @@ class CodeVerificationViewController: UIViewController {
 //                self.present(vc!, animated: true, completion: nil)
             }} )
     }
-    
-    
-    @IBAction func close(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Back Tapped", session: "Code Verification", detail: "")
-        self.dismiss(animated: true, completion: nil)
-    
-    }
+	
     
 }

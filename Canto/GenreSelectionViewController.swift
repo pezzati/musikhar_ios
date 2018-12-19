@@ -24,13 +24,13 @@ class GenreSelectionViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Genre Selection", detail: "")
-        self.genres = AppManager.sharedInstance().getGenreList()
+//        self.genres = AppManager.sharedInstance().getGenreList()
         self.tableView.reloadData()
         if self.genres.results.isEmpty{
-            AppManager.sharedInstance().fetchGenreList(sender: self,force: true, completionHandler: {_ in
-                self.genres = AppManager.sharedInstance().getGenreList()
-                self.tableView.reloadData()
-            })
+//            AppManager.sharedInstance().fetchGenreList(sender: self,force: true, completionHandler: {_ in
+//                self.genres = AppManager.sharedInstance().getGenreList()
+//                self.tableView.reloadData()
+//            })
         }
         
         if firstTime{
@@ -38,9 +38,9 @@ class GenreSelectionViewController: UIViewController, UITableViewDelegate, UITab
                 genre.liked_it = false
             }
             self.tableView.reloadData()
-            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
-            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
-            
+//            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
+//            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
+			
         }
         
         
@@ -103,21 +103,21 @@ class GenreSelectionViewController: UIViewController, UITableViewDelegate, UITab
         
 
         
-        AppManager.sharedInstance().setFavoriteGenres(sender: self, params: favoriteList, completionHandler:{ success in
-            if success{
-                
-                UserDefaults.standard.set(self.genres.toJsonString(), forKey: AppGlobal.GenresListCache)
-                AppManager.sharedInstance().getGenreList()
-//                AppManager.sharedInstance().fetchHomeFeed(sender: self, completionHandler: { _ in
-                
-                if self.shouldReturn{
-                    self.navigationController?.popViewController(animated: true)
-                }else{
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
-                    self.present(vc!, animated: true, completion: nil)
-                }
-//                })
-            }})
+//        AppManager.sharedInstance().setFavoriteGenres(sender: self, params: favoriteList, completionHandler:{ success in
+//            if success{
+//
+//                UserDefaults.standard.set(self.genres.toJsonString(), forKey: AppGlobal.GenresListCache)
+//                AppManager.sharedInstance().getGenreList()
+////                AppManager.sharedInstance().fetchHomeFeed(sender: self, completionHandler: { _ in
+//
+//                if self.shouldReturn{
+//                    self.navigationController?.popViewController(animated: true)
+//                }else{
+//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
+//                    self.present(vc!, animated: true, completion: nil)
+//                }
+////                })
+//            }})
     }
     
     @IBAction func back(_ sender: Any) {

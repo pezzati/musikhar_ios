@@ -85,10 +85,10 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
                         print(json!["token"] as! String )
                         UserDefaults.standard.set(json!["token"] as! String, forKey: AppGlobal.Token)
                         
-                        AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {_ in })
-                        AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
-                        AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
-                        
+//                        AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {_ in })
+//                        AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
+//                        AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
+						
                         AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Login")
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
                         self.present(vc!, animated: true, completion: nil)
@@ -147,7 +147,7 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
         
         AppManager.sharedInstance().addAction(action: "Next Tapped", session: "Signup", detail: byPhone ? "Mobile" : "Email")
         
-        if(!byPhone && !isValidEmail(testStr: (emailOrPhone?.text)!)){
+        if(!byPhone && !AppManager.isValidEmail(testStr: (emailOrPhone?.text)!)){
             emailOrPhone_View.shake()
             ShowMessage.message(title: "ایمیل", message: "معتبر نیست.", vc: self)
         }else if(byPhone && (emailOrPhone?.text?.englishDigits.characters.count != 11 || (emailOrPhone?.text?.englishDigits.prefix(2) != "09" ) ) ){
@@ -212,21 +212,8 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
     }
     
     //MARK: - Entry Validation
-    func isValidUsernamePassword(str: String) -> Bool{
-        let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.")
-        if str.rangeOfCharacter(from: characterset.inverted) != nil {
-            return false
-        }else{
-            return true
-        }
-    }
-    
-    func isValidEmail(testStr:String) -> Bool {
-        // print("validate calendar: \(testStr)")
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: testStr)
-    }
+
+
     
     @objc func keyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
@@ -273,8 +260,8 @@ class SignUpViewController: UIViewController , GIDSignInUIDelegate, GIDSignInDel
                     let json = data as? [String:Any]
                     print(json!["token"] as! String )
                     UserDefaults.standard.set(json!["token"] as! String, forKey: AppGlobal.Token)
-                    AppManager.sharedInstance().fetchHomeFeed(sender:(UIApplication.shared.keyWindow?.rootViewController)! , force: false, all: true, completionHandler: {_ in })
-                    
+//                    AppManager.sharedInstance().fetchHomeFeed(sender:(UIApplication.shared.keyWindow?.rootViewController)! , force: false, all: true, completionHandler: {_ in })
+					
                     if json!["new_user"] as! Bool {
                         
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker")

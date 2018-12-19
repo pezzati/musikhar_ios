@@ -12,7 +12,7 @@ import Photos
 import AVFoundation
 
 class EditVC: UIViewController {
-
+	
 	@IBOutlet weak var videoView: GPUImageView!
 	
 	public var mode : Modes!
@@ -31,24 +31,30 @@ class EditVC: UIViewController {
 		return true
 	}
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		loadVideo()
 		timeLineView.layer.cornerRadius = 5
 		elapsedTimeLineView.layer.cornerRadius = 5
 		
 		timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: {_ in
+			if self.mainPlayer == nil || self.playerItem == nil { return }
+			//			if !self.mainPlayer.currentTime().isIndefinite || !self.playerItem.duration.isIndefinite { return }
 			let elapsedPercent = self.mainPlayer.currentTime().seconds/self.playerItem.duration.seconds
-			self.elapsedWidthConstraint.constant = self.timeLineView.frame.width*CGFloat(elapsedPercent)
+			if elapsedPercent.isFinite && elapsedPercent < 1 && elapsedPercent > 0 {
+				self.elapsedWidthConstraint.constant = self.timeLineView.frame.width*CGFloat(elapsedPercent)
+			}
 		})
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		NotificationCenter.default.removeObserver(self)
+		timer.invalidate()
+		timer = nil
 	}
 	
 	func loadVideo(){
-		let playerItem = AVPlayerItem(url: AppManager.videoURL())
+		playerItem = AVPlayerItem(url: AppManager.videoURL())
 		mainPlayer = AVPlayer(playerItem: playerItem)
 		movie = GPUImageMovie(playerItem: playerItem)
 		movie.addTarget(videoView)
@@ -76,10 +82,12 @@ class EditVC: UIViewController {
 	}
 	
 	@IBAction func saveTapped(_ sender: Any) {
-		closeTapped(sender)
+		saveVideo()
 	}
 	
 	@IBAction func closeTapped(_ sender: Any) {
+		audioPlayer.pause()
+		mainPlayer.pause()
 		navigationController?.popToRootViewController(animated: true)
 	}
 	
@@ -93,13 +101,11 @@ class EditVC: UIViewController {
 	func saveVideo(){
 		
 		let finalURL = AppManager.finalOutputURL()
-		MediaHelper.mixAudioVideo(audio: mode == .dubsmash ? AppManager.karaURL() : AppManager.mixedAudioURL() , video: AppManager.silentVideoURL(), output: finalURL, completionHandler: {
+		MediaHelper.mixAudioVideo(audio: mode == .dubsmash ? AppManager.karaURL() : AppManager.mixedAudioURL() , video: AppManager.videoURL(), output: finalURL, completionHandler: {
 			
 			success in
 			
-			
 			if success {
-				
 				let userPostObject = userPost()
 				userPostObject.kara = self.post
 				userPostObject.file.link = (finalURL.lastPathComponent)
@@ -122,6 +128,7 @@ class EditVC: UIViewController {
 					}
 				})
 			}
+			self.closeTapped(self)
 		})
 	}
 	

@@ -14,7 +14,7 @@ class Karaoke_VC: UIViewController {
     @IBOutlet weak var Home_TableView: UITableView!
     var Carousel = iCarousel()
     var storedOffsets = [Int: CGFloat]()
-    var genres : [Genre] = []
+    var homeFeed : [karaList] = []
     var banners = bannersList()
     var viewCount = 0
     private let refreshControl = UIRefreshControl()
@@ -35,16 +35,40 @@ class Karaoke_VC: UIViewController {
         refreshControl.beginRefreshing()
         refreshData(refreshControl)
         Timer.scheduledTimer(withTimeInterval: 5.0 , repeats: true, block: {_ in
-            
             let next =  self.banners.results.count - 1 == self.Carousel.currentItemIndex ? 0 : self.Carousel.currentItemIndex + 1
             self.Carousel.scrollToItem(at: next, duration: 1)
         })
-        
+		fetchData()
+		
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if shouldRefresh { refreshData(refreshControl) }
+		navigationController?.navigationBar.prefersLargeTitles = false
     }
+	
+	func fetchData(refresh: Bool = false){
+		
+		if banners.results.isEmpty || refresh{
+			AppManager.sharedInstance().fetchBanners(sender: self, force: !refresh) { success in
+				self.banners = AppManager.sharedInstance().banners
+				self.Carousel.reloadData()
+			}
+		}
+		
+		if homeFeed.isEmpty || refresh{
+			AppManager.sharedInstance().fetchHomeFeed(vc: self, force: !refresh) { success in
+				self.homeFeed = AppManager.sharedInstance().homeFeed
+				self.Home_TableView.reloadData()
+			}
+		}
+		
+		if AppManager.sharedInstance().userInfo.username.isEmpty || refresh{
+			AppManager.sharedInstance().fetchUserInfo(sender: self, force: !refresh)
+		}
+		
+		
+	}
     
     override func viewDidAppear(_ animated: Bool) {
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
@@ -105,25 +129,8 @@ class Karaoke_VC: UIViewController {
     @objc private func refreshData(_ sender: Any) {
         
         view.layoutIfNeeded()
-        genres = AppManager.sharedInstance().getHomeFeed()
-        banners = AppManager.sharedInstance().getBanners()
-        Carousel.reloadData()
-        Home_TableView.reloadData()
+		fetchData(refresh: true)
         refreshControl.endRefreshing()
-        
-        AppManager.sharedInstance().fetchUserInfo(sender: self, completionHandler: {_ in })
-        AppManager.sharedInstance().fetchHomeFeed(sender: self, force: genres.isEmpty, completionHandler: { success in
-            if self.genres.isEmpty {
-                DispatchQueue.main.async {
-                    self.genres = AppManager.sharedInstance().getHomeFeed()
-                    self.Home_TableView.reloadData()
-                }
-            }
-        })
-        AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: { success in
-            self.banners = AppManager.sharedInstance().getBanners()
-            self.Carousel.reloadData()
-        })
     }
     
 }
@@ -138,7 +145,7 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
 		if section == 0 && banners.count > 0 {
 			return 1
 		}
-		return self.genres.count
+		return self.homeFeed.count
     }
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -162,7 +169,7 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "GenreCell", for: indexPath) as! Genre_TableViewCell
         cell.KaraokeCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
         cell.KaraokeCollectionView.register(UINib(nibName: "KaraokeCard", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
-        cell.GenreNameLabel.text = self.genres[indexPath.row].name
+        cell.GenreNameLabel.text = self.homeFeed[indexPath.row].name
         
         return cell
     }
@@ -183,8 +190,9 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
 			return
 		}
         let vc = storyboard?.instantiateViewController(withIdentifier: "genre_more") as! GenreViewController
-        vc.url = self.genres[indexPath.row].files_link
-        vc.name = self.genres[indexPath.row].name
+//        vc.url = self.genres[indexPath.row].files_link
+		vc.url = homeFeed[indexPath.row].more
+        vc.name = homeFeed[indexPath.row].name
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -194,13 +202,14 @@ extension Karaoke_VC: UITableViewDataSource, UITableViewDelegate{
 extension Karaoke_VC : UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = genres[collectionView.tag].karas.results.count
+//        let count = genres[collectionView.tag].karas.results.count
+		let count = homeFeed[collectionView.tag].data.count
         return count > 4 ? 5 : count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
-        let post = self.genres[collectionView.tag].karas.results[indexPath.row]
+        let post = homeFeed[collectionView.tag].data[indexPath.row]
         cell.setUp(post: post)
         cell.transform = CGAffineTransform(scaleX: -1, y: 1)
         
@@ -208,9 +217,9 @@ extension Karaoke_VC : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AppManager.sharedInstance().addAction(action: "Karaoke Tapped", session: "Home", detail: self.genres[collectionView.tag].karas.results[indexPath.row].id.description)
+        AppManager.sharedInstance().addAction(action: "Karaoke Tapped", session: "Home", detail: homeFeed[collectionView.tag].data[indexPath.row].id.description)
         let karaType = DialougeView()
-        karaType.chooseKaraType(kara: self.genres[collectionView.tag].karas.results[indexPath.row], sender: self)
+        karaType.chooseKaraType(kara: homeFeed[collectionView.tag].data[indexPath.row], sender: self)
     }
     
 }
@@ -255,7 +264,8 @@ extension Karaoke_VC : iCarouselDelegate, iCarouselDataSource{
                     vc.url = item.link
                     vc.name = item.title
                     vc.bannerURL = item.file
-                    self.present(vc, animated: true, completion: nil)
+//                    self.present(vc, animated: true, completion: nil)
+					self.navigationController?.pushViewController(vc, animated: true)
                 }
             })
             

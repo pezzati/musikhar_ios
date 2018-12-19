@@ -19,8 +19,8 @@ class DialougeView {
     
     func showBackgroundView(vc: UIViewController){
         self.shadowView = UIView(frame: CGRect(x: -scrWidth, y: -scrHeight, width: scrWidth*3, height: scrHeight*3))
-        self.shadowView.backgroundColor = UIColor.white
-        self.shadowView.alpha = 0.7
+        self.shadowView.backgroundColor = UIColor.clear
+        self.shadowView.alpha = 1
         vc.view.addSubview(shadowView)
     }
     
@@ -111,17 +111,17 @@ class DialougeView {
 
         
         
-        if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
-            
-            let vc = sender.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
-            if !AppGlobal.NassabVersion{
-                sender.present(vc, animated: true, completion: nil)
-            }else{
-                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: nil)
-            }
-            return
-        }else{
-            
+//        if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
+//
+//            let vc = sender.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
+//            if !AppGlobal.NassabVersion{
+//                sender.present(vc, animated: true, completion: nil)
+//            }else{
+//                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: nil)
+//            }
+//            return
+//        }else{
+		
             AppManager.sharedInstance().getContent(url: kara.link, sender: sender, completionHandler: { success, post in
                 
                 if success{
@@ -233,7 +233,7 @@ class DialougeView {
                 }
             })
             
-        }
+//        }
     }
     
     

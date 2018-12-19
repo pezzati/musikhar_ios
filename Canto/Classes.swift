@@ -138,6 +138,32 @@ class karaoke_content : EVObject, EVArrayConvertable{
     
 }
 
+class karaList: EVObject, EVArrayConvertable {
+	
+	var more : String = ""
+	var data : [karaoke] = []
+	var name : String = ""
+	
+	override func setValue(_ value: Any!, forUndefinedKey key: String) {
+		
+		if let results = value as? NSArray {
+			self.data = []
+			for post in results {
+				self.data.append((post as? karaoke)!)
+			}
+		}
+	}
+	
+	func convertArray(_ key: String, array: Any) -> NSArray {
+		return [] as NSArray
+	}
+	
+}
+
+
+
+
+
 class genre_more : EVObject , EVArrayConvertable{
     var count : Int = 0
     var next : String = ""

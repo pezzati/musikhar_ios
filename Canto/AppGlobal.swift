@@ -18,14 +18,14 @@ struct AppGlobal {
     //Nassab Bundle : nassab.application.canto
     //Sibapp Bundle : com.canto.application
     
-    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "http://canto-app.ir/"
+    public static let ServerURL = debugMode ? "https://stg.canto-app.ir/" : "http://canto-app.ir/"
 //	public static let ServerURL = "http://192.168.1.145:8000/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"
     public static let UserProfileURL = ServerURL + "user/profile"
     public static let SubmitVerificationCode = ServerURL + "user/profile/verify/"
     public static let ResendVerificationCode = ServerURL + "user/profile/verify?context=&username="
-    public static let HomeFeed = ServerURL + "song/home"
+    public static let HomeFeed = ServerURL + "v2/song/home"
     public static let UploadProfilePicture = ServerURL + "user/profile/upload_pic/"
     public static let HomeBannersList = ServerURL + "analysis/banners"
     public static let GenresListURL = ServerURL + "song/genre/"
@@ -42,6 +42,7 @@ struct AppGlobal {
     public static let BacktoryUpload = "http://storage.backtory.com/files"
     public static let NassabLogin = ServerURL + "user/gettoken/"
     public static let Feed = ServerURL + "song/feeds"
+//	public static let HomeFeed = ServerURL + "v2/song/home"
 
 //    public static let AllPoemsURL = ServerURL + "song/poems"
 //    public static let AllSongsURL = ServerURL + "song/songs/"
@@ -99,6 +100,7 @@ public enum RequestType {
     case karaoke
     case nassabLogin
     case feedList
+	case homeFeed
 }
 
 public enum RequestState {
@@ -128,6 +130,11 @@ public enum controller : String {
 	case rate = "speed"
 }
 
+
+public enum loginMethod {
+	case phone
+	case email
+}
 
 
 

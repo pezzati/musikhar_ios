@@ -60,8 +60,20 @@ extension UIView{
     
     func selectModeGradient(mode: Modes) -> CALayer{
         let gradiantLayer = CAGradientLayer()
-        let topColor = UIColor(red: 0/255, green: 248/255, blue: 248/255, alpha: 0.7).cgColor
-        let bottomColor =  UIColor(red: 14/255, green: 72/255, blue: 172/255, alpha: 0.7).cgColor
+		var topColor = UIColor.clear.cgColor
+		var bottomColor = UIColor.clear.cgColor
+		switch mode {
+		case .dubsmash:
+			topColor = UIColor(red: 0/255, green: 248/255, blue: 248/255, alpha: 0.7).cgColor
+			bottomColor =  UIColor(red: 14/255, green: 72/255, blue: 172/255, alpha: 0.7).cgColor
+			break
+		case .karaoke:
+			break
+		case .singing:
+			topColor = UIColor(red: 9/255, green: 255/255, blue: 163/255, alpha: 0.7).cgColor
+			bottomColor =  UIColor(red: 86/255, green: 128/255, blue: 0/255, alpha: 0.7).cgColor
+			break
+		}
         gradiantLayer.colors = [topColor, bottomColor]
         gradiantLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradiantLayer.endPoint = CGPoint(x: 0.0, y: 1.0)

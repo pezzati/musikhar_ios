@@ -23,7 +23,6 @@ class ModeSelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeCamera()
         carousel.dataSource = self
         carousel.delegate = self
         carousel.type = .linear
@@ -47,11 +46,14 @@ class ModeSelectionViewController: UIViewController {
     
     func initializeCamera(){
 //            camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
-			camera = GPUImageVideoCamera(sessionPreset:  AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: .front)
-		if camera == nil { return }
-			camera.outputImageOrientation = .portrait
-            camera.startCapture()
-			
+		DispatchQueue.main.async {
+			self.camera = GPUImageVideoCamera(sessionPreset:  AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: .front)
+			if self.camera == nil { return }
+			self.camera.horizontallyMirrorFrontFacingCamera = true
+			self.camera.outputImageOrientation = .portrait
+			self.camera.startCapture()
+			self.carousel.reloadData()
+		}
     }
 }
 

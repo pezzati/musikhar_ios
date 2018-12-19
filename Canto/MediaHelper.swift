@@ -179,11 +179,9 @@ class MediaHelper: NSObject {
         let compositionVideoTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
         do {
             try compositionVideoTrack?.insertTimeRange(CMTimeRange.init(start: kCMTimeZero, duration: videoDuration) , of: videoAsset.tracks(withMediaType: AVMediaType.video).first!, at: kCMTimeZero)
-            
         }
         catch{
             print(error)
-            
         }
         
         let compositionAudioTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)

@@ -65,6 +65,8 @@
 		5DAFB3EE219EDB4E003B3583 /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5DAFB3ED219EDB15003B3583 /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DAFFCE020D976EE00184226 /* PostListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFFCDF20D976EE00184226 /* PostListTableViewCell.swift */; };
 		5DAFFCE220DD08BA00184226 /* IRANYekanMobileRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DAFFCE120DD08B800184226 /* IRANYekanMobileRegular.ttf */; };
+		5DB3F55921B60556008B620F /* LoginMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB3F55821B60556008B620F /* LoginMethodViewController.swift */; };
+		5DB3F56021B60F0B008B620F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB3F55F21B60F0B008B620F /* LoginViewController.swift */; };
 		5DBCC550219C5BF10092CE2E /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBCC54F219C5BF10092CE2E /* EditVC.swift */; };
 		5DBDA4CB208A3AD5003A709A /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBDA4CA208A3AD5003A709A /* AppManager.swift */; };
 		5DBFFF911FBB020500C8C15D /* Genre_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */; };
@@ -225,6 +227,8 @@
 		5DAFB3E4219EDB15003B3583 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		5DAFFCDF20D976EE00184226 /* PostListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListTableViewCell.swift; sourceTree = "<group>"; };
 		5DAFFCE120DD08B800184226 /* IRANYekanMobileRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANYekanMobileRegular.ttf; sourceTree = "<group>"; };
+		5DB3F55821B60556008B620F /* LoginMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMethodViewController.swift; sourceTree = "<group>"; };
+		5DB3F55F21B60F0B008B620F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5DBCC54F219C5BF10092CE2E /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		5DBDA4CA208A3AD5003A709A /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre_TableViewCell.swift; sourceTree = "<group>"; };
@@ -372,6 +376,8 @@
 				5D4034DC21528EC700A1D4D1 /* WHRecordVC.swift */,
 				5D5DC71E21694D9700E9A29F /* ModeSelectionViewController.swift */,
 				5DBCC54F219C5BF10092CE2E /* EditVC.swift */,
+				5DB3F55821B60556008B620F /* LoginMethodViewController.swift */,
+				5DB3F55F21B60F0B008B620F /* LoginViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -977,10 +983,12 @@
 				5D1712711FC2CFBF0041E74A /* iCarousel.h in Sources */,
 				5DAE3B6C1FD42049007CE210 /* CodeVerificationViewController.swift in Sources */,
 				5D2D00F11FCEBE0E00D642C9 /* GenreViewController.swift in Sources */,
+				5DB3F56021B60F0B008B620F /* LoginViewController.swift in Sources */,
 				5D0C81632095D791002D9A21 /* RecordManager.swift in Sources */,
 				5D75EC6E1F3E050B008F57A7 /* AppDelegate.swift in Sources */,
 				5DBCC550219C5BF10092CE2E /* EditVC.swift in Sources */,
 				5DBDA4CB208A3AD5003A709A /* AppManager.swift in Sources */,
+				5DB3F55921B60556008B620F /* LoginMethodViewController.swift in Sources */,
 				5D3E881E2171047300F16642 /* CameraHelper.swift in Sources */,
 				5DA6D9C8209F4713003218B6 /* AudioMixer.swift in Sources */,
 				5D1E260F2020DA3800A044EA /* WatchPostViewController.swift in Sources */,

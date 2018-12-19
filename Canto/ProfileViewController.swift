@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         DispatchQueue.global(qos: .background).async {
-            self.userInfo = AppManager.sharedInstance().getUserInfo()
+//            self.userInfo = AppManager.sharedInstance().getUserInfo()
             self.posts = AppManager.sharedInstance().getUserPostsList()
             DispatchQueue.main.async {
                 self.noPostsView.isHidden = self.posts.posts.count != 0
@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController {
         if self.userInfo.first_name == ""{
             AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {
                 _ in
-                self.userInfo = AppManager.sharedInstance().getUserInfo()
+//                self.userInfo = AppManager.sharedInstance().getUserInfo()
                 self.posts = AppManager.sharedInstance().getUserPostsList()
                 self.noPostsView.isHidden = self.posts.posts.count != 0
                 self.updateInfo()
