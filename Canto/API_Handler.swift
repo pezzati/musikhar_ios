@@ -12,91 +12,7 @@ import EVReflection
 
 class API_Handler: NSObject {
     
-    /*
-    public static func signUp(params : Parameters, completionHandler: @escaping (String, ResultStatus) -> ()){
-        let url = URL(string: AppGlobal.UserSignupURL)
-        Alamofire.request(url!, method: .post, parameters: params , encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON{ response in
-            switch response.result{
-            case .failure( _):
-                print(response.description)
-                completionHandler("", ResultStatus.InternetConnection)
-                break
-            case .success( _):
-                if (response.response?.statusCode)! == 200 {
-                    do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String:String]
-                        if let token = json?["token"]{ completionHandler(token, ResultStatus.Success) }
-                        else{ completionHandler("", ResultStatus.ServerError) }
-                    }catch{}
-                }else{
-                    do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [[String:String]]
-                        if let errorMsg = json?[0]["error"]{ completionHandler(errorMsg, ResultStatus.ServerError) } else{ completionHandler("", ResultStatus.ServerError) }
-                    }catch{}
-                }
-                break
-        }
-    }
-    }
-    */
-    
-    /*
-    public static func login(params : Parameters, completionHandler: @escaping (String, ResultStatus) -> ()){
-        let url = URL(string: AppGlobal.UserLoginURL)
-        Alamofire.request(url!, method: .post, parameters: params , encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON{ response in
-            switch response.result{
-            case .failure( _):
-                completionHandler("", ResultStatus.InternetConnection)
-                break
-            case .success( _):
-                if (response.response?.statusCode)! == 200 {
-                    do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String:String]
-                        if let token = json?["token"]{ completionHandler(token, ResultStatus.Success) }
-                        else{ completionHandler("", ResultStatus.ServerError) }
-                    }catch{}
-                }else{
-                    do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [[String:String]]
-                        if let errorMsg = json?[0]["error"]{ completionHandler(errorMsg, ResultStatus.ServerError) } else{ completionHandler("", ResultStatus.ServerError) }
-                    }catch{}
-                }
-                break
-            }
-        }
-    }
-    */
-    
-    /*public static func submitVerificationCode(params : Parameters, completionHandler: @escaping (String, ResultStatus) -> ()){
-        let url = URL(string: AppGlobal.SubmitVerificationCode)
-        Alamofire.request(url!, method: .post, parameters: params , encoding: JSONEncoding.default, headers: ["Content-Type": "application/json", "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseJSON{ response in
-            
-            if response.response?.statusCode == 200{
-                completionHandler("", ResultStatus.Success)
-                print("Verification Successful")
-            }else{
-            
-            switch response.result{
-            case .failure( _):
-                completionHandler("", ResultStatus.InternetConnection)
-                break
-            case .success( _):
-                if (response.response?.statusCode)! == 200 {
-                        completionHandler("", ResultStatus.Success)
-                        print("Verification Successful")
-                }else if (response.response?.statusCode)! == 401 {
-                    do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [[String:String]]
-                        if let errorMsg = json?[0]["error"]{ completionHandler(errorMsg, ResultStatus.Forbidden) } else{ completionHandler("", ResultStatus.Forbidden) }
-                    }catch{completionHandler("", ResultStatus.Forbidden)}
-                }else {
-                    do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [[String:String]]
-                        if let errorMsg = json?[0]["error"]{ completionHandler(errorMsg, ResultStatus.ServerError) } else{ completionHandler("", ResultStatus.ServerError) }
-                    }catch{completionHandler("", ResultStatus.ServerError)}
-                }
-                break
-            }
-            }
-        }
-    }*/
-    
     public static func resendVerificationCode(mobile: String, email: String, completionHandler: @escaping (String, ResultStatus) -> ()){
-//        "user/profile/verify?context=&username="
         
         var urlString = AppGlobal.ServerURL + "user/profile/verify?context="
         if mobile.isEmpty {
@@ -125,258 +41,6 @@ class API_Handler: NSObject {
             }
         }
     }
-    
-    /*
-    public static func getHomeList( completionHandler: @escaping (homeKaraokeFeed? , ResultStatus) -> ()){
-        
-        let requestURL = URL(string: AppGlobal.HomeFeed)
-        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseArray{ (response: DataResponse<[homeGenre]>) in
-            
-            switch response.result{
-            case .failure(let error):
-                print("Request failed with error: " + String(describing: error))
-                completionHandler(nil, .InternetConnection)
-                break
-                
-            case .success( _):
-                if((response.response?.statusCode)! == 200){
-                    print("Request sent successfuly")
-                    let feed = homeKaraokeFeed()
-                    if let result = response.result.value {
-                        for item in result {
-                            feed.genres.append(item)
-                        }
-                    }
-                    let cache = feed.toJsonString()
-                    UserDefaults.standard.set(cache, forKey: AppGlobal.HomeFeedCache)
-                    
-                    completionHandler(feed, .Success)
-                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-                    print("Forbidden")
-                    completionHandler(nil, .Forbidden)
-                }else{
-                    print("Request returned error with status code: " + String(describing: response.response!.statusCode) + "JSON : " + String(describing: response.data))
-                    completionHandler(nil, .ServerError)
-                }
-            }
-        }
-    }
-    
-    */
-    
-//    public static func getGenrePosts(url : String, completionHandler: @escaping (genre_more? , ResultStatus) -> ()){
-//
-//        let requestURL = URL(string: url)
-//        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseData{ response in
-//
-//            switch response.result{
-//            case .failure(let error):
-//                print("Request failed with error: " + String(describing: error))
-//                completionHandler(nil, .InternetConnection)
-//                break
-//
-//            case .success( _):
-//                if((response.response?.statusCode)! == 200){
-//                    print("Request sent successfuly")
-//                     let results = genre_more(data: response.data!)
-//                    completionHandler(results, .Success)
-//                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-//                    print("Forbidden")
-//                    completionHandler(nil, .Forbidden)
-//                }else{
-//                    print("Request returned error with status code: " + String(describing: response.response!.statusCode) + "JSON : " + String(describing: response.data))
-//                    completionHandler(nil, .ServerError)
-//                }
-//            }
-//        }
-//    }
-    /*
-    public static func getUserInfo(completionHandler: @escaping (user? , ResultStatus) -> ()){
-        
-        let requestURL = URL(string: AppGlobal.UserProfileURL)
-        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseData{ response in
-            
-            switch response.result{
-            case .failure(let error):
-                print("Request failed with error: " + String(describing: error))
-                completionHandler(nil, .InternetConnection)
-                break
-                
-            case .success( _):
-                if((response.response?.statusCode)! == 200){
-                    print("Request sent successfuly")
-                    let results = user(data: response.data!)
-                    completionHandler(results, .Success)
-                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-                    print("Forbidden")
-                    completionHandler(nil, .Forbidden)
-                }else{
-                    print("Request returned error with status code: " + String(describing: response.response!.statusCode) + "JSON : " + String(describing: response.data))
-                    completionHandler(nil, .ServerError)
-                }
-            }
-        }
-    }
-    */
-    
-    /*
-    public static func getHomeBannerList( completionHandler: @escaping (bannersList? , ResultStatus) -> ()){
-        
-        let requestURL = URL(string: AppGlobal.HomeBannersList)
-        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseData{ response in
-            
-            switch response.result{
-            case .failure(let error):
-                print("Request failed with error: " + String(describing: error))
-                completionHandler(nil, .InternetConnection)
-                break
-                
-            case .success( _):
-                if((response.response?.statusCode)! == 200){
-                    print("Request sent successfuly")
-                    let res = bannersList(data: response.data!)
-                    let cache = res.toJsonString()
-                    UserDefaults.standard.set(cache, forKey: AppGlobal.BannersCache)
-                    completionHandler(res, .Success)
-                    
-                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-                    print("Forbidden")
-                    completionHandler(nil, .Forbidden)
-                }else{
-                    print("Request returned error with status code: " + String(describing: response.response!.statusCode) + "JSON : " + String(describing: response.data))
-                    completionHandler(nil, .ServerError)
-                }
-            }
-        }
-    }
-    */
-    
-    /*
-    public static func getGenreList(completionHandler: @escaping (GenresList? , ResultStatus) -> ()){
-        
-        
-        let requestURL = URL(string: AppGlobal.GenresListURL)
-        
-        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseData{ response in
-            
-            switch response.result{
-            case .failure(let error):
-                print("Request failed with error: " + String(describing: error))
-                completionHandler(nil, .InternetConnection)
-                break
-                
-            case .success( _):
-                if((response.response?.statusCode)! == 200){
-                    print("Request sent successfuly")
-                    let res = GenresList(data: response.data!)
-                    let cache = res.toJsonString()
-                    UserDefaults.standard.set(cache, forKey: AppGlobal.GenresListCache)
-                    completionHandler(res, .Success)
-                    
-                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-                    print("Forbidden")
-                    completionHandler(nil, .Forbidden)
-                }else{
-                    print("Request returned error with status code: " + String(describing: response.response!.statusCode) + "JSON : " + String(describing: response.data))
-                    completionHandler(nil, .ServerError)
-                }
-            }
-        }
-    }
-    */
-    
-    /*
-    public static func setFavoriteGenres(reqMethod : HTTPMethod, params : [String], completionHandler: @escaping (ResultStatus) -> ()){
-        
-        let requestURL = URL(string: AppGlobal.SetFavoriteGenresURL)
-        
-        var request = URLRequest(url: requestURL!)
-        request.httpMethod = reqMethod.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(UserDefaults.standard.value(forKey: AppGlobal.Token) as! String, forHTTPHeaderField: "USERTOKEN" )
-        
-        request.httpBody = try! JSONSerialization.data(withJSONObject: params)
-        
-        
-        Alamofire.request(request).response { response in
-
-            if response.error == nil{
-               if((response.response?.statusCode)! < 210 && (response.response?.statusCode)! >= 200){
-                    print("SUCCESS")
-                    completionHandler(.Success)
-                }else{
-                    print("Request returned error with status code: " + String(describing: response.response!.statusCode) + "JSON : " + String(describing: response.data))
-                    completionHandler(.ServerError)
-                }
-        } else {
-                print("Request returned error with : " + response.error.debugDescription  )
-            completionHandler(.InternetConnection)
-        }
-        }
-    }
-    */
-    
-//    public static func getSingleKara(karaURL : String, completionHandler: @escaping (karaoke? , ResultStatus) -> ()){
-//
-//        let requestURL = URL(string: karaURL)
-//
-//        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseData{ response in
-//
-//            switch response.result{
-//            case .failure(let error):
-//                print("Request failed with error: " + String(describing: error))
-//                completionHandler(nil, .InternetConnection)
-//                break
-//
-//            case .success( _):
-//                if((response.response?.statusCode)! == 200){
-//                    print("Request sent successfuly")
-//                    let res = karaoke(data: response.data!)
-//                    completionHandler(res, .Success)
-//
-//                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-//                    print("Forbidden")
-//                    completionHandler(nil, .Forbidden)
-//                }else{
-//                    print("Request failed !" )
-//                    completionHandler(nil, .ServerError)
-//                }
-//            }
-//        }
-//    }
-    
-    
-//    public static func getPackages( completionHandler: @escaping (packagesList? , ResultStatus) -> ()){
-//
-//
-//        let requestURL = URL(string: AppGlobal.PackagesList)
-//
-//        Alamofire.request(requestURL!, method: .get, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json" , "USERTOKEN" : UserDefaults.standard.value(forKey: AppGlobal.Token) as! String]).responseData{ response in
-//
-//            switch response.result{
-//            case .failure(let error):
-//                print("Request failed with error: " + String(describing: error))
-//                completionHandler(nil, .InternetConnection)
-//                break
-//
-//            case .success( _):
-//                if((response.response?.statusCode)! == 200){
-//
-//                    let res = packagesList(data: response.data!)
-//                    completionHandler(res, .Success)
-//
-//                }else if((response.response?.statusCode)! < 410 && (response.response?.statusCode)! >= 400){
-//                    print("Forbidden")
-//                    completionHandler(nil, .Forbidden)
-//                }else{
-//                    print("Request failed !" )
-//                    completionHandler(nil, .ServerError)
-//                }
-//            }
-//        }
-//    }
-    
-    
     public static func uploadFileToBT( fileURL: URL ){
         var data : Data? = nil
         print(fileURL.lastPathComponent)
@@ -435,7 +99,6 @@ class API_Handler: NSObject {
         
         
     }
-
 }
 
 class RequestHandler : NSObject{
@@ -741,8 +404,7 @@ class RequestHandler : NSObject{
            }else{ completionHandler(nil,false,nil) }
             
         }else if self.requestType == .userInfo || self.requestType == .updateUserInfo{
-            
-            
+			
             let result = user(data: response.data!)
             completionHandler(result, true, nil)
             
@@ -754,16 +416,14 @@ class RequestHandler : NSObject{
                 completionHandler(result, true, nil)
             }else{ completionHandler(nil, false, nil)}
         }else if self.requestType == .packageList{
-            
-            
+			
             let result = packagesList(data: response.data!)
             if !result.results.isEmpty{
                 completionHandler(result, true, nil)
               }else{ completionHandler(nil, false, nil)}
             
         }else if self.requestType == .codeVerification || self.requestType == .googleSignIn || self.requestType == .nassabLogin {
-            
-            
+			
             do{
                 let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [String:Any]
                 let params = ["token" : json!["token"] as! String , "new_user" : json!["new_user"] as! Bool  ] as [String : Any]
@@ -787,9 +447,10 @@ class RequestHandler : NSObject{
 				let list = karaList(dictionary: item)
 				results.append(list)
 			}
-			
-			
 			completionHandler(results, true, nil)
+		}else if self.requestType == .inventory{
+			let result = UserInventory(data: response.data!)
+			completionHandler(result, true, nil)
 		}
     }
     
@@ -797,8 +458,19 @@ class RequestHandler : NSObject{
     public func forbidden(){
         UserDefaults.standard.setValue("", forKey: AppGlobal.Token)
         UserDefaults.standard.setValue("", forKey: AppGlobal.userInfoCache)
-        let vc = self.sender.storyboard?.instantiateViewController(withIdentifier: "login")
-        self.sender.present(vc!, animated: true, completion: nil)
+		
+		if sender == nil {
+			if var topController = UIApplication.shared.keyWindow?.rootViewController {
+				while let presentedViewController = topController.presentedViewController {
+					topController = presentedViewController
+				}
+				let vc = topController.storyboard?.instantiateViewController(withIdentifier: "LoginMethod")
+				topController.present(vc!, animated: true, completion: nil)
+			}
+		}else{
+			let vc = self.sender.storyboard?.instantiateViewController(withIdentifier: "LoginMethod")
+			self.sender.present(vc!, animated: true, completion: nil)
+		}
     }
     
     public func failed(completionHandler: @escaping (Any? , Bool, String?) -> ()){

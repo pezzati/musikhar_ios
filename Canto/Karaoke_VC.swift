@@ -50,7 +50,7 @@ class Karaoke_VC: UIViewController {
 	func fetchData(refresh: Bool = false){
 		
 		if banners.results.isEmpty || refresh{
-			AppManager.sharedInstance().fetchBanners(sender: self, force: !refresh) { success in
+			AppManager.sharedInstance().fetchBanners(sender: self, force: false) { success in
 				self.banners = AppManager.sharedInstance().banners
 				self.Carousel.reloadData()
 			}
@@ -64,8 +64,15 @@ class Karaoke_VC: UIViewController {
 		}
 		
 		if AppManager.sharedInstance().userInfo.username.isEmpty || refresh{
-			AppManager.sharedInstance().fetchUserInfo(sender: self, force: !refresh)
+			AppManager.sharedInstance().fetchUserInfo(sender: self, force: false)
 		}
+		
+//		if AppManager.sharedInstance().inventory.posts.isEmpty || refresh{
+//			AppManager.sharedInstance().fetchUserInventory(sender: self, force: false){
+//				success in
+//				self.Home_TableView.reloadData()
+//			}
+//		}
 		
 		
 	}

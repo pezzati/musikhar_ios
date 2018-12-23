@@ -56,8 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
         }
 		
-		
-        
         self.window!.rootViewController = vc
         self.window!.makeKeyAndVisible()
         AppManager.initialize()

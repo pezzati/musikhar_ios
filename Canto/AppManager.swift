@@ -14,8 +14,8 @@ class AppManager: NSObject {
 	
 	private static var shared: AppManager = {
 		let shared = AppManager()
-		shared.fetchHomeFeed()
-		shared.fetchUserInfo()
+//		shared.fetchHomeFeed()
+//		shared.fetchUserInfo()
 		return shared
 	}()
 	
@@ -23,6 +23,7 @@ class AppManager: NSObject {
 	var userInfo = user()
 	var userPosts : userPostsList = userPostsList()
 	var banners : bannersList = bannersList()
+	var inventory : UserInventory = UserInventory()
 	
 	class func sharedInstance() -> AppManager{
 		return shared
@@ -65,12 +66,23 @@ class AppManager: NSObject {
 		request.sendRequest(completionHandler: {data, success, msg in
 			if success {
 				self.userInfo = data as! user
-				UserDefaults.standard.setValue(self.userInfo.toJsonString(), forKey: AppGlobal.userInfoCache)
 			}
 			completionHandler(success)
 			Crashlytics.sharedInstance().setUserName(AppManager.sharedInstance().userInfo.username)
 		})
 	}
+	
+	public func fetchUserInventory(sender: UIViewController? = nil, force: Bool = false, completionHandler: @escaping (Bool) -> () = {_ in }){
+		
+		let request = RequestHandler(type: .inventory , requestURL: AppGlobal.UserInventory, shouldShowError: force && sender != nil, timeOut: 5, retry: 1, sender: sender, waiting: force && sender != nil, force: force && sender != nil)
+		request.sendRequest(completionHandler: {data, success, msg in
+			if success {
+				self.inventory = data as! UserInventory
+			}
+			completionHandler(success)
+		})
+	}
+	
 	
 	public var userAvatar = UIImage(named: "userPH")
 	public var userAvatarSet = false

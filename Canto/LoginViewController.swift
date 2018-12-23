@@ -40,7 +40,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		
-		
 		let input = textField.text
 		var params = ["mobile" : "" , "email" : ""]
 		

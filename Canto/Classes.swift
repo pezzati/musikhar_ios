@@ -550,6 +550,32 @@ class banner : EVObject{
     }
 }
 
+class UserInventory: EVObject, EVArrayConvertable{
+
+	var posts : [InventoryPost] = []
+	
+	
+	override func setValue(_ value: Any!, forUndefinedKey key: String) {
+
+		if key == "posts"{
+			if let results = value as? NSArray {
+				self.posts = []
+				for post in results {
+					self.posts.append((post as? InventoryPost)!)
+				}
+			}
+		}
+	}
+	
+	func convertArray(_ key: String, array: Any) -> NSArray {
+		return [] as NSArray
+	}
+}
+
+class InventoryPost : EVObject{
+	var count = 0
+	var id = 0
+}
 
 class user: EVObject, EVArrayConvertable {
     var username : String = ""

@@ -18,7 +18,7 @@ struct AppGlobal {
     //Nassab Bundle : nassab.application.canto
     //Sibapp Bundle : com.canto.application
     
-    public static let ServerURL = debugMode ? "https://stg.canto-app.ir/" : "http://canto-app.ir/"
+    public static let ServerURL = debugMode ? "https://test.canto-app.ir/" : "https://canto-app.ir/"
 //	public static let ServerURL = "http://192.168.1.145:8000/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"
@@ -42,7 +42,8 @@ struct AppGlobal {
     public static let BacktoryUpload = "http://storage.backtory.com/files"
     public static let NassabLogin = ServerURL + "user/gettoken/"
     public static let Feed = ServerURL + "song/feeds"
-//	public static let HomeFeed = ServerURL + "v2/song/home"
+	public static let UserInventory = ServerURL + "user/users/inventory"
+	
 
 //    public static let AllPoemsURL = ServerURL + "song/poems"
 //    public static let AllSongsURL = ServerURL + "song/songs/"
@@ -101,6 +102,7 @@ public enum RequestType {
     case nassabLogin
     case feedList
 	case homeFeed
+	case inventory
 }
 
 public enum RequestState {
