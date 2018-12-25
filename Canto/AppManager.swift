@@ -148,6 +148,18 @@ class AppManager: NSObject {
 		self.userPosts = currentPostList
 	}
 	
+	//Sing kara
+	
+	func karaTapped(post: karaoke , sender: UIViewController){
+		
+		
+		
+		
+		
+		
+	}
+	
+	
 	//MARK: -Action Log
 	
 	func getActionList() -> ActionLogList{

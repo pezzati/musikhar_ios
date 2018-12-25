@@ -55,14 +55,16 @@ class karaoke: EVObject{
     var cover_photo : File = File()
 //    var created_date : String = ""
     var type : String = ""
+	var price : Int = 0
+	var count : Int = 0
    // var owner : Owner = Owner()
 //    var liked_it : Bool = false
     var link : String = ""
     var content : karaoke_content = karaoke_content()
 //    var like : Int = 0
 //    var is_favorite : Bool = false
-    var is_premium : Bool = false
-    
+//    var is_premium : Bool = false
+	
         override func setValue(_ value: Any!, forUndefinedKey key: String) {
             switch key{
 //                case "owner":

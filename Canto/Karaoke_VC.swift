@@ -67,12 +67,12 @@ class Karaoke_VC: UIViewController {
 			AppManager.sharedInstance().fetchUserInfo(sender: self, force: false)
 		}
 		
-//		if AppManager.sharedInstance().inventory.posts.isEmpty || refresh{
-//			AppManager.sharedInstance().fetchUserInventory(sender: self, force: false){
-//				success in
-//				self.Home_TableView.reloadData()
-//			}
-//		}
+		if AppManager.sharedInstance().inventory.posts.isEmpty || refresh{
+			AppManager.sharedInstance().fetchUserInventory(sender: self, force: false){
+				success in
+				self.Home_TableView.reloadData()
+			}
+		}
 		
 		
 	}
