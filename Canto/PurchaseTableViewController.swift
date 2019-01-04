@@ -12,12 +12,16 @@ import Alamofire
 
 class PurchaseTableViewController: UITableViewController {
 
-    @IBOutlet weak var headerView: UIView!
     var packages : [package] = []
-    
+	
+	override func viewDidLoad() {
+		navigationController?.navigationBar.prefersLargeTitles = true
+		tabBarController?.hidesBottomBarWhenPushed = true
+	}
+	
     
     override func viewWillAppear(_ animated: Bool) {
-        self.headerView.headerViewCornerRounding()
+		
         getPackages()
     }
     
@@ -55,47 +59,43 @@ class PurchaseTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return section == 1 ? self.packages.count : 1
+		return section == 0 ? 1 : self.packages.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PurchaceTableViewCell", for: indexPath)
-
-            let labelContainer = cell.contentView.viewWithTag(104)
-            let image = cell.contentView.viewWithTag(101) as! UIImageView
-            let priceLabel = cell.contentView.viewWithTag(102) as! UILabel
-            let nameLabel = cell.contentView.viewWithTag(103) as! UILabel
-            
-            labelContainer?.roundAndShadow()
-            image.layer.cornerRadius = 15
-            image.sd_setImage(with: URL(string: packages[indexPath.row].icon)!)
-            priceLabel.text = (packages[indexPath.row].price/1000).description + " " + "هزار تومن"
-            nameLabel.text = packages[indexPath.row].name
-
-            return cell
-        }else{
-            let cell = UITableViewCell(frame: CGRect(x: 12, y: 0, width: self.view.frame.width - 24, height: 50))
-            cell.textLabel?.text = "دسترسی نامحدود به همه‌ی آهنگ‌های کانتو با عضویت ویژه"
-            cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.textAlignment = .center
-            cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-            return cell
-        }
-    }
+		if indexPath.section == 0{
+			let cell = tableView.dequeueReusableCell(withIdentifier: "CreditInfoCell", for: indexPath)
+			cell.selectionStyle = .none
+			return cell
+		}
+		else{
+			
+			let cell = tableView.dequeueReusableCell(withIdentifier: "PurchaceTableViewCell", for: indexPath)
+			let image = cell.contentView.viewWithTag(101) as! UIImageView
+			
+			image.layer.cornerRadius = 0
+			image.sd_setImage(with: URL(string: packages[indexPath.row].icon)!)
+			let selectedBckView = UIView()
+			selectedBckView.backgroundColor = UIColor.clear
+			cell.selectedBackgroundView = selectedBckView
+			return cell
+		}
+	}
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 1 ? 180 : 90
+//        return indexPath.section == 1 ? 180 : 90
+		let width = view.bounds.width - 40
+	
+		return indexPath.section == 1 ? width/2.62 + 8 : width/1.85 + 8
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
         if indexPath.section == 1{
             AppManager.sharedInstance().addAction(action: "Package Tapped", session: "Shop", detail: self.packages[indexPath.row].serial_number )
             tableView.deselectRow(at: indexPath, animated: false)
@@ -113,8 +113,8 @@ class PurchaseTableViewController: UITableViewController {
         request.sendRequest(completionHandler: {data, success, msg in
             if success{
                 let url = data as! String
-//                UIApplication.shared.open( URL(string: url )!, options: [:], completionHandler:{ bool in self.dismiss(animated: true, completion: nil) })
-                UIApplication.shared.openURL(URL(string: url )!)
+                UIApplication.shared.open( URL(string: url )!, options: [:], completionHandler:{ bool in self.dismiss(animated: true, completion: nil) })
+//                UIApplication.shared.openURL(URL(string: url )!)
                 self.dismiss(animated: true, completion: nil)
             }else{
                 AppManager.sharedInstance().addAction(action: "Failed to get purchase link", session: "Shop", detail: "")

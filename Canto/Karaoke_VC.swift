@@ -18,7 +18,6 @@ class Karaoke_VC: UIViewController {
     var banners = bannersList()
     var viewCount = 0
     private let refreshControl = UIRefreshControl()
-    var shouldRefresh = false
     
     var currentOffset : CGPoint = CGPoint.zero
     
@@ -32,8 +31,8 @@ class Karaoke_VC: UIViewController {
         setupNavBar()
         setupRefreshController()
         setupCarousel()
-        refreshControl.beginRefreshing()
-        refreshData(refreshControl)
+//        refreshControl.beginRefreshing()
+//        refreshData(refreshControl)
         Timer.scheduledTimer(withTimeInterval: 5.0 , repeats: true, block: {_ in
             let next =  self.banners.results.count - 1 == self.Carousel.currentItemIndex ? 0 : self.Carousel.currentItemIndex + 1
             self.Carousel.scrollToItem(at: next, duration: 1)
@@ -43,7 +42,6 @@ class Karaoke_VC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if shouldRefresh { refreshData(refreshControl) }
 		navigationController?.navigationBar.prefersLargeTitles = false
     }
 	
@@ -225,8 +223,9 @@ extension Karaoke_VC : UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         AppManager.sharedInstance().addAction(action: "Karaoke Tapped", session: "Home", detail: homeFeed[collectionView.tag].data[indexPath.row].id.description)
-        let karaType = DialougeView()
-        karaType.chooseKaraType(kara: homeFeed[collectionView.tag].data[indexPath.row], sender: self)
+//        let karaType = DialougeView()
+//        karaType.chooseKaraType(kara: homeFeed[collectionView.tag].data[indexPath.row], sender: self)
+		AppManager.sharedInstance().karaTapped(post: homeFeed[collectionView.tag].data[indexPath.row], sender: self)
     }
     
 }

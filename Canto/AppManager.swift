@@ -62,7 +62,7 @@ class AppManager: NSObject {
 	//MARK: -UserInfo
 	public func fetchUserInfo(sender: UIViewController? = nil, force: Bool = false, completionHandler: @escaping (Bool) -> () = {_ in }){
 		
-		let request = RequestHandler(type: .userInfo , requestURL: AppGlobal.UserProfileURL, shouldShowError: force && sender != nil, timeOut: 5, retry: 1, sender: sender, waiting: force && sender != nil, force: force && sender != nil)
+		let request = RequestHandler(type: .userInfo , requestURL: AppGlobal.UserProfileURL, shouldShowError: force && sender != nil, timeOut: 5, retry: 1, sender: sender, waiting: false, force: force && sender != nil)
 		request.sendRequest(completionHandler: {data, success, msg in
 			if success {
 				self.userInfo = data as! user
@@ -74,10 +74,13 @@ class AppManager: NSObject {
 	
 	public func fetchUserInventory(sender: UIViewController? = nil, force: Bool = false, completionHandler: @escaping (Bool) -> () = {_ in }){
 		
-		let request = RequestHandler(type: .inventory , requestURL: AppGlobal.UserInventory, shouldShowError: force && sender != nil, timeOut: 5, retry: 1, sender: sender, waiting: force && sender != nil, force: force && sender != nil)
+		let request = RequestHandler(type: .inventory , requestURL: AppGlobal.UserInventory, shouldShowError: force && sender != nil, timeOut: 5, retry: 2, sender: sender, waiting: false, force: force && sender != nil)
 		request.sendRequest(completionHandler: {data, success, msg in
 			if success {
-				self.inventory = data as! UserInventory
+				let inv = data as! UserInventory
+				self.inventory = inv
+				self.userInfo.coins = inv.coins
+				self.userInfo.premium_days = inv.premium_days
 			}
 			completionHandler(success)
 		})
@@ -99,7 +102,7 @@ class AppManager: NSObject {
 	//MARK: -Banners
 	
 	public func fetchBanners(sender: UIViewController? = nil, force: Bool = false, completionHandler: @escaping (Bool) -> () = {_ in}){
-		let request = RequestHandler(type: .bannersList , requestURL: AppGlobal.HomeBannersList, shouldShowError: force, timeOut: 5, retry: 1, sender: sender, waiting: sender != nil, force: force)
+		let request = RequestHandler(type: .bannersList , requestURL: AppGlobal.HomeBannersList, shouldShowError: force, timeOut: 5, retry: 1, sender: sender, waiting: false, force: force)
 		request.sendRequest(completionHandler: {data, success, msg in
 			if success {
 				self.banners = data as! bannersList
@@ -152,11 +155,37 @@ class AppManager: NSObject {
 	
 	func karaTapped(post: karaoke , sender: UIViewController){
 		
-		
-		
-		
-		
-		
+		let url = AppGlobal.ServerURL + "song/posts/" + post.id.description + "/sing/"
+		let request = RequestHandler(type: .sing, requestURL: url, shouldShowError: true, sender: sender, waiting: true, force: false)
+		request.sendRequest(){
+			data, success, msg in
+			if success{
+				let inv = data as! UserInventory
+				self.inventory = inv
+				self.userInfo.coins = inv.coins
+				self.userInfo.premium_days = inv.premium_days
+				self.getContent(url: post.link, sender: sender, completionHandler: { success, post in
+					
+					if success{
+						let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
+						vc.hidesBottomBarWhenPushed = true
+						vc.post = post
+						sender.navigationController?.pushViewController(vc, animated: true)
+					}
+				})
+			}else{
+				if msg == nil { return }
+				
+				if msg == AppGlobal.PAYMENT_REQUIRED{
+					let dialogue = DialougeView()
+					dialogue.paymentRequired(vc: sender)
+					
+				}else if msg == AppGlobal.SHOULD_BUY{
+					print("BUY IT BIIIIITCH!!!! BUUUUY!!!")
+				}
+				
+			}
+		}
 	}
 	
 	

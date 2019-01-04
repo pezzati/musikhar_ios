@@ -157,9 +157,10 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         AppManager.sharedInstance().addAction(action: "Karaoke Tapped", session: "Search", detail: self.results.results[indexPath.row].id.description )
-        let dialogue = DialougeView()
-        dialogue.chooseKaraType(kara: self.results.results[indexPath.row], sender: self)
-        
+//        let dialogue = DialougeView()
+//        dialogue.chooseKaraType(kara: self.results.results[indexPath.row], sender: self)
+		AppManager.sharedInstance().karaTapped(post: results.results[indexPath.row], sender: self)
+		
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

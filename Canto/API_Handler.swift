@@ -136,6 +136,7 @@ class RequestHandler : NSObject{
         self.request = URLRequest(url: self.url!)
         self.request.httpMethod = self.method.rawValue
         self.request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+		self.request.setValue("ios", forHTTPHeaderField: "devicetype")
         self.request.setValue(buildVersion, forHTTPHeaderField: "buildVersion")
         self.request.setValue("ios", forHTTPHeaderField: "deviceType")
         self.request.timeoutInterval = self.timeOut
@@ -148,8 +149,10 @@ class RequestHandler : NSObject{
             }
         }
         
-        
         switch type {
+		case .sing:
+			self.method = .post
+			self.request.httpMethod = self.method.rawValue
         case .login:
             self.method = .post
             self.request.httpMethod = self.method.rawValue
@@ -334,19 +337,27 @@ class RequestHandler : NSObject{
                                     }
                                 }
                             }
-                        }else if (response.response?.statusCode)! == 403{
+                        }else if (response.response?.statusCode)! == 401{
                             self.forbidden()
                             completionHandler(nil,false,nil)
                             if self.showWaiting { self.dialougeBox.hide() }
-                        }else if (self.requestType == .codeVerification || self.requestType == .googleSignIn) && (response.response?.statusCode)! == 400 {
+					}else if (response.response?.statusCode)! == 403{
+						completionHandler(nil,false,AppGlobal.SHOULD_BUY)
+						if self.showWaiting { self.dialougeBox.hide() }
+					}else if (self.requestType == .codeVerification || self.requestType == .googleSignIn) && (response.response?.statusCode)! == 400 {
                             if self.showWaiting { self.dialougeBox.hide() }
                             completionHandler(nil,false,"کد وارد شده اشتباه است")
-                        }else{
+					}else if (response.response?.statusCode)! == 402{
+						//PAYMENT REQUIRED
+						completionHandler(nil, false, AppGlobal.PAYMENT_REQUIRED)
+						if self.showWaiting { self.dialougeBox.hide() }
+					}else{
                             self.failed(){ Data,Success, msg in
                                 completionHandler(Data, Success, msg)
                                 if self.showWaiting { self.dialougeBox.hide() }
                             }
                         }
+						
                     }
                     break
                 }
@@ -354,7 +365,7 @@ class RequestHandler : NSObject{
         }
         
     }
-    
+	
     
     public func parseRecievedData(response : DataResponse<Any> , completionHandler: @escaping (Any? , Bool, String?) -> ()){
        
@@ -449,6 +460,9 @@ class RequestHandler : NSObject{
 			}
 			completionHandler(results, true, nil)
 		}else if self.requestType == .inventory{
+			let result = UserInventory(data: response.data!)
+			completionHandler(result, true, nil)
+		}else if self.requestType == .sing{
 			let result = UserInventory(data: response.data!)
 			completionHandler(result, true, nil)
 		}

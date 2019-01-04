@@ -13,14 +13,16 @@ import Lottie
 class DialougeView {
     
     var dialougeView : UIView!
-    var shadowView : UIView!
+    var shadowView : UIVisualEffectView!
     let scrWidth = UIScreen.main.bounds.width
     let scrHeight = UIScreen.main.bounds.height
     
     func showBackgroundView(vc: UIViewController){
-        self.shadowView = UIView(frame: CGRect(x: -scrWidth, y: -scrHeight, width: scrWidth*3, height: scrHeight*3))
-        self.shadowView.backgroundColor = UIColor.clear
-        self.shadowView.alpha = 1
+		let blurEffect = UIBlurEffect(style: .dark)
+		shadowView = UIVisualEffectView(effect: blurEffect)
+        shadowView.frame = vc.view.bounds
+        shadowView.alpha = 1
+		shadowView.isUserInteractionEnabled = true
         vc.view.addSubview(shadowView)
     }
     
@@ -106,135 +108,135 @@ class DialougeView {
         self.shadowView.removeFromSuperview()
     }
     
-    func chooseKaraType(kara: karaoke, sender: UIViewController) {
-        
-
-        
-        
-//        if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
+//    func chooseKaraType(kara: karaoke, sender: UIViewController) {
+//        
 //
-//            let vc = sender.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
-//            if !AppGlobal.NassabVersion{
-//                sender.present(vc, animated: true, completion: nil)
-//            }else{
-//                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: nil)
-//            }
-//            return
-//        }else{
-		
-            AppManager.sharedInstance().getContent(url: kara.link, sender: sender, completionHandler: { success, post in
-                
-                if success{
-                    let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
-                    vc.hidesBottomBarWhenPushed = true
-                    vc.post = post
-                    sender.navigationController?.pushViewController(vc, animated: true)
-                    
-                    return
-                    
-                    let _kara = post as! karaoke
-                    
-                    self.showBackgroundView(vc: sender)
-                    self.dialougeView = UIView(frame: CGRect(x: self.scrWidth/2 - 150 , y: self.scrHeight/2 - 145, width: 300, height: 290))
-                    self.dialougeView.backgroundColor = UIColor.white
-                    self.dialougeView.layer.cornerRadius = 15
-                    self.dialougeView.clipsToBounds = true
-                    self.shadowDialogue()
-                    
-                    let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 70))
-                    image.image = UIImage(named: "fileType")
-                    image.contentMode = .scaleAspectFit
-                    self.dialougeView.addSubview(image)
-                    
-                    let title = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 20))
-                    title.textColor = UIColor.blue
-                    title.text = "انتخاب موزیک"
-                    title.textAlignment = .center
-                    self.dialougeView.addSubview(title)
-                    
-                    let subTitle = UILabel(frame: CGRect(x: 0 , y: 150, width:300 , height: 20))
-                    subTitle.textColor = UIColor.darkGray
-                    subTitle.text = "موسیقی مورد نظر را در کدام حالت میخواهید؟"
-                    subTitle.textAlignment = .center
-                    subTitle.numberOfLines = 1
-                    subTitle.font = UIFont.systemFont(ofSize: 14)
-                    self.dialougeView.addSubview(subTitle)
-                    
-                    
-                    let originalLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 180, height: 40))
-                    originalLabel.text = "با صدای خواننده"
-                    originalLabel.textColor = UIColor.white
-                    originalLabel.textAlignment = .center
-                    originalLabel.font = UIFont.systemFont(ofSize: 12)
-                    
-                    let originalView = UIImageView(frame: CGRect(x: 60 , y: 180, width: 180 , height: 40))
-                    originalView.image = UIImage(named: "button3")
-                    originalView.contentMode = .scaleAspectFill
-                    originalView.isUserInteractionEnabled = true
-                    originalView.addSubview(originalLabel)
-                    self.dialougeView.addSubview(originalView)
-                    
-                    let originalTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-                        AppManager.sharedInstance().addAction(action: "Tapped Original File", session: "", detail: kara.id.description)
-                        /*let vc = sender.storyboard?.instantiateViewController(withIdentifier: "Record") as! Record_VC
-                         vc.post = _kara
-                         vc.original = true
-                         sender.present(vc, animated: true, completion: nil)*/
-             
-                        
-                        self.hide()
-                        self.hide()
-                    }
-                    originalView.addGestureRecognizer(originalTap!)
-                    originalView.isUserInteractionEnabled = _kara.content.original_file_url != ""
-                    if _kara.content.original_file_url == ""{
-                        originalView.alpha = 0.5
-                    }
-                    
-                    
-                    let karaLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 180, height: 40))
-                    karaLabel.text = "بدون صدای خواننده"
-                    karaLabel.textColor = UIColor.white
-                    karaLabel.textAlignment = .center
-                    karaLabel.font = UIFont.systemFont(ofSize: 12)
-                    let karaView = UIImageView(frame: CGRect(x: 60 , y: 230 , width: 180 , height: 40))
-                    karaView.image = UIImage(named: "button3")
-                    karaView.isUserInteractionEnabled = true
-                    karaView.contentMode = .scaleAspectFill
-                    karaView.addSubview(karaLabel)
-                    self.dialougeView.addSubview(karaView)
-                    
-                    let karaTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-                        AppManager.sharedInstance().addAction(action: "Tapped Karaoke File", session: "" , detail: _kara.id.description)
-                        /*let vc = sender.storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
-                         vc.post = _kara
-                         vc.original = false
-                         sender.present(vc, animated: true, completion: nil)*/
-                        let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
-                        sender.navigationController?.pushViewController(vc, animated: true)
-                        //                            sender.tabBarController?.tabBar.isHidden = true
-                        self.hide()
-                        self.hide()
-                    }
-                    karaView.addGestureRecognizer(karaTap!)
-                    karaView.isUserInteractionEnabled = _kara.content.karaoke_file_url != ""
-                    if _kara.content.karaoke_file_url == ""{
-                        karaView.alpha = 0.5
-                    }
-                    
-                    let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-                        self.hide()
-                    }
-                    
-                    self.shadowView.addGestureRecognizer(cancelTap!)
-                    self.shadowView.isUserInteractionEnabled = true
-                   
-                    
-                }
-            })
-            
-//        }
-    }
+//        
+//        
+////        if !AppManager.sharedInstance().getUserInfo().is_premium && kara.is_premium {
+////
+////            let vc = sender.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
+////            if !AppGlobal.NassabVersion{
+////                sender.present(vc, animated: true, completion: nil)
+////            }else{
+////                UIApplication.shared.open(URL(string: AppGlobal.NassabCantoScheme)!, options: [:], completionHandler: nil)
+////            }
+////            return
+////        }else{
+//		
+//            AppManager.sharedInstance().getContent(url: kara.link, sender: sender, completionHandler: { success, post in
+//                
+//                if success{
+//                    let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
+//                    vc.hidesBottomBarWhenPushed = true
+//                    vc.post = post
+//                    sender.navigationController?.pushViewController(vc, animated: true)
+//                    
+//                    return
+//                    
+//                    let _kara = post as! karaoke
+//                    
+//                    self.showBackgroundView(vc: sender)
+//                    self.dialougeView = UIView(frame: CGRect(x: self.scrWidth/2 - 150 , y: self.scrHeight/2 - 145, width: 300, height: 290))
+//                    self.dialougeView.backgroundColor = UIColor.white
+//                    self.dialougeView.layer.cornerRadius = 15
+//                    self.dialougeView.clipsToBounds = true
+//                    self.shadowDialogue()
+//                    
+//                    let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 70))
+//                    image.image = UIImage(named: "fileType")
+//                    image.contentMode = .scaleAspectFit
+//                    self.dialougeView.addSubview(image)
+//                    
+//                    let title = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 20))
+//                    title.textColor = UIColor.blue
+//                    title.text = "انتخاب موزیک"
+//                    title.textAlignment = .center
+//                    self.dialougeView.addSubview(title)
+//                    
+//                    let subTitle = UILabel(frame: CGRect(x: 0 , y: 150, width:300 , height: 20))
+//                    subTitle.textColor = UIColor.darkGray
+//                    subTitle.text = "موسیقی مورد نظر را در کدام حالت میخواهید؟"
+//                    subTitle.textAlignment = .center
+//                    subTitle.numberOfLines = 1
+//                    subTitle.font = UIFont.systemFont(ofSize: 14)
+//                    self.dialougeView.addSubview(subTitle)
+//                    
+//                    
+//                    let originalLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 180, height: 40))
+//                    originalLabel.text = "با صدای خواننده"
+//                    originalLabel.textColor = UIColor.white
+//                    originalLabel.textAlignment = .center
+//                    originalLabel.font = UIFont.systemFont(ofSize: 12)
+//                    
+//                    let originalView = UIImageView(frame: CGRect(x: 60 , y: 180, width: 180 , height: 40))
+//                    originalView.image = UIImage(named: "button3")
+//                    originalView.contentMode = .scaleAspectFill
+//                    originalView.isUserInteractionEnabled = true
+//                    originalView.addSubview(originalLabel)
+//                    self.dialougeView.addSubview(originalView)
+//                    
+//                    let originalTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+//                        AppManager.sharedInstance().addAction(action: "Tapped Original File", session: "", detail: kara.id.description)
+//                        /*let vc = sender.storyboard?.instantiateViewController(withIdentifier: "Record") as! Record_VC
+//                         vc.post = _kara
+//                         vc.original = true
+//                         sender.present(vc, animated: true, completion: nil)*/
+//             
+//                        
+//                        self.hide()
+//                        self.hide()
+//                    }
+//                    originalView.addGestureRecognizer(originalTap!)
+//                    originalView.isUserInteractionEnabled = _kara.content.original_file_url != ""
+//                    if _kara.content.original_file_url == ""{
+//                        originalView.alpha = 0.5
+//                    }
+//                    
+//                    
+//                    let karaLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 180, height: 40))
+//                    karaLabel.text = "بدون صدای خواننده"
+//                    karaLabel.textColor = UIColor.white
+//                    karaLabel.textAlignment = .center
+//                    karaLabel.font = UIFont.systemFont(ofSize: 12)
+//                    let karaView = UIImageView(frame: CGRect(x: 60 , y: 230 , width: 180 , height: 40))
+//                    karaView.image = UIImage(named: "button3")
+//                    karaView.isUserInteractionEnabled = true
+//                    karaView.contentMode = .scaleAspectFill
+//                    karaView.addSubview(karaLabel)
+//                    self.dialougeView.addSubview(karaView)
+//                    
+//                    let karaTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+//                        AppManager.sharedInstance().addAction(action: "Tapped Karaoke File", session: "" , detail: _kara.id.description)
+//                        /*let vc = sender.storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
+//                         vc.post = _kara
+//                         vc.original = false
+//                         sender.present(vc, animated: true, completion: nil)*/
+//                        let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
+//                        sender.navigationController?.pushViewController(vc, animated: true)
+//                        //                            sender.tabBarController?.tabBar.isHidden = true
+//                        self.hide()
+//                        self.hide()
+//                    }
+//                    karaView.addGestureRecognizer(karaTap!)
+//                    karaView.isUserInteractionEnabled = _kara.content.karaoke_file_url != ""
+//                    if _kara.content.karaoke_file_url == ""{
+//                        karaView.alpha = 0.5
+//                    }
+//                    
+//                    let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+//                        self.hide()
+//                    }
+//                    
+//                    self.shadowView.addGestureRecognizer(cancelTap!)
+//                    self.shadowView.isUserInteractionEnabled = true
+//                   
+//                    
+//                }
+//            })
+//            
+////        }
+//    }
     
     
     func videoSaved(sender: UIViewController){
@@ -290,10 +292,10 @@ class DialougeView {
         }
         tryButtonView.addGestureRecognizer(tap!)
         
-        let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-            self.hide()
-            sender.dismiss(animated: true, completion: nil)
-        }
+//        let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+//            self.hide()
+//            sender.dismiss(animated: true, completion: nil)
+//        }
         //        self.shadowView.addGestureRecognizer(cancelTap!)
         //        self.shadowView.isUserInteractionEnabled = true
         
@@ -373,18 +375,21 @@ class DialougeView {
         
         showBackgroundView(vc: sender)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 215, width: 300, height: 430))
-        self.dialougeView.backgroundColor = UIColor.white
+		self.dialougeView.backgroundColor = UIColor.darkGray
+//        self.dialougeView.backgroundColor = UIColor.white
         self.shadowDialogue()
         
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 25, width: 270, height: 20))
         titleLabel.textAlignment = .right
         titleLabel.text = "قوانین و شرایط"
+		titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         self.dialougeView.addSubview(titleLabel)
         
         let textView = UITextView(frame: CGRect(x: 30, y: 75, width: 240, height: 275))
         textView.isEditable = false
         textView.textAlignment = .right
+		textView.textColor = UIColor.white
         let text = "لطفاً متن زیر را به دقت بخوانید و آگاه باشید که با ثبت نام و استفاده از این اپلیکشین، با این موارد موافقت کرده‌اید:\n\n-کاربران حق استفاده از نام و هویت دیگران را ندارند.\n\n-هر گونه توهین و تمسخر مقدسات و اشخاص حقیقی و حقوقی ممنوع است.\n\n-استفاده از کلمات و عبارات رکیک ممنوع است.\n\n-توهین به مقدسات اقلیت‌های دینی و مذهبی و تحریک اذهان عمومی ممنوع است.\n\nشما با ثبت نام و استفاده از این اپلیکیشن با موارد فوق موافقت کرده‌اید و در صورت مشاهده هر گونه تخلف، اکانت کاربری توقیف خواهد شد."
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 4
@@ -434,14 +439,9 @@ class DialougeView {
             disagreeButton.addGestureRecognizer(disagreeTap!)
             dialougeView.addSubview(disagreeButton)
         }
-        
-        
+		
         sender.view.addSubview(dialougeView!)
     }
-    
-    
-    
-    
     
     
     func update(force: Bool,downloadURL: String, vc: UIViewController){
@@ -592,9 +592,8 @@ class DialougeView {
         
         vc.view.addSubview(dialougeView!)
         
-        
-        
     }
+	
     
     
     func shouldRemove(vc: UIViewController, completionHandler: @escaping (Bool) -> ()){
@@ -672,14 +671,85 @@ class DialougeView {
         
         vc.view.addSubview(dialougeView!)
     }
-    
+	
+	
+	func paymentRequired(vc: UIViewController){
+		
+		showBackgroundView(vc: vc)
+		self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 210, width: 300, height: 420))
+		self.shadowDialogue()
+		
+		
+		let imageView = UIImageView(image: UIImage(named: "paymentDialogue"))
+		imageView.frame = CGRect(x: 55, y: 30, width: 180, height: 180)
+		imageView.contentMode = .scaleAspectFit
+		dialougeView.addSubview(imageView)
+		
+		
+		let subTitle = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 30, width: dialougeView.frame.width - 100, height: 40))
+		subTitle.text = "برای خرید این آهنگ باید اعتبار خود را افزایش دهید"
+		subTitle.textColor = AppGlobal.dialogueTextColor
+		subTitle.numberOfLines = 2
+		subTitle.font = UIFont.systemFont(ofSize: 15)
+		subTitle.textAlignment = .center
+		self.dialougeView.addSubview(subTitle)
+		
+		
+		let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 250, height: 40))
+		tryButton.text = "رفتن به فروشگاه"
+		tryButton.textColor = UIColor.white
+		tryButton.font = UIFont.boldSystemFont(ofSize: 17)
+		tryButton.textAlignment = .center
+		let tryButtonView = UIImageView(frame: CGRect(x: 30, y: subTitle.frame.maxY + 40, width: 240 , height: 40))
+		tryButtonView.image = UIImage(named: "")
+		tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
+		tryButtonView.contentMode = .scaleAspectFill
+		tryButtonView.isUserInteractionEnabled = true
+		tryButtonView.addSubview(tryButton)
+		self.dialougeView.addSubview(tryButtonView)
+		
+		
+		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY + 5, width: 300, height: 40))
+		cancelButton.text = "بیخیال"
+		cancelButton.textColor = AppGlobal.dialogueTextColor
+		cancelButton.font = UIFont.systemFont(ofSize: 14)
+		cancelButton.textAlignment = .center
+		cancelButton.isUserInteractionEnabled = true
+
+		self.dialougeView.addSubview(cancelButton)
+		
+		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			let shopVC = vc.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
+			vc.navigationController?.pushViewController(shopVC, animated: true)
+		}
+		tryButtonView.addGestureRecognizer(tap!)
+		
+		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			self.hide()
+		}
+		
+		shadowView.addGestureRecognizer(cancelTap!)
+		cancelButton.addGestureRecognizer(cancelTap!)
+		
+		shadowView.contentView.addSubview(dialougeView)
+	}
+	
+	
+	
+	
     func shadowDialogue(){
+		
+		self.dialougeView.backgroundColor = UIColor(red: 36/255, green: 37/255, blue: 41/255, alpha: 1)
         self.dialougeView.clipsToBounds = false
-        self.dialougeView.layer.cornerRadius = 15
-        self.dialougeView.layer.shadowColor = UIColor.gray.cgColor
-        self.dialougeView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        self.dialougeView.layer.shadowRadius = 5
-        self.dialougeView.layer.shadowOpacity = 0.7
+        self.dialougeView.layer.cornerRadius = 10
+//        self.dialougeView.layer.shadowColor = UIColor.gray.cgColor
+//        self.dialougeView.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        self.dialougeView.layer.shadowRadius = 5
+//        self.dialougeView.layer.shadowOpacity = 0.7
     }
-    
+	
+	
+	
+	
+	
 }

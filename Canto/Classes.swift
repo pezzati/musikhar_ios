@@ -54,7 +54,7 @@ class karaoke: EVObject{
 //    var desc : String = ""
     var cover_photo : File = File()
 //    var created_date : String = ""
-    var type : String = ""
+//    var type : String = ""
 	var price : Int = 0
 	var count : Int = 0
    // var owner : Owner = Owner()
@@ -555,6 +555,8 @@ class banner : EVObject{
 class UserInventory: EVObject, EVArrayConvertable{
 
 	var posts : [InventoryPost] = []
+	var coins : Int = 0
+	var premium_days : Int = 0
 	
 	
 	override func setValue(_ value: Any!, forUndefinedKey key: String) {
@@ -579,50 +581,51 @@ class InventoryPost : EVObject{
 	var id = 0
 }
 
-class user: EVObject, EVArrayConvertable {
+class user: EVObject{
     var username : String = ""
     var gender : Int = 0
-    var birth_date : String = ""
+//    var birth_date : String = ""
     var image : String = ""
     var mobile : String = ""
     var email : String = ""
-    var bio : String = ""
+//    var bio : String = ""
     var first_name : String = ""
     var last_name : String = ""
-    var follower_count : Int = 0
-    var following_count : Int = 0
-    var post_count : Int = 0
-    var is_public : Bool = false
+//    var follower_count : Int = 0
+//    var following_count : Int = 0
+//    var post_count : Int = 0
+//    var is_public : Bool = false
 //    var poems : [Poem] = []
-    var songs : [song] = []
-    var is_following : Bool = false
-    var is_premium : Bool = false
+//    var songs : [song] = []
+//    var is_following : Bool = false
+//    var is_premium : Bool = false
     var premium_days : Int = 0
+	var coins : Int = 0
 
-    override func setValue(_ value: Any!, forUndefinedKey key: String) {
-        switch key {
-//        case "poems":
+//    override func setValue(_ value: Any!, forUndefinedKey key: String) {
+//        switch key {
+////        case "poems":
+////            if let results = value as? NSArray {
+////                self.poems = []
+////                for poem in results {
+////                    self.poems.append((poem as? Poem)!)
+////                }
+////            }
+//
+//        case "songs":
 //            if let results = value as? NSArray {
-//                self.poems = []
-//                for poem in results {
-//                    self.poems.append((poem as? Poem)!)
+//                self.songs = []
+//                for song in results {
+//                    self.songs.append((song as? song)!)
 //                }
 //            }
+//        default: break
+//        }
+//    }
 
-        case "songs":
-            if let results = value as? NSArray {
-                self.songs = []
-                for song in results {
-                    self.songs.append((song as? song)!)
-                }
-            }
-        default: break
-        }
-    }
-
-    func convertArray(_ key: String, array: Any) -> NSArray {
-        return [] as NSArray
-    }
+//    func convertArray(_ key: String, array: Any) -> NSArray {
+//        return [] as NSArray
+//    }
 
 }
 

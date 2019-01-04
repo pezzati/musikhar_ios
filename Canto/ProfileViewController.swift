@@ -123,9 +123,9 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
         navigationItem.title = "Whotan"
         self.profilePicture.image = AppManager.sharedInstance().userAvatar
         self.Name.text = "هوتن حسینی"
-        self.Credit.isHidden = !self.userInfo.is_premium
-        self.normalUserLabel.isHidden = self.userInfo.is_premium
-        self.premiumImageView.isHidden = !self.userInfo.is_premium
+//        self.Credit.isHidden = !self.userInfo.is_premium
+//        self.normalUserLabel.isHidden = self.userInfo.is_premium
+//        self.premiumImageView.isHidden = !self.userInfo.is_premium
         self.noPostsView.isHidden = self.posts.posts.count != 0
         self.songsCollectionView.reloadData()
     }

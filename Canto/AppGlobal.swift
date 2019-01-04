@@ -17,7 +17,7 @@ struct AppGlobal {
 //    public static let ServerURL = "http://192.168.1.114:8000/"
     //Nassab Bundle : nassab.application.canto
     //Sibapp Bundle : com.canto.application
-    
+	
     public static let ServerURL = debugMode ? "https://test.canto-app.ir/" : "https://canto-app.ir/"
 //	public static let ServerURL = "http://192.168.1.145:8000/"
     public static let UserSignupURL =  ServerURL + "user/signup"
@@ -43,6 +43,13 @@ struct AppGlobal {
     public static let NassabLogin = ServerURL + "user/gettoken/"
     public static let Feed = ServerURL + "song/feeds"
 	public static let UserInventory = ServerURL + "user/users/inventory"
+
+	
+	
+	
+	//colors
+	public static let dialogueTextColor = UIColor(red: 178/255, green: 178/255, blue: 178/255, alpha: 1)
+	public static let darkBackgroundColor = UIColor(red: 36/255, green: 37/255, blue: 41/255, alpha: 1)
 	
 
 //    public static let AllPoemsURL = ServerURL + "song/poems"
@@ -63,6 +70,9 @@ struct AppGlobal {
     public static let UserPostsList = "UserPostsList"
     public static let UnrenderedPostsList = "UnrederedPostsList"
     public static let ActionLogList = "ActionLogList"
+	
+	public static let PAYMENT_REQUIRED = "PAY"
+	public static let SHOULD_BUY = "BUY"
     
     //Modes Info
     public static let modeNames = [Modes.dubsmash : "دابسمش" ,
@@ -103,6 +113,7 @@ public enum RequestType {
     case feedList
 	case homeFeed
 	case inventory
+	case sing
 }
 
 public enum RequestState {
