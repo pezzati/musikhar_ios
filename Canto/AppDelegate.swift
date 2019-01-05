@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
-            if token.characters.count > 20 {
+            if token.characters.count > 10 {
                 
 //                if AppManager.sharedInstance().getUserInfo().first_name == ""{
 //                    vc = storyBoard.instantiateViewController(withIdentifier: "PhotoPicker")

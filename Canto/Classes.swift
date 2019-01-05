@@ -556,7 +556,7 @@ class UserInventory: EVObject, EVArrayConvertable{
 
 	var posts : [InventoryPost] = []
 	var coins : Int = 0
-	var premium_days : Int = 0
+	var days : Int = 0
 	
 	
 	override func setValue(_ value: Any!, forUndefinedKey key: String) {

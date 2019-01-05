@@ -183,7 +183,7 @@ extension Double {
 
 struct AppFontName {
     static let regular = "IRANYekanMobile"
-    static let bold = "IRANYekanMobile"
+    static let bold = "IRANYekanMobile-Bold"
     static let italic = "IRANYekanMobile"
 }
 

@@ -66,6 +66,7 @@ class AppManager: NSObject {
 		request.sendRequest(completionHandler: {data, success, msg in
 			if success {
 				self.userInfo = data as! user
+				print("Username is : \(self.userInfo.username)")
 			}
 			completionHandler(success)
 			Crashlytics.sharedInstance().setUserName(AppManager.sharedInstance().userInfo.username)
@@ -80,7 +81,7 @@ class AppManager: NSObject {
 				let inv = data as! UserInventory
 				self.inventory = inv
 				self.userInfo.coins = inv.coins
-				self.userInfo.premium_days = inv.premium_days
+				self.userInfo.premium_days = inv.days
 			}
 			completionHandler(success)
 		})
@@ -151,7 +152,7 @@ class AppManager: NSObject {
 		self.userPosts = currentPostList
 	}
 	
-	//Sing kara
+	//MARK: -Credentials
 	
 	func karaTapped(post: karaoke , sender: UIViewController){
 		
@@ -163,7 +164,7 @@ class AppManager: NSObject {
 				let inv = data as! UserInventory
 				self.inventory = inv
 				self.userInfo.coins = inv.coins
-				self.userInfo.premium_days = inv.premium_days
+				self.userInfo.premium_days = inv.days
 				self.getContent(url: post.link, sender: sender, completionHandler: { success, post in
 					
 					if success{
@@ -176,14 +177,45 @@ class AppManager: NSObject {
 			}else{
 				if msg == nil { return }
 				
+				let dialogue = DialougeView()
+				
+				if msg == AppGlobal.PAYMENT_REQUIRED{
+					dialogue.paymentRequired(vc: sender)
+				}else if msg == AppGlobal.SHOULD_BUY{
+					dialogue.buyPost(vc: sender, post: post)
+				}
+				
+			}
+		}
+	}
+	
+	
+	func buyPost(post: karaoke , sender: UIViewController){
+		
+		let url = AppGlobal.ServerURL + "song/posts/" + post.id.description + "/buy/"
+		let request = RequestHandler(type: .sing, requestURL: url, shouldShowError: true, sender: sender, waiting: true, force: false)
+		request.sendRequest(){
+			data, success, msg in
+			if success{
+				let inv = data as! UserInventory
+				self.inventory = inv
+				self.userInfo.coins = inv.coins
+				self.userInfo.premium_days = inv.days
+				self.getContent(url: post.link, sender: sender, completionHandler: { success, post in
+					
+					if success{
+						let vc = sender.storyboard?.instantiateViewController(withIdentifier: "ModeSelection") as! ModeSelectionViewController
+						vc.hidesBottomBarWhenPushed = true
+						vc.post = post
+						sender.navigationController?.pushViewController(vc, animated: true)
+					}
+				})
+			}else{
+				if msg == nil { return }
 				if msg == AppGlobal.PAYMENT_REQUIRED{
 					let dialogue = DialougeView()
 					dialogue.paymentRequired(vc: sender)
-					
-				}else if msg == AppGlobal.SHOULD_BUY{
-					print("BUY IT BIIIIITCH!!!! BUUUUY!!!")
 				}
-				
 			}
 		}
 	}

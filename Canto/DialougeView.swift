@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import SDWebImage
 
 
 class DialougeView {
@@ -676,7 +677,7 @@ class DialougeView {
 	func paymentRequired(vc: UIViewController){
 		
 		showBackgroundView(vc: vc)
-		self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 210, width: 300, height: 420))
+		self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 220, width: 300, height: 440))
 		self.shadowDialogue()
 		
 		
@@ -685,8 +686,15 @@ class DialougeView {
 		imageView.contentMode = .scaleAspectFit
 		dialougeView.addSubview(imageView)
 		
+		let title = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 20, width: dialougeView.frame.width - 100, height: 25))
+		title.text = "اعتبار ناکافی"
+		title.textColor = UIColor.white
+		title.font = UIFont.boldSystemFont(ofSize: 19)
+		title.textAlignment = .center
+		dialougeView.addSubview(title)
 		
-		let subTitle = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 30, width: dialougeView.frame.width - 100, height: 40))
+		
+		let subTitle = UILabel(frame: CGRect(x: 50, y: title.frame.maxY + 15, width: dialougeView.frame.width - 100, height: 40))
 		subTitle.text = "برای خرید این آهنگ باید اعتبار خود را افزایش دهید"
 		subTitle.textColor = AppGlobal.dialogueTextColor
 		subTitle.numberOfLines = 2
@@ -709,10 +717,10 @@ class DialougeView {
 		self.dialougeView.addSubview(tryButtonView)
 		
 		
-		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY + 5, width: 300, height: 40))
+		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY, width: 300, height: 40))
 		cancelButton.text = "بیخیال"
 		cancelButton.textColor = AppGlobal.dialogueTextColor
-		cancelButton.font = UIFont.systemFont(ofSize: 14)
+		cancelButton.font = UIFont.systemFont(ofSize: 15)
 		cancelButton.textAlignment = .center
 		cancelButton.isUserInteractionEnabled = true
 
@@ -721,6 +729,84 @@ class DialougeView {
 		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
 			let shopVC = vc.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
 			vc.navigationController?.pushViewController(shopVC, animated: true)
+		}
+		tryButtonView.addGestureRecognizer(tap!)
+		
+		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			self.hide()
+		}
+		
+		shadowView.addGestureRecognizer(cancelTap!)
+		cancelButton.addGestureRecognizer(cancelTap!)
+		
+		shadowView.contentView.addSubview(dialougeView)
+	}
+	
+	func buyPost(vc: UIViewController, post: karaoke){
+		
+		showBackgroundView(vc: vc)
+		self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 230, width: 300, height: 460))
+		self.shadowDialogue()
+		
+		let imageView = UIImageView(frame: CGRect(x: 60, y: 30, width: 180, height: 180))
+		imageView.sd_setImage(with: URL(string: post.cover_photo.link))
+		imageView.contentMode = .scaleAspectFill
+		imageView.layer.cornerRadius = 5
+		imageView.clipsToBounds = true
+		dialougeView.addSubview(imageView)
+		
+		let countLabel = UILabel(frame: CGRect(x: 35, y: 152, width: 200, height: 100))
+		countLabel.text = "\(post.count)X"
+		countLabel.font = UIFont.boldSystemFont(ofSize: 80)
+		countLabel.textColor = UIColor.white
+		dialougeView.addSubview(countLabel)
+		
+		let title = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 25, width: dialougeView.frame.width - 100, height: 25))
+		title.text = "خرید آهنگ"
+		title.textColor = UIColor.white
+		title.font = UIFont.boldSystemFont(ofSize: 20)
+		title.textAlignment = .center
+		title.isHidden = true
+		dialougeView.addSubview(title)
+		
+		
+		let subTitle = UILabel(frame: CGRect(x: 30, y: title.frame.maxY , width: dialougeView.frame.width - 60, height: 65))
+		subTitle.text = "آیا از پرداخت \(post.price) کانتو برای \(post.count) تلاش از آهنگ \(post.name) از \(post.artist.name) مطمئنید؟"
+		subTitle.textColor = UIColor.white
+		subTitle.numberOfLines = 4
+		subTitle.font = UIFont.systemFont(ofSize: 17)
+		subTitle.textAlignment = .center
+		self.dialougeView.addSubview(subTitle)
+		
+		
+		let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 250, height: 40))
+		tryButton.text = "آره می‌خرم"
+		tryButton.textColor = UIColor.white
+		tryButton.font = UIFont.boldSystemFont(ofSize: 20)
+		tryButton.textAlignment = .center
+		let tryButtonView = UIImageView(frame: CGRect(x: 30, y: subTitle.frame.maxY + 20, width: 240 , height: 40))
+		tryButtonView.image = UIImage(named: "")
+		tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
+		tryButtonView.contentMode = .scaleAspectFill
+		tryButtonView.isUserInteractionEnabled = true
+		tryButtonView.addSubview(tryButton)
+		self.dialougeView.addSubview(tryButtonView)
+		
+		
+		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY + 8, width: 300, height: 40))
+		cancelButton.text = "بیخیال"
+		cancelButton.textColor = AppGlobal.dialogueTextColor
+		cancelButton.font = UIFont.systemFont(ofSize: 17)
+		cancelButton.textAlignment = .center
+		cancelButton.isUserInteractionEnabled = true
+		
+		self.dialougeView.addSubview(cancelButton)
+		
+		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			
+			AppManager.sharedInstance().buyPost(post: post, sender: vc)
+			self.hide()
+			
 		}
 		tryButtonView.addGestureRecognizer(tap!)
 		
