@@ -53,7 +53,7 @@ class AudioHelper: NSObject {
 		
 		do{
 			try AudioKit.start()
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker)
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker )
 			try AVAudioSession.sharedInstance().setActive(true)
 		} catch{
 			print("Initializing AudioMixer (AudioKit) Failed" + error.localizedDescription)
@@ -74,8 +74,7 @@ class AudioHelper: NSObject {
 	
 	func getAudioFile(post: karaoke) {
 		
-//		let urlString = mode == .dubsmash ? post.content.original_file_url : post.content.karaoke_file_url
-		let urlString = post.content.karaoke_file_url
+		let urlString = mode == .dubsmash ? post.content.original_file_url : post.content.karaoke_file_url
 		if urlString.isEmpty { return }
 		let fileName = (urlString as NSString).lastPathComponent
 		var filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -87,7 +86,6 @@ class AudioHelper: NSObject {
 			readFile(url: filePath)
 			return
 		}
-		
 		
 		let url = URL(string: urlString)
 		

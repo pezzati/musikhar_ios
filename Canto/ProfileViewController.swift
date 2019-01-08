@@ -14,15 +14,17 @@ class ProfileViewController: UIViewController {
     
     
     
-    @IBOutlet weak var normalUserLabel: UILabel!
+
     @IBOutlet weak var noPostsView: UIView!
-    @IBOutlet weak var premiumImageView: UIImageView!
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var songsCollectionView: UICollectionView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var Name: UILabel!
-    @IBOutlet weak var Credit: UILabel!
+	@IBOutlet weak var creditLbl: UILabel!
+	@IBOutlet weak var premiumIV: UIImageView!
+	@IBOutlet weak var coinIV: UIImageView!
+	
     
     var userInfo = user()
     var posts : userPostsList = userPostsList()
@@ -36,26 +38,17 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        DispatchQueue.global(qos: .background).async {
-//            self.userInfo = AppManager.sharedInstance().getUserInfo()
-            self.posts = AppManager.sharedInstance().getUserPostsList()
-            DispatchQueue.main.async {
-                self.noPostsView.isHidden = self.posts.posts.count != 0
-                self.updateInfo()
-            }
-        }
-        
-        
-        if self.userInfo.first_name == ""{
-            AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {
+		
+        if AppManager.sharedInstance().userInfo.username.isEmpty{
+            AppManager.sharedInstance().fetchUserInfo(sender: self, force: true, completionHandler: {
                 _ in
-//                self.userInfo = AppManager.sharedInstance().getUserInfo()
-                self.posts = AppManager.sharedInstance().getUserPostsList()
-                self.noPostsView.isHidden = self.posts.posts.count != 0
+				
                 self.updateInfo()
             })
-        }
+		}else{
+			self.updateInfo()
+		}
+		
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Profile", detail: "")
     }
     
@@ -67,7 +60,6 @@ class ProfileViewController: UIViewController {
         
         AppManager.sharedInstance().addAction(action: "Photo/Name Tapped", session: "Profile", detail: "")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker") as? ProfilePictureViewController
-        vc!.isFirstTime = false
         self.present(vc!, animated: true, completion: nil)
     }
     
@@ -119,15 +111,21 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     
     
     func updateInfo(){
-        //        self.profilePicture.sd_setImage(with: URL(string: self.userInfo.image), placeholderImage: UIImage(named: "hootan"))
-        navigationItem.title = "Whotan"
-        self.profilePicture.image = AppManager.sharedInstance().userAvatar
-        self.Name.text = "هوتن حسینی"
-//        self.Credit.isHidden = !self.userInfo.is_premium
-//        self.normalUserLabel.isHidden = self.userInfo.is_premium
-//        self.premiumImageView.isHidden = !self.userInfo.is_premium
-        self.noPostsView.isHidden = self.posts.posts.count != 0
-        self.songsCollectionView.reloadData()
+		
+        Name.text = AppManager.sharedInstance().userInfo.username
+		self.posts = AppManager.sharedInstance().getUserPostsList()
+		noPostsView.isHidden = self.posts.posts.count != 0
+		songsCollectionView.reloadData()
+		
+		if AppManager.sharedInstance().userInfo.premium_days > 0 {
+			creditLbl.text = AppManager.sharedInstance().userInfo.premium_days.description
+			coinIV.isHidden = true
+			premiumIV.isHidden = false
+		}else{
+			creditLbl.text = AppManager.sharedInstance().userInfo.coins.description
+			coinIV.isHidden = false
+			premiumIV.isHidden = true
+		}
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

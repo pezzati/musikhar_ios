@@ -25,6 +25,8 @@ class DialougeView {
         shadowView.alpha = 1
 		shadowView.isUserInteractionEnabled = true
         vc.view.addSubview(shadowView)
+//		vc.navigationController?.navigationBar.layer.zPosition = -1
+//		vc.tabBarController?.tabBar.layer.zPosition = -1
     }
     
     func waitingBox(vc: UIViewController){
@@ -107,6 +109,15 @@ class DialougeView {
     func hide(){
         self.dialougeView.removeFromSuperview()
         self.shadowView.removeFromSuperview()
+		if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
+			topController.navigationController?.setToolbarHidden(false, animated: true)
+			topController.navigationController?.navigationBar.layer.zPosition = 0
+			topController.tabBarController?.tabBar.layer.zPosition = 0
+		}
+
     }
     
 //    func chooseKaraType(kara: karaoke, sender: UIViewController) {
@@ -729,6 +740,7 @@ class DialougeView {
 		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
 			let shopVC = vc.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
 			vc.navigationController?.pushViewController(shopVC, animated: true)
+			self.hide()
 		}
 		tryButtonView.addGestureRecognizer(tap!)
 		
@@ -803,10 +815,8 @@ class DialougeView {
 		self.dialougeView.addSubview(cancelButton)
 		
 		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-			
-			AppManager.sharedInstance().buyPost(post: post, sender: vc)
 			self.hide()
-			
+			AppManager.sharedInstance().buyPost(post: post, sender: vc)
 		}
 		tryButtonView.addGestureRecognizer(tap!)
 		

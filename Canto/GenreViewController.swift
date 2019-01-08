@@ -102,7 +102,7 @@ extension GenreViewController : UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row + 3 == self.results.results.count && !self.results.next.isEmpty{
+        if indexPath.row + 10 >= self.results.results.count && !self.results.next.isEmpty{
             self.getMorePosts()
         }
     }

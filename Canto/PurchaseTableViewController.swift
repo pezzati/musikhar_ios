@@ -71,6 +71,13 @@ class PurchaseTableViewController: UITableViewController {
 		if indexPath.section == 0{
 			let cell = tableView.dequeueReusableCell(withIdentifier: "CreditInfoCell", for: indexPath)
 			cell.selectionStyle = .none
+			
+			let coins = cell.contentView.viewWithTag(101) as! UILabel
+			coins.text = AppManager.sharedInstance().userInfo.coins.description
+			
+			let premiumDays = cell.contentView.viewWithTag(102) as! UILabel
+			premiumDays.text = AppManager.sharedInstance().userInfo.premium_days.description
+			
 			return cell
 		}
 		else{
@@ -91,7 +98,7 @@ class PurchaseTableViewController: UITableViewController {
 //        return indexPath.section == 1 ? 180 : 90
 		let width = view.bounds.width - 40
 	
-		return indexPath.section == 1 ? width/2.62 + 8 : width/1.85 + 8
+		return indexPath.section == 1 ? width/2.62 + 8 : width/4.24 + 32
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -113,9 +120,11 @@ class PurchaseTableViewController: UITableViewController {
         request.sendRequest(completionHandler: {data, success, msg in
             if success{
                 let url = data as! String
-                UIApplication.shared.open( URL(string: url )!, options: [:], completionHandler:{ bool in self.dismiss(animated: true, completion: nil) })
+                UIApplication.shared.open( URL(string: url )!, options: [:], completionHandler:{ bool in
+					self.navigationController?.popViewController(animated: true)
+				})
 //                UIApplication.shared.openURL(URL(string: url )!)
-                self.dismiss(animated: true, completion: nil)
+//                self.dismiss(animated: true, completion: nil)
             }else{
                 AppManager.sharedInstance().addAction(action: "Failed to get purchase link", session: "Shop", detail: "")
             }

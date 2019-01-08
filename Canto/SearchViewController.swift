@@ -42,7 +42,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             }
         }
         self.navigationItem.title = "جستجو"
-		
+		searchTextField.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
+
 		searchTextField.attributedPlaceholder = NSAttributedString(string: "جست و جو",
 															   attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
     }
@@ -90,7 +91,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    
+	
+	
+	@objc func textFieldDidChange(_ textField: UITextField) {
+		if textField.text != nil{
+			self.setCollectionView(nextPage: false)
+		}
+	}
+	
     func setCollectionView(nextPage : Bool = false){
         
         
@@ -99,7 +107,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         if nextPage{ requestURL = self.results.next }
         
-        let request = RequestHandler(type: .genrePosts , requestURL: requestURL, shouldShowError: true, sender: self, waiting: !nextPage, force: false)
+		let request = RequestHandler(type: .genrePosts , requestURL: requestURL, shouldShowError: true, retry: 0, sender: self, waiting: false, force: false)
         
         request.sendRequest(completionHandler: { more_posts, success, msg in
             if success {
@@ -164,7 +172,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row + 3 == self.results.results.count && !self.results.next.isEmpty{
+        if indexPath.row + 10 >= self.results.results.count && !self.results.next.isEmpty{
             self.setCollectionView(nextPage: true)
         }
     }
