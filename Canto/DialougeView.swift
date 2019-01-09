@@ -15,8 +15,8 @@ class DialougeView {
     
     var dialougeView : UIView!
     var shadowView : UIVisualEffectView!
-    let scrWidth = UIScreen.main.bounds.width
-    let scrHeight = UIScreen.main.bounds.height
+    var scrWidth = UIScreen.main.bounds.width
+	var scrHeight = UIScreen.main.bounds.height
     
     func showBackgroundView(vc: UIViewController){
 		let blurEffect = UIBlurEffect(style: .dark)
@@ -31,18 +31,21 @@ class DialougeView {
     
     func waitingBox(vc: UIViewController){
         showBackgroundView(vc: vc)
+		scrHeight = vc.view.bounds.width
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 60 , y: scrHeight/2 - 60, width: 120, height: 120))
         self.dialougeView.layer.cornerRadius = 15
         self.dialougeView.clipsToBounds = true
         //        self.shadowDialogue()
         let loadingView = LOTAnimationView(name: "loading")
-        loadingView.backgroundColor = UIColor.purple
+//        loadingView.backgroundColor = UIColor.purple
         loadingView.frame = CGRect(x: 0, y: 0, width: 120, height: 120)
         loadingView.loopAnimation = true
+		loadingView.animationSpeed = 1.2
         loadingView.play()
         
         self.dialougeView.addSubview(loadingView)
-        vc.view.addSubview(dialougeView!)
+		shadowView.contentView.addSubview(dialougeView)
+
     }
     
     func internetConnectionError(vc: UIViewController, completionHandler: @escaping (Bool) -> ()){

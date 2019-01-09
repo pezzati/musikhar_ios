@@ -253,7 +253,7 @@ extension Karaoke_VC : iCarouselDelegate, iCarouselDataSource{
     }
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-        
+		
         let item = self.banners.results[index]
         AppManager.sharedInstance().addAction(action: "Banner Tapped", session: "Home", detail: item.link)
         switch item.content_type{
