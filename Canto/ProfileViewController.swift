@@ -60,7 +60,8 @@ class ProfileViewController: UIViewController {
         
         AppManager.sharedInstance().addAction(action: "Photo/Name Tapped", session: "Profile", detail: "")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker") as? ProfilePictureViewController
-        self.present(vc!, animated: true, completion: nil)
+		vc?.isFirstTime = false
+		navigationController?.pushViewController(vc!, animated: true)
     }
     
     @objc func onSettingClicked(){
@@ -112,6 +113,7 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     
     func updateInfo(){
 		
+		profilePicture.sd_setImage(with: URL(string: AppManager.sharedInstance().userInfo.avatar.link), placeholderImage: UIImage(named: "userPH") )
         Name.text = AppManager.sharedInstance().userInfo.username
 		self.posts = AppManager.sharedInstance().getUserPostsList()
 		noPostsView.isHidden = self.posts.posts.count != 0

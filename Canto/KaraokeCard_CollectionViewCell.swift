@@ -36,7 +36,7 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
         ArtistName.text = post.artist.name.count == 0 ? post.name : post.artist.name
         SongName.text = post.name
         cardImage.layer.cornerRadius = 10
-        cardImage.sd_setImage(with: URL(string: post.cover_photo.link), completed: nil)
+		cardImage.sd_setImage(with: URL(string: post.cover_photo.link), placeholderImage: UIImage(named: "hootan"))
         cardImage.contentMode = .scaleToFill
 		
         if darkGradient == nil {

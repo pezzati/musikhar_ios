@@ -13,66 +13,99 @@ class ProfilePictureViewController: UIViewController {
     
     @IBOutlet weak var pictureButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    var imageURL : URL?
     var retry = 3
     public var isFirstTime = true
-    var hasImage = false
     @IBOutlet weak var nameTF: UITextField!
-    @IBOutlet weak var lastNameTF: UITextField!
-    @IBOutlet weak var purpleNextButton: UIButton!
-    @IBOutlet weak var purpleNextImageView: UIImageView!
     @IBOutlet weak var doneButtonOutlet: UIButton!
-    
-    @IBOutlet weak var backButton: UIButton!
-    override func viewWillLayoutSubviews() {
-        self.imageView.layer.cornerRadius = 30
-//        self.doneButtonOutlet.isHidden = isFirstTime
-//        self.purpleNextButton.isHidden = !isFirstTime
-//        self.purpleNextImageView.isHidden = !isFirstTime
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.backButton.isHidden = isFirstTime
-        if !isFirstTime{
-            imageView.image = AppManager.sharedInstance().userAvatar
-            hasImage = true
-//            nameTF.text = AppManager.sharedInstance().getUserInfo().first_name
-//            lastNameTF.text = AppManager.sharedInstance().getUserInfo().last_name
-        }
-        
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Profile Info", detail: "")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if isFirstTime{
-//            AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, completionHandler: {_ in })
-//            AppManager.sharedInstance().fetchBanners(sender: self, completionHandler: {_ in })
-        }
-        
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Profile Info", detail: "")
-    }
-    
-    
+	@IBOutlet weak var errorView: UIView!
+	@IBOutlet weak var invalidInputView: UIView!
+	
+	override func viewWillAppear(_ animated: Bool) {
+		imageView.sd_setImage(with: URL(string: AppManager.sharedInstance().userInfo.avatar.link), placeholderImage: UIImage(named: "userPH") )
+	}
+	
+	
+	override func viewDidLoad() {
+		doneButtonOutlet.layer.cornerRadius = 5
+		nameTF.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
+		nameTF.attributedPlaceholder = NSAttributedString(string: "نام کاربری",
+																   attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+		if isFirstTime{
+			navigationItem.hidesBackButton = true
+		}
+		navigationController?.navigationBar.prefersLargeTitles = false
+	}
+	
+	
+	
+	@objc func textFieldDidChange(_ textField: UITextField) {
+		errorView.isHidden = true
+		
+		if textField.text != nil{
+			if !AppManager.isValidUsernamePassword(str: textField.text!){
+				invalidInputView.isHidden = false
+				doneButtonOutlet.setBackgroundImage(nil, for: .normal)
+				invalidInputView.shake()
+			}else if (textField.text?.isEmpty)!{
+				invalidInputView.isHidden = true
+				doneButtonOutlet.setBackgroundImage(nil, for: .normal)
+			}else{
+				invalidInputView.isHidden = true
+				doneButtonOutlet.isEnabled = true
+				doneButtonOutlet.setBackgroundImage(UIImage(named: "button"), for: .normal)
+			}
+		}else{
+			invalidInputView.isHidden = true
+			doneButtonOutlet.setBackgroundImage(nil, for: .normal)
+		}
+	}
+	
+	
     @IBAction func photoTapped(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Photo Tapped", session: "Profile Info", detail: "")
-        CameraHandler.shared.showActionSheet(vc: self, sender : self.pictureButton)
-        CameraHandler.shared.imagePickedBlock = { imageURL, image in
-            self.imageView.image = image
-            self.imageURL = imageURL
-            self.hasImage = true
-            let file = UIImageJPEGRepresentation(image, 1)
-            UserDefaults.standard.setValue(file, forKey: "UserImage")
-            AppManager.sharedInstance().updateUserPhoto()
-            AppManager.sharedInstance().addAction(action: "Photo Selected", session: "Profile Info", detail: "")
+		
+    }
+    
+
+    
+    @IBAction func next(_ sender: Any) {
+		
+		if AppManager.sharedInstance().userInfo.avatar.id == -1 {
+			photoTapped(self)
+			return
+		}
+		
+		let params = ["username" : nameTF.text?.lowercased(), "avatar" : AppManager.sharedInstance().userInfo.avatar.id.description]
+		
+		let request = RequestHandler(type: .updateUserInfo, requestURL: AppGlobal.UserProfileURL + "/" , params: params, shouldShowError: true, timeOut: 8, retry: 0, sender: self, waiting: true, force: false)
+		request.sendRequest(completionHandler: { data, success, msg in
+			if success {
+				let user = data as! user
+				AppManager.sharedInstance().userInfo = user
+				self.done()
+			}else if msg != nil{
+				self.errorView.isHidden = false
+				self.errorView.shake()
+			}
+		})
+		
+	}
+	
+	
+    func done(){
+        
+        if self.isFirstTime{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
+            self.present(vc!, animated: true, completion: nil)
+//            self.present(vc, animated: true, completion: nil)
+        }else{
+            navigationController?.popViewController(animated: true)
         }
     }
     
     
-    
+}
+
+
 //    func uploadPhoto(){
 //
 //        let dialouge = DialougeView()
@@ -134,47 +167,4 @@ class ProfilePictureViewController: UIViewController {
 //        })
 //        }
 //    }
-    
-    
-    @IBAction func next(_ sender: Any) {
-        
-        
-        if (nameTF.text?.isEmpty)!{
-            nameTF.shake()
-            AppManager.sharedInstance().addAction(action: "Next Tapped", session: "Profile Info", detail: "Error: Name field was empty")
-        }else{
-            let params = ["first_name" : nameTF.text , "last_name" : lastNameTF.text]
-            let request = RequestHandler(type: .updateUserInfo, requestURL: AppGlobal.UserProfileURL + "/" , params: params, shouldShowError: true, timeOut: 8, retry: 1, sender: self, waiting: true, force: false)
-            request.sendRequest(completionHandler: { data, success, msg in
-                if success {
-                    let user = data as! user
-                    UserDefaults.standard.setValue(user.toJsonString(), forKey: AppGlobal.userInfoCache)
-//                    AppManager.sharedInstance().getUserInfo()
-                    self.done()
-                }
-            })
-        }
-        
-    }
-    
-    
-    @IBAction func back(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Back Tapped", session: "Profile Info", detail: "")
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func done(){
-        
-        if self.isFirstTime{
-//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "genreSelection") as! GenreSelectionViewController
-//            vc.firstTime = true
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
-            self.present(vc!, animated: true, completion: nil)
-//            self.present(vc, animated: true, completion: nil)
-        }else{
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    
-}
+

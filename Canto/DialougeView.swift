@@ -769,7 +769,7 @@ class DialougeView {
 		self.shadowDialogue()
 		
 		let imageView = UIImageView(frame: CGRect(x: 60, y: 30, width: 180, height: 180))
-		imageView.sd_setImage(with: URL(string: post.cover_photo.link))
+		imageView.sd_setImage(with: URL(string: post.cover_photo.link), placeholderImage: UIImage(named: "hootan"))
 		imageView.contentMode = .scaleAspectFill
 		imageView.layer.cornerRadius = 5
 		imageView.clipsToBounds = true

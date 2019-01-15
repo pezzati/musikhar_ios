@@ -236,6 +236,26 @@ class package : EVObject{
     var serial_number : String = ""
 }
 
+class AvatarsList : EVObject, EVArrayConvertable{
+	var results : [File] = []
+	var count : Int = 0
+	var next : String = ""
+	var previous : String = ""
+	
+	func convertArray(_ key: String, array: Any) -> NSArray {
+		return [] as NSArray
+	}
+	override func setValue(_ value: Any!, forUndefinedKey key: String) {
+		if let array = value as? NSArray {
+			self.results = []
+			for post in array {
+				self.results.append((post as? File)!)
+			}
+		}
+	}
+	
+}
+
 class packagesList : EVObject, EVArrayConvertable{
     var results : [package] = []
     var count : Int = 0
@@ -581,16 +601,17 @@ class InventoryPost : EVObject{
 	var id = 0
 }
 
+
 class user: EVObject{
     var username : String = ""
-    var gender : Int = 0
+//    var gender : Int = 0
 //    var birth_date : String = ""
-    var image : String = ""
+//    var image : String = ""
     var mobile : String = ""
     var email : String = ""
 //    var bio : String = ""
-    var first_name : String = ""
-    var last_name : String = ""
+//    var first_name : String = ""
+//    var last_name : String = ""
 //    var follower_count : Int = 0
 //    var following_count : Int = 0
 //    var post_count : Int = 0
@@ -601,7 +622,8 @@ class user: EVObject{
 //    var is_premium : Bool = false
     var premium_days : Int = 0
 	var coins : Int = 0
-
+	var avatar: File = File()
+	
 //    override func setValue(_ value: Any!, forUndefinedKey key: String) {
 //        switch key {
 ////        case "poems":
@@ -676,7 +698,7 @@ class user: EVObject{
 //}
 
 class File : EVObject{
-    var id : Int = 0
+    var id : Int = -1
     var link : String = ""
 }
 

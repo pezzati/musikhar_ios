@@ -344,7 +344,7 @@ class RequestHandler : NSObject{
 					}else if (response.response?.statusCode)! == 403{
 						completionHandler(nil,false,AppGlobal.SHOULD_BUY)
 						if self.showWaiting { self.dialougeBox.hide() }
-					}else if (self.requestType == .codeVerification || self.requestType == .googleSignIn) && (response.response?.statusCode)! == 400 {
+					}else if (self.requestType == .codeVerification || self.requestType == .googleSignIn || self.requestType == .updateUserInfo) && (response.response?.statusCode)! == 400 {
                             if self.showWaiting { self.dialougeBox.hide() }
                             completionHandler(nil,false,"کد وارد شده اشتباه است")
 					}else if (response.response?.statusCode)! == 402{
@@ -363,7 +363,6 @@ class RequestHandler : NSObject{
                 }
             })
         }
-        
     }
 	
     

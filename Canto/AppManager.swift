@@ -361,7 +361,7 @@ class AppManager: NSObject {
 	
 	
 	class func isValidUsernamePassword(str: String) -> Bool{
-		let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.")
+		let characterset = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.")
 		if str.rangeOfCharacter(from: characterset.inverted) != nil {
 			return false
 		}else{
