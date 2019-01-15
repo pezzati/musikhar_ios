@@ -34,6 +34,7 @@ class AudioHelper: NSObject {
 	var fileRecorder: AKNodeRecorder!
 	var voiceWriter: AKAudioFile!
 	var voiceRecorder: AKNodeRecorder!
+	var micLowPass: AKLowPassFilter!
 	var timer : Timer?
 	var mode : Modes!
 	var maxValue : Float = 1.0
@@ -45,7 +46,8 @@ class AudioHelper: NSObject {
 		self.mode = mode
 		mainMixer = AKMixer()
 		mic = AKMicrophone()
-		micReverb = AKReverb(mic, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
+		micLowPass = AKLowPassFilter(mic, cutoffFrequency: 2000, resonance: -20)
+		micReverb = AKReverb(micLowPass, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
 		micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeChamber)
 		monitorBooster = AKBooster(micReverb, gain: mode == .dubsmash ? 0.0 : 1.0)
 		mainMixer.connect(input: monitorBooster)

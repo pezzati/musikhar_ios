@@ -32,6 +32,8 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
 		code.becomeFirstResponder()
 		navigationController?.title = "تایید کد"
 		navigationController?.navigationItem.title = "تایید کد"
+		
+		code.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
     }
 
 	
@@ -39,6 +41,12 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		nextTapped(textField)
 		return false
+	}
+	
+	@objc func textFieldDidChange(_ textField: UITextField) {
+		if textField.text?.count == 4{
+			nextTapped(textField)
+		}
 	}
 	
     

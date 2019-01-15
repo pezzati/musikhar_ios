@@ -31,14 +31,11 @@ class DialougeView {
     
     func waitingBox(vc: UIViewController){
         showBackgroundView(vc: vc)
-		scrHeight = vc.view.bounds.width
-        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 60 , y: scrHeight/2 - 60, width: 120, height: 120))
-        self.dialougeView.layer.cornerRadius = 15
-        self.dialougeView.clipsToBounds = true
-        //        self.shadowDialogue()
+		
+        self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 80 , y: vc.view.bounds.height/2 - 80, width: 160, height: 160))
+		dialougeView.backgroundColor = UIColor.clear
         let loadingView = LOTAnimationView(name: "loading")
-//        loadingView.backgroundColor = UIColor.purple
-        loadingView.frame = CGRect(x: 0, y: 0, width: 120, height: 120)
+        loadingView.frame = CGRect(x: 0, y: 0, width: 160, height: 160)
         loadingView.loopAnimation = true
 		loadingView.animationSpeed = 1.2
         loadingView.play()
@@ -51,10 +48,8 @@ class DialougeView {
     func internetConnectionError(vc: UIViewController, completionHandler: @escaping (Bool) -> ()){
         
         showBackgroundView(vc: vc)
-        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
-        self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 15
-        self.dialougeView.clipsToBounds = true
+		
+        self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 130, width: 300, height: 260))
         self.shadowDialogue()
         
         let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 70))
@@ -64,15 +59,15 @@ class DialougeView {
         
         let title = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 20))
         title.text = "قطعی اینترنت"
-        title.adjustsFontSizeToFitWidth = true
+        title.font = UIFont.boldSystemFont(ofSize: 19)
         title.textAlignment = .center
-        title.textColor = UIColor.black
+        title.textColor = AppGlobal.dialogueTextColor
         self.dialougeView.addSubview(title)
         
         let subTitle = UILabel(frame: CGRect(x: 0, y: 150, width: 300, height: 40))
-        subTitle.text = "لطفا از اتصال خود به اینترنت اطمینان حاصل فرمایید"
-        subTitle.textColor = UIColor.black
-        subTitle.numberOfLines = 1
+        subTitle.text = "کاربر گرامی اینترت شما وصل نیست \n لطفا از اتصال به اینترنت مطمئن شوید"
+        subTitle.textColor = AppGlobal.dialogueTextColor
+        subTitle.numberOfLines = 2
         subTitle.font = UIFont.systemFont(ofSize: 14)
         subTitle.textAlignment = .center
         self.dialougeView.addSubview(subTitle)
@@ -81,16 +76,10 @@ class DialougeView {
         let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 180, height: 40))
         tryButton.text = "باشه"
         tryButton.textColor = UIColor.white
-        tryButton.font = UIFont.systemFont(ofSize: 14)
+        tryButton.font = UIFont.boldSystemFont(ofSize: 16)
         tryButton.numberOfLines = 1
         tryButton.textAlignment = .center
         let tryButtonView = UIImageView(frame: CGRect(x: 60, y: 200, width: 180 , height: 40))
-        tryButtonView.image = UIImage(named: "button3")
-        tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
-        tryButtonView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tryButtonView.layer.shadowRadius = 5
-        tryButtonView.layer.shadowOpacity = 0.3
-        tryButtonView.contentMode = .scaleAspectFill
         tryButtonView.isUserInteractionEnabled = true
         tryButtonView.addSubview(tryButton)
         self.dialougeView.addSubview(tryButtonView)
@@ -389,9 +378,7 @@ class DialougeView {
     func showUserAgreement(sender: UIViewController, shouldAsk : Bool = true , completionHandler: @escaping (Bool) -> ()){
         
         showBackgroundView(vc: sender)
-        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 215, width: 300, height: 430))
-		self.dialougeView.backgroundColor = UIColor.darkGray
-//        self.dialougeView.backgroundColor = UIColor.white
+        self.dialougeView = UIView(frame: CGRect(x: sender.view.bounds.width/2 - 150 , y: sender.view.bounds.height/2 - 215, width: 300, height: 430))
         self.shadowDialogue()
         
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 25, width: 270, height: 20))
@@ -403,15 +390,17 @@ class DialougeView {
         
         let textView = UITextView(frame: CGRect(x: 30, y: 75, width: 240, height: 275))
         textView.isEditable = false
+		textView.backgroundColor = UIColor.clear
         textView.textAlignment = .right
-		textView.textColor = UIColor.white
+		
         let text = "لطفاً متن زیر را به دقت بخوانید و آگاه باشید که با ثبت نام و استفاده از این اپلیکشین، با این موارد موافقت کرده‌اید:\n\n-کاربران حق استفاده از نام و هویت دیگران را ندارند.\n\n-هر گونه توهین و تمسخر مقدسات و اشخاص حقیقی و حقوقی ممنوع است.\n\n-استفاده از کلمات و عبارات رکیک ممنوع است.\n\n-توهین به مقدسات اقلیت‌های دینی و مذهبی و تحریک اذهان عمومی ممنوع است.\n\nشما با ثبت نام و استفاده از این اپلیکیشن با موارد فوق موافقت کرده‌اید و در صورت مشاهده هر گونه تخلف، اکانت کاربری توقیف خواهد شد."
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 4
         style.alignment = .right
         let attributes = [NSAttributedStringKey.paragraphStyle : style]
         textView.attributedText = NSAttributedString(string: text, attributes: attributes)
-        textView.font = UIFont.boldSystemFont(ofSize: 13)
+        textView.font = UIFont.systemFont(ofSize: 15)
+		textView.textColor = AppGlobal.dialogueTextColor
         self.dialougeView.addSubview(textView)
         
         let agreeButton = UILabel(frame: CGRect(x: 300 - 30 - 90, y: 370, width: 90, height: 30))
@@ -434,7 +423,7 @@ class DialougeView {
         let disagreeButton = UILabel(frame: CGRect(x: 30, y: 370, width: 90, height: 30))
         disagreeButton.text = "قبول ندارم"
         disagreeButton.font = UIFont.boldSystemFont(ofSize: 15)
-        disagreeButton.textColor = UIColor.black
+        disagreeButton.textColor = UIColor.white
         disagreeButton.textAlignment = .center
         disagreeButton.isUserInteractionEnabled = true
         let disagreeTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
@@ -455,62 +444,77 @@ class DialougeView {
             dialougeView.addSubview(disagreeButton)
         }
 		
-        sender.view.addSubview(dialougeView!)
+        shadowView.contentView.addSubview(dialougeView)
     }
     
     
     func update(force: Bool,downloadURL: String, vc: UIViewController){
         
         showBackgroundView(vc: vc)
-        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
-        self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 15
-        self.dialougeView.clipsToBounds = true
+        self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 200, width: 300, height: 400))
         self.shadowDialogue()
         
-        let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 70))
+        let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 170))
         image.image = UIImage(named: "update")
         if force{ image.image = UIImage(named: "forceUpdate") }
         image.contentMode = .scaleAspectFit
         self.dialougeView.addSubview(image)
         
-        let title = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 20))
-        title.text = "به روز رسانی"
-        if force{ title.text = "به روز رسانی اجباری"}
-        title.adjustsFontSizeToFitWidth = true
+        let title = UILabel(frame: CGRect(x: 0, y: 220, width: 300, height: 20))
+        title.text = "بروزرسانی"
+        if force{ title.text = "بروزرسانی ضروری"}
+        title.font = UIFont.boldSystemFont(ofSize: 19)
         title.textAlignment = .center
-        title.textColor = UIColor.black
+        title.textColor = UIColor.white
         self.dialougeView.addSubview(title)
         
-        let subTitle = UILabel(frame: CGRect(x: 0, y: 150, width: 300, height: 40))
-        subTitle.text = "نسخه جدید اپلیکیشن کانتو را میتوانید دریافت کنید"
-        if force{ subTitle.text = "متاسفانه از این نسخه دیگر پشتیبانی نمیشود" }
-        subTitle.textColor = UIColor.black
+        let subTitle = UILabel(frame: CGRect(x: 50, y: 250, width: 200, height: 40))
+        subTitle.text = "برای بهبود عملکرد نرم افزار بهتر است بروزرسانی کنید"
+        if force{ subTitle.text = "این نسخه از نرم افزار دیگر قابل استفاده نیست، برای ادامه بروزرسانی کنید" }
+        subTitle.textColor = AppGlobal.dialogueTextColor
         subTitle.numberOfLines = 2
-        subTitle.font = UIFont.systemFont(ofSize: 13)
+        subTitle.font = UIFont.systemFont(ofSize: 16)
         subTitle.textAlignment = .center
         self.dialougeView.addSubview(subTitle)
         
         
         let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 180, height: 40))
-        tryButton.text = "دریافت نسخه جدید"
+        tryButton.text = "بروزرسانی"
         tryButton.textColor = UIColor.white
-        tryButton.font = UIFont.systemFont(ofSize: 14)
+        tryButton.font = UIFont.boldSystemFont(ofSize: 14)
         tryButton.numberOfLines = 1
         tryButton.textAlignment = .center
-        let tryButtonView = UIImageView(frame: CGRect(x: 60, y: 200, width: 180 , height: 40))
-        tryButtonView.image = UIImage(named: "button3")
-        tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
-        tryButtonView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tryButtonView.layer.shadowRadius = 5
-        tryButtonView.layer.shadowOpacity = 0.3
+        let tryButtonView = UIImageView(frame: CGRect(x: 60, y: 300, width: 180 , height: 40))
+		tryButtonView.image = UIImage(named: "button")
         tryButtonView.contentMode = .scaleAspectFill
         tryButtonView.isUserInteractionEnabled = true
         tryButtonView.addSubview(tryButton)
         self.dialougeView.addSubview(tryButtonView)
-        
-        let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-            UIApplication.shared.openURL(URL(string: downloadURL)!)
+		
+		if !force{
+			let cancelButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 180, height: 40))
+			cancelButton.text = "بعدا بپرس"
+			cancelButton.textColor = UIColor.white
+			cancelButton.font = UIFont.boldSystemFont(ofSize: 14)
+			cancelButton.numberOfLines = 1
+			cancelButton.textAlignment = .center
+			cancelButton.isUserInteractionEnabled = true
+			
+			let cancelButtonView = UIImageView(frame: CGRect(x: 60, y: 350, width: 180 , height: 40))
+			cancelButtonView.isUserInteractionEnabled = true
+			cancelButtonView.addSubview(cancelButton)
+			self.dialougeView.addSubview(cancelButtonView)
+			
+			self.dialougeView.addSubview(cancelButtonView)
+			
+			let cancelTp =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+				if !force{ self.hide() }
+			}
+			cancelButtonView.addGestureRecognizer(cancelTp!)
+		}
+		
+		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			UIApplication.shared.openURL(URL(string: downloadURL)!)
         }
         tryButtonView.addGestureRecognizer(tap!)
         
@@ -519,8 +523,9 @@ class DialougeView {
         }
         self.shadowView.addGestureRecognizer(cancelTap!)
         self.shadowView.isUserInteractionEnabled = true
-        
-        vc.view.addSubview(dialougeView!)
+		
+		shadowView.contentView.addSubview(dialougeView)
+//        vc.view.addSubview(dialougeView!)
     }
     
     
@@ -723,7 +728,7 @@ class DialougeView {
 		tryButton.font = UIFont.boldSystemFont(ofSize: 17)
 		tryButton.textAlignment = .center
 		let tryButtonView = UIImageView(frame: CGRect(x: 30, y: subTitle.frame.maxY + 40, width: 240 , height: 40))
-		tryButtonView.image = UIImage(named: "")
+		tryButtonView.image = UIImage(named: "button")
 		tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
 		tryButtonView.contentMode = .scaleAspectFill
 		tryButtonView.isUserInteractionEnabled = true
@@ -800,7 +805,7 @@ class DialougeView {
 		tryButton.font = UIFont.boldSystemFont(ofSize: 20)
 		tryButton.textAlignment = .center
 		let tryButtonView = UIImageView(frame: CGRect(x: 30, y: subTitle.frame.maxY + 20, width: 240 , height: 40))
-		tryButtonView.image = UIImage(named: "")
+		tryButtonView.image = UIImage(named: "button")
 		tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
 		tryButtonView.contentMode = .scaleAspectFill
 		tryButtonView.isUserInteractionEnabled = true

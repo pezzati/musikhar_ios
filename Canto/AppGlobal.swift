@@ -78,9 +78,9 @@ struct AppGlobal {
     public static let modeNames = [Modes.dubsmash : "دابسمش" ,
                                    Modes.karaoke : "کارایوکی" ,
                                    Modes.singing : "خوانندگی"]
-    public static let modesDescription = [Modes.dubsmash : "با انتخاب این حالت میتوانید روی آهنگ انتخاب شده از خود فیلم بگیرید و دابسمش بسازید. صدای شما ضبط نخواهد شد ولی قادر به تغییر تنظیمات موزیک به دلخواه خود هستید.",
-                                          Modes.karaoke : "با انتخاب این حالت پارتی شما اصن یه حال دیگه ای میده، همه میان گوشیو میگیرن داد و بیداد میکنن و با صدای خودشون حال میکنن.",
-                                          Modes.singing : "با انتخاب این حالت میتوانید روی آهنگ مورد نظر بازخوانی کنید. صدای شما ضبط خواهد شد و میتوانید فیلم بگیرید یا نگیرید یا هرچی که حال میکنید ما هم باهاش حال میکنیم."]
+    public static let modesDescription = [Modes.dubsmash : "موزیک دلخواه خود را پیدا کنید، در حال لب زدن با آن ، ویدیو کلیپ های خلاقانه بسازید",
+                                          Modes.karaoke : "موبایل خود را مانند میکروفون در دست بگیرید و خواننده مهمانی های خود باشید\n برای استفاده از این قابلیت لازم است از بلندگو استفاده کنید" ,
+                                          Modes.singing : "بجای خواننده مورد علاقه خود روی آهنگ دلخواهتان بخوانید و موزیک ویدیو منحصر به خودتان را بسازید\nبرای عملکرد بهتر این قابلیت از هندزفری استفاده کنید"]
 
 
 }
@@ -131,9 +131,9 @@ public enum soundFx{
 }
 
 public enum Modes : Int {
-    case dubsmash = 0
-    case karaoke = 1
-    case singing = 2
+	case singing = 0
+    case dubsmash = 1
+    case karaoke = 2
 }
 
 public enum controller : String {

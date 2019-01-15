@@ -10,7 +10,7 @@ target 'Canto' do
   pod 'SDWebImage', '~> 4.0'
   pod 'lottie-ios'
   pod 'OneSignal', '>= 2.6.2', '< 3.0'
-  pod 'AudioKit', '~> 4.5.6'
+  pod 'AudioKit', ' 4.5.4'
   pod 'GoogleSignIn'
   pod 'Fabric'
   pod 'Crashlytics'

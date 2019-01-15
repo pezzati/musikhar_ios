@@ -64,14 +64,14 @@ extension UIView{
 		var bottomColor = UIColor.clear.cgColor
 		switch mode {
 		case .dubsmash:
-			topColor = UIColor(red: 0/255, green: 248/255, blue: 248/255, alpha: 0.7).cgColor
-			bottomColor =  UIColor(red: 14/255, green: 72/255, blue: 172/255, alpha: 0.7).cgColor
+			topColor = UIColor(red: 19/255, green: 211/255, blue: 255/255, alpha: 0.7).cgColor
+			bottomColor =  UIColor(red: 1/255, green: 113/255, blue: 255/255, alpha: 0.7).cgColor
 			break
 		case .karaoke:
 			break
 		case .singing:
-			topColor = UIColor(red: 9/255, green: 255/255, blue: 163/255, alpha: 0.7).cgColor
-			bottomColor =  UIColor(red: 86/255, green: 128/255, blue: 0/255, alpha: 0.7).cgColor
+			topColor = UIColor(red: 252/255, green: 54/255, blue: 126/255, alpha: 0.7).cgColor
+			bottomColor =  UIColor(red: 254/255, green: 107/255, blue: 78/255, alpha: 0.7).cgColor
 			break
 		}
         gradiantLayer.colors = [topColor, bottomColor]

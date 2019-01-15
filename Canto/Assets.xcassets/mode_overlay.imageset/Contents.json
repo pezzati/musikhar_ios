@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "update.png",
+      "filename" : "model_record.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "update@2x.png",
+      "filename" : "model_record@2x.png",
       "scale" : "2x"
     },
     {

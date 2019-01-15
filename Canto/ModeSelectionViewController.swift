@@ -39,9 +39,12 @@ class ModeSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         initializeCamera()
+		view.isHidden = true
 		carouselTopConstraint.constant = 120*(UIScreen.main.bounds.height/568.0) - 80
+//		carousel.scroll(toOffset: 0.00001, duration: 0.0001)
         carousel.reloadData()
         carousel.scroll(toOffset: 0.00001, duration: 0.0001)
+		view.isHidden = false
     }
     
     func initializeCamera(){
@@ -70,9 +73,34 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
         cardView.frame = CGRect(x: 0, y: 0, width: height/1.8, height: height)
 		let cameraView = GPUImageView(frame: cardView.bounds)
         cameraView.fillMode = .preserveAspectRatioAndFill
-        cardView.addSubview(cameraView)
+		
+		if Modes(rawValue: index) != Modes.karaoke{
+			cardView.addSubview(cameraView)
+			
+			let overlay = UIImageView(image: UIImage(named: "mode_overlay"))
+			overlay.contentMode = .scaleAspectFit
+			cardView.addSubview(overlay)
+			cardView.addConstraints([
+				NSLayoutConstraint(item: overlay, attribute: .top, relatedBy: .equal, toItem: cardView, attribute: .top, multiplier: 1, constant: 0),
+				NSLayoutConstraint(item: overlay, attribute: .bottom, relatedBy: .equal, toItem: cardView, attribute: .bottom, multiplier: 1, constant: 0),
+				NSLayoutConstraint(item: overlay, attribute: .right, relatedBy: .equal, toItem: cardView, attribute: .right, multiplier: 1, constant: 0),
+				NSLayoutConstraint(item: overlay, attribute: .left, relatedBy: .equal, toItem: cardView, attribute: .left, multiplier: 1, constant: 0)
+				])
+			overlay.translatesAutoresizingMaskIntoConstraints = false
+		}else{
+			let bgPic = UIImageView(image: UIImage(named: "mode_karaoke"))
+			bgPic.contentMode = .scaleAspectFit
+			cardView.addSubview(bgPic)
+			cardView.addConstraints([
+				NSLayoutConstraint(item: bgPic, attribute: .top, relatedBy: .equal, toItem: cardView, attribute: .top, multiplier: 1, constant: 0),
+				NSLayoutConstraint(item: bgPic, attribute: .bottom, relatedBy: .equal, toItem: cardView, attribute: .bottom, multiplier: 1, constant: 0),
+				NSLayoutConstraint(item: bgPic, attribute: .right, relatedBy: .equal, toItem: cardView, attribute: .right, multiplier: 1, constant: 0),
+				NSLayoutConstraint(item: bgPic, attribute: .left, relatedBy: .equal, toItem: cardView, attribute: .left, multiplier: 1, constant: 0)
+				])
+			bgPic.translatesAutoresizingMaskIntoConstraints = false
+		}
+		
         if camera != nil {
-//            camera --> cameraView
 			camera.addTarget(cameraView)
         }
         
@@ -88,7 +116,7 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
         cameraView.insertSubview(blurView, at: 0)
         cameraView.layer.addSublayer(gradient)
         cameraView.clipsToBounds = true
-        
+		
         cardView.layer.cornerRadius = 10
         cardView.clipsToBounds = true
         return cardView
@@ -97,8 +125,6 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
 		
         if option == iCarouselOption.spacing {
-//			print(UIScreen.main.bounds.height.description)
-//            return 1.2*(568/UIScreen.main.bounds.height)
 			return 1 + 30/(carousel.frame.height/1.8)
         }
         return value
