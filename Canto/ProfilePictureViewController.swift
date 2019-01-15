@@ -22,6 +22,7 @@ class ProfilePictureViewController: UIViewController, UITextFieldDelegate {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		imageView.sd_setImage(with: URL(string: AppManager.sharedInstance().userInfo.avatar.link), placeholderImage: UIImage(named: "userPH") )
+		nameTF.text = AppManager.sharedInstance().userInfo.username
 	}
 	
 	
