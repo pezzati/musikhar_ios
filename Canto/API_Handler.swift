@@ -464,6 +464,9 @@ class RequestHandler : NSObject{
 		}else if self.requestType == .sing{
 			let result = UserInventory(data: response.data!)
 			completionHandler(result, true, nil)
+		}else if self.requestType == .avatarsList{
+			let result = AvatarsList(data: response.data!)
+			completionHandler(result, true, nil)
 		}
     }
     

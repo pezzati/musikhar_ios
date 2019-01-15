@@ -62,11 +62,6 @@ class GenreViewController: UIViewController {
     }
     
     
-    @IBAction func back(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Back Tapped", session: "Genre More", detail: name)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
 }
 
 

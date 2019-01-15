@@ -357,7 +357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5BV-oY-PYc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2452.5" y="157.3943661971831"/>
+            <point key="canvasLocation" x="2453" y="155"/>
         </scene>
         <!--PostVC-->
         <scene sceneID="oNY-2y-N24">
@@ -552,7 +552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XC5-2a-Jex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3158" y="161"/>
+            <point key="canvasLocation" x="5884" y="154"/>
         </scene>
         <!--فروشگاه-->
         <scene sceneID="925-Zo-Wq8">
@@ -663,7 +663,71 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7b-eF-BY1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3860.625" y="158.45070422535213"/>
+            <point key="canvasLocation" x="3450" y="-1314"/>
+        </scene>
+        <!--انتخاب آواتار-->
+        <scene sceneID="P6s-jp-dHZ">
+            <objects>
+                <viewController storyboardIdentifier="AvatarPickerViewController" title="انتخاب آواتار" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CP5-Yd-31f" customClass="AvatarPickerViewController" customModule="Canto" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5yh-XS-4nV"/>
+                        <viewControllerLayoutGuide type="bottom" id="aOL-A2-0hR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hUv-Vz-wSh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h30-at-HbG">
+                                <rect key="frame" x="0.0" y="28" width="320" height="540"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Jec-Gx-pIv">
+                                    <size key="itemSize" width="138" height="141"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AvatarCell" id="tvj-97-wxk">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="141"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="138" height="141"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ecM-Qm-AMX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="138" height="141"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="ecM-Qm-AMX" secondAttribute="trailing" id="qdg-dU-NKi"/>
+                                            <constraint firstItem="ecM-Qm-AMX" firstAttribute="top" secondItem="tvj-97-wxk" secondAttribute="top" id="sB2-WQ-gYO"/>
+                                            <constraint firstItem="ecM-Qm-AMX" firstAttribute="leading" secondItem="tvj-97-wxk" secondAttribute="leading" id="uq0-6d-na1"/>
+                                            <constraint firstAttribute="bottom" secondItem="ecM-Qm-AMX" secondAttribute="bottom" id="xf9-x5-eGe"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="CP5-Yd-31f" id="6EF-Sl-as7"/>
+                                    <outlet property="delegate" destination="CP5-Yd-31f" id="clC-4K-plx"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.14117647059999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="h30-at-HbG" firstAttribute="leading" secondItem="hUv-Vz-wSh" secondAttribute="leading" id="9Om-m0-l5O"/>
+                            <constraint firstItem="h30-at-HbG" firstAttribute="top" secondItem="5yh-XS-4nV" secondAttribute="bottom" constant="8" id="IEd-dz-Imq"/>
+                            <constraint firstItem="aOL-A2-0hR" firstAttribute="top" secondItem="h30-at-HbG" secondAttribute="bottom" id="cBQ-F3-00H"/>
+                            <constraint firstAttribute="trailing" secondItem="h30-at-HbG" secondAttribute="trailing" id="wdZ-wG-QFJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="h30-at-HbG" id="QBN-pv-aKU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NVH-15-2D2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4425" y="154.22535211267606"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="nmr-9I-2c5">
@@ -804,7 +868,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hY1-s4-VL1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4794.375" y="160.56338028169014"/>
+            <point key="canvasLocation" x="5168" y="156"/>
         </scene>
         <!--RecordVC-->
         <scene sceneID="vhv-QK-jbQ">
@@ -2338,7 +2402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PwM-nm-a3m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-208.125" y="-1414.4366197183099"/>
+            <point key="canvasLocation" x="3450" y="155"/>
         </scene>
         <!--Genre Selection View Controller-->
         <scene sceneID="pCu-LA-8Tj">
@@ -2517,7 +2581,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9iK-tS-hlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1522.5" y="-621.12676056338034"/>
+            <point key="canvasLocation" x="1359" y="-620"/>
         </scene>
         <!--جستجو-->
         <scene sceneID="0PR-xj-bFo">
@@ -2630,7 +2694,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sTW-uh-qDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2358.75" y="-621.12676056338034"/>
+            <point key="canvasLocation" x="2453" y="-622"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WWK-qU-0zS">
@@ -2659,7 +2723,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bic-Rb-Cfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1361" y="161"/>
+            <point key="canvasLocation" x="1359" y="156"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UfX-vb-HLb">

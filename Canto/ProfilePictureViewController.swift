@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class ProfilePictureViewController: UIViewController {
+class ProfilePictureViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var pictureButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
@@ -27,15 +27,24 @@ class ProfilePictureViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		doneButtonOutlet.layer.cornerRadius = 5
+		imageView.layer.cornerRadius = 10
+		
 		nameTF.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
 		nameTF.attributedPlaceholder = NSAttributedString(string: "نام کاربری",
 																   attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+		
+		nameTF.delegate = self
+		
 		if isFirstTime{
 			navigationItem.hidesBackButton = true
 		}
 		navigationController?.navigationBar.prefersLargeTitles = false
 	}
 	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		next(doneButtonOutlet)
+		return true
+	}
 	
 	
 	@objc func textFieldDidChange(_ textField: UITextField) {
@@ -62,7 +71,8 @@ class ProfilePictureViewController: UIViewController {
 	
 	
     @IBAction func photoTapped(_ sender: Any) {
-		
+		let avatarPicker = storyboard?.instantiateViewController(withIdentifier: "AvatarPickerViewController")
+		navigationController?.pushViewController(avatarPicker!, animated: true)
     }
     
 
@@ -74,7 +84,7 @@ class ProfilePictureViewController: UIViewController {
 			return
 		}
 		
-		let params = ["username" : nameTF.text?.lowercased(), "avatar" : AppManager.sharedInstance().userInfo.avatar.id.description]
+		let params = ["username" : nameTF.text!, "avatar" : AppManager.sharedInstance().userInfo.avatar.id.description]
 		
 		let request = RequestHandler(type: .updateUserInfo, requestURL: AppGlobal.UserProfileURL + "/" , params: params, shouldShowError: true, timeOut: 8, retry: 0, sender: self, waiting: true, force: false)
 		request.sendRequest(completionHandler: { data, success, msg in

@@ -52,6 +52,7 @@
 		5D75EC831F3E050C008F57A7 /* CantoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC821F3E050C008F57A7 /* CantoTests.swift */; };
 		5D75EC8E1F3E050C008F57A7 /* CantoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75EC8D1F3E050C008F57A7 /* CantoUITests.swift */; };
 		5D7730A61FBF0E7D004C4EC3 /* Record_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7730A51FBF0E7D004C4EC3 /* Record_VC.swift */; };
+		5D7FF58C21EE0AA0000EF3FE /* AvatarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FF58B21EE0AA0000EF3FE /* AvatarPickerViewController.swift */; };
 		5DA4E2B02168A0770075C00A /* UserPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA4E2AE2168A0770075C00A /* UserPostCollectionViewCell.swift */; };
 		5DA4E2B12168A0770075C00A /* UserPostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA4E2AF2168A0770075C00A /* UserPostCollectionViewCell.xib */; };
 		5DA64E311FBAEE8A006184E4 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA64E301FBAEE8A006184E4 /* Extentions.swift */; };
@@ -214,6 +215,7 @@
 		5D75EC8D1F3E050C008F57A7 /* CantoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CantoUITests.swift; sourceTree = "<group>"; };
 		5D75EC8F1F3E050C008F57A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D7730A51FBF0E7D004C4EC3 /* Record_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record_VC.swift; sourceTree = "<group>"; };
+		5D7FF58B21EE0AA0000EF3FE /* AvatarPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerViewController.swift; sourceTree = "<group>"; };
 		5DA4E2AE2168A0770075C00A /* UserPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCollectionViewCell.swift; sourceTree = "<group>"; };
 		5DA4E2AF2168A0770075C00A /* UserPostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserPostCollectionViewCell.xib; sourceTree = "<group>"; };
 		5DA64E301FBAEE8A006184E4 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				5DBCC54F219C5BF10092CE2E /* EditVC.swift */,
 				5DB3F55821B60556008B620F /* LoginMethodViewController.swift */,
 				5DB3F55F21B60F0B008B620F /* LoginViewController.swift */,
+				5D7FF58B21EE0AA0000EF3FE /* AvatarPickerViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				5DBDA4CB208A3AD5003A709A /* AppManager.swift in Sources */,
 				5DB3F55921B60556008B620F /* LoginMethodViewController.swift in Sources */,
 				5D3E881E2171047300F16642 /* CameraHelper.swift in Sources */,
+				5D7FF58C21EE0AA0000EF3FE /* AvatarPickerViewController.swift in Sources */,
 				5DA6D9C8209F4713003218B6 /* AudioMixer.swift in Sources */,
 				5D1E260F2020DA3800A044EA /* WatchPostViewController.swift in Sources */,
 				5D2EC90520220B400025AB0D /* PurchaseTableViewController.swift in Sources */,

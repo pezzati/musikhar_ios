@@ -43,6 +43,7 @@ struct AppGlobal {
     public static let NassabLogin = ServerURL + "user/gettoken/"
     public static let Feed = ServerURL + "song/feeds"
 	public static let UserInventory = ServerURL + "user/users/inventory"
+	public static let AvatarsList = ServerURL + "user/avatar"
 
 	
 	
@@ -114,6 +115,7 @@ public enum RequestType {
 	case homeFeed
 	case inventory
 	case sing
+	case avatarsList
 }
 
 public enum RequestState {
