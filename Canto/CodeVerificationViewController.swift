@@ -82,7 +82,7 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
                     if json!["new_user"] as! Bool {
                         AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Signup")
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker")
-                        self.present(vc!, animated: true, completion: nil)
+						self.navigationController?.pushViewController(vc!, animated: true)
                     }else{
                         AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Login")
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
