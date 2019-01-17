@@ -21,36 +21,16 @@ class EditVC: UIViewController {
 	var mainPlayer: AVPlayer!
 	var audioPlayer: AVPlayer!
 	var audioPlayerItem: AVPlayerItem!
-	@IBOutlet weak var timeLineView: UIView!
-	@IBOutlet weak var elapsedTimeLineView: UIView!
-	var timer: Timer!
 	var post: karaoke!
 	
-	@IBOutlet weak var elapsedWidthConstraint: NSLayoutConstraint!
-	override var prefersStatusBarHidden: Bool {
-		return true
-	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		loadVideo()
-		timeLineView.layer.cornerRadius = 5
-		elapsedTimeLineView.layer.cornerRadius = 5
-		
-		timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: {_ in
-			if self.mainPlayer == nil || self.playerItem == nil { return }
-			//			if !self.mainPlayer.currentTime().isIndefinite || !self.playerItem.duration.isIndefinite { return }
-			let elapsedPercent = self.mainPlayer.currentTime().seconds/self.playerItem.duration.seconds
-			if elapsedPercent.isFinite && elapsedPercent < 1 && elapsedPercent > 0 {
-				self.elapsedWidthConstraint.constant = self.timeLineView.frame.width*CGFloat(elapsedPercent)
-			}
-		})
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		NotificationCenter.default.removeObserver(self)
-		timer.invalidate()
-		timer = nil
 	}
 	
 	func loadVideo(){

@@ -115,7 +115,7 @@ class MediaHelper: NSObject {
         let watermarkLayer = CALayer()
         watermarkLayer.contents = imglogo?.cgImage
         let preferredWidthForWatermark = (videoSize?.height)! / 4.5
-        watermarkLayer.frame = CGRect(x: 30, y: 30 ,width: preferredWidthForWatermark, height: preferredWidthForWatermark/3.2)
+        watermarkLayer.frame = CGRect(x: 30, y: 30 ,width: preferredWidthForWatermark, height: preferredWidthForWatermark/3.36)
         watermarkLayer.opacity = 0.7
         let estimatedXtoCrop = ((clipVideoTrack?.naturalSize.width)! - (clipVideoTrack?.naturalSize.height)!)/2
         parentlayer.frame = CGRect(x: 0, y: 0, width: (videoSize?.height)!, height: (videoSize?.height)!)

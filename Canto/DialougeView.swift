@@ -431,15 +431,15 @@ class DialougeView {
             completionHandler(false)
         }
         
-        let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-            self.hide()
-            completionHandler(false)
-        }
+//        let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+//            self.hide()
+//            completionHandler(false)
+//        }
         
         if shouldAsk{
-            self.shadowView.addGestureRecognizer(cancelTap!)
-            self.shadowView.isUserInteractionEnabled = true
-            
+//            self.shadowView.addGestureRecognizer(cancelTap!)
+//            self.shadowView.isUserInteractionEnabled = true
+			
             disagreeButton.addGestureRecognizer(disagreeTap!)
             dialougeView.addSubview(disagreeButton)
         }
