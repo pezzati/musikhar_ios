@@ -18,16 +18,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 	@IBOutlet weak var tfBackgroundView: UIView!
 	@IBOutlet weak var textField: UITextField!
 	
-	
 	public var method : loginMethod = .phone
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		navigationController?.isNavigationBarHidden = false
 		tfBackgroundView.clipsToBounds = true
-		tfBackgroundView.layer.cornerRadius = tfBackgroundView.frame.height/2
+		tfBackgroundView.layer.cornerRadius = 5
 		textField.delegate = self
 		navigationController?.navigationItem.title = "ورود"
+		textField.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +37,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 															 attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
 		textField.becomeFirstResponder()
 	}
+	
+	@objc func textFieldDidChange(_ textField: UITextField) {
+		if textField.text?.count == 11 && method == .phone{
+			textFieldShouldReturn(textField)
+		}
+	}
+	
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		

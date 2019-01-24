@@ -10,8 +10,8 @@ import UIKit
 
 struct AppGlobal {
     public static let debugMode = true
-    public static let NassabVersion = false
-    public static let NassabCantoScheme = "http://nassaab.com/open/Canto"
+//    public static let NassabVersion = false
+//    public static let NassabCantoScheme = "http://nassaab.com/open/Canto"
     //URLs
 //    public static let ServerURL = "http://77.238.122.16/"
 //    public static let ServerURL = "http://192.168.1.114:8000/"
@@ -143,6 +143,7 @@ public enum controller : String {
 	case reverb = "reverb"
 	case pitch = "pitch"
 	case rate = "speed"
+	case playback = "playback"
 }
 
 

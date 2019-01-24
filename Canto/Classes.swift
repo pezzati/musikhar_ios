@@ -711,7 +711,7 @@ class unrenderedPost : EVObject{
     var videoURL : String = ""
     var voiceURL : String = ""
     var playbackURL : String = ""
-    var captured : Bool = false
+    var captured : Bool = true
     var effect : soundFx = .none
     var duration : Double = 1.0
     var playbackVolume : Float = 1.0

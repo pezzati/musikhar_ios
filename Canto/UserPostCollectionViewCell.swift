@@ -23,7 +23,9 @@ class UserPostCollectionViewCell: UICollectionViewCell {
     var subViewsAdded = false
     
     func setUp(post : userPost){
-        
+		
+		artistLabel.adjustsFontSizeToFitWidth = true
+		songNameLabel.adjustsFontSizeToFitWidth = true
         artistLabel.text = post.kara.artist.name.count == 0 ? post.kara.name : post.kara.artist.name
         songNameLabel.text = post.kara.name
         postImage.layer.cornerRadius = 10

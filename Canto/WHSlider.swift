@@ -41,7 +41,7 @@ class WHSlider: UIView {
 	func initMe() {
 		backgroundColor = UIColor.clear
 		layer.cornerRadius = 15
-		let blurEffect = UIBlurEffect(style: .dark)
+		let blurEffect = UIBlurEffect(style: .light)
 		let backgroundDarkLayer = UIVisualEffectView(effect: blurEffect)
 		backgroundDarkLayer.frame = bounds
 		backgroundDarkLayer.clipsToBounds = true
@@ -63,12 +63,25 @@ class WHSlider: UIView {
 		isUserInteractionEnabled = true
 		addGestureRecognizer(panGesture)
 		alpha = 0
+		
+		if type == controller.micVolume{
+			currentValue = 50
+			fillerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0)
+		}
+		
+		
 	}
 	
 	func setup(of controllerType: controller){
 		type = controllerType
 		imageName = controllerType.rawValue
 		imageView.image = UIImage(named: imageName + "_mid")
+		
+		if type == controller.micVolume{
+			currentValue = 50
+			fillerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0)
+			delegate?.valueChanged(sender: self, percent: 0)
+		}
 		
 		UIView.animate(withDuration: 1, animations: {
 			self.alpha = 1

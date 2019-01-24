@@ -87,6 +87,8 @@ class ProfilePictureViewController: UIViewController, UITextFieldDelegate {
 			return
 		}
 		
+		nameTF.resignFirstResponder()
+		
 		let params = ["username" : nameTF.text!, "avatar" : AppManager.sharedInstance().userInfo.avatar.id.description]
 		
 		let request = RequestHandler(type: .updateUserInfo, requestURL: AppGlobal.UserProfileURL + "/" , params: params, shouldShowError: true, timeOut: 8, retry: 0, sender: self, waiting: true, force: false)

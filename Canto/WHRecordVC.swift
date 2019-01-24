@@ -83,6 +83,11 @@ class WHRecordVC: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		cameraHelper?.updateView(inView: cameraView)
+		
+		if !AppManager.checkAudioIO(){
+			let dialog = DialougeView()
+			dialog.plugHeadphones(sender: self, mode: mode)
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +95,7 @@ class WHRecordVC: UIViewController {
 			trimmer.updateLayout()
 		}
 	}
+	
 	
 	func setup(){
 		closeButton.setImage(#imageLiteral(resourceName: "close").maskWithColor(color: UIColor.white), for: .normal)
@@ -145,12 +151,11 @@ class WHRecordVC: UIViewController {
 	}
 	
     @IBAction func closeTapped(_ sender: Any) {
-        
-        navigationController?.popViewController(animated: true)
-        navigationController?.isNavigationBarHidden = false
 		audioHelper!.close()
 		audioHelper = nil
 		LubiaBackgroundIV.isHidden = true
+		navigationController?.popViewController(animated: true)
+		navigationController?.isNavigationBarHidden = false
     }
 	
 	//MARK: -Lyrics box action
@@ -177,24 +182,36 @@ class WHRecordVC: UIViewController {
 		
 		if !isRecording{
 			trimmer.inactivate()
-			cameraHelper?.startRecording()
-			audioHelper?.startRecording()
 			rotateButton.isHidden = true
 			isRecording = true
 			sender.setImage(UIImage(named: "stop"), for: .normal)
+			audioHelper?.prepareToRecord()
+			cameraHelper!.initiateRecorder()
+			
+			let when = DispatchTime.now() + 0.1
+			DispatchQueue.main.asyncAfter(deadline: when, execute: {
+				self.cameraHelper?.startRecording()
+				self.audioHelper?.startRecording()
+			})
 		}else{
-			cameraHelper?.stopRecording()
-			audioHelper?.stopRecording()
-			sender.setImage(UIImage(named: "record"), for: .normal)
-			isRecording = false
-			let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
-			editVC.mode = mode
-			editVC.post = post
-			audioHelper!.close()
-			audioHelper = nil
-			navigationController?.pushViewController(editVC, animated: true)
+			let when = DispatchTime.now() + 0.1
+			DispatchQueue.main.asyncAfter(deadline: when, execute: {
+				self.cameraHelper?.stopRecording()
+				self.audioHelper?.stopRecording()
+				self.proceedToEdit()
+			})
 		}
     }
+	
+	func proceedToEdit(){
+		isRecording = false
+		let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
+		editVC.mode = mode
+		editVC.post = post
+		audioHelper!.close()
+		audioHelper = nil
+		navigationController?.pushViewController(editVC, animated: true)
+	}
     
     @IBAction func rotateTapped(_ sender: UIButton) {
         cameraHelper?.rotateCamera(front: !isFrontCamera, inView: cameraView)
@@ -254,6 +271,10 @@ extension WHRecordVC: AudioHelperDelegate{
 				updateLyrics()
 			}
 		}
+	}
+	
+	func recordTimeEnded() {
+		recordTapped(recordButton)
 	}
 	
 	func updateLyrics() {
@@ -355,6 +376,8 @@ extension WHRecordVC: WHSliderDelegate {
 			break
 		case .reverb :
 			audioHelper?.setMicReverb(reverb: percent)
+			break
+		default:
 			break
 		}
 	}

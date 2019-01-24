@@ -122,7 +122,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         })
-          
+		
+		UIApplication.shared.isIdleTimerDisabled = true
         return true
     }
 

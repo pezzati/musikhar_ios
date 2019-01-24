@@ -17,7 +17,6 @@
 		5D1712731FC2D07F0041E74A /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1712721FC2D07F0041E74A /* iCarousel.m */; };
 		5D17FB352055B95E007E8270 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17FB342055B95E007E8270 /* NotificationService.swift */; };
 		5D17FB392055B95E007E8270 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5D17FB322055B95E007E8270 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5D1C3BCB1FE2D9D400B7574B /* GenreSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1C3BCA1FE2D9D400B7574B /* GenreSelectionViewController.swift */; };
 		5D1C3BCD1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1C3BCC1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift */; };
 		5D1C5FF2203DDE480001F529 /* IRANYekanMobileLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D1C5FF1203DDE430001F529 /* IRANYekanMobileLight.ttf */; };
 		5D1E260F2020DA3800A044EA /* WatchPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1E260E2020DA3800A044EA /* WatchPostViewController.swift */; };
@@ -58,7 +57,6 @@
 		5DA64E311FBAEE8A006184E4 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA64E301FBAEE8A006184E4 /* Extentions.swift */; };
 		5DA6D9C8209F4713003218B6 /* AudioMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA6D9C7209F4713003218B6 /* AudioMixer.swift */; };
 		5DACF1B02010E96D006CC612 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DACF1AF2010E96D006CC612 /* SearchViewController.swift */; };
-		5DAE3B6A1FD4201C007CE210 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE3B691FD4201C007CE210 /* SignUpViewController.swift */; };
 		5DAE3B6C1FD42049007CE210 /* CodeVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE3B6B1FD42049007CE210 /* CodeVerificationViewController.swift */; };
 		5DAE3B6E1FD4205C007CE210 /* ProfilePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE3B6D1FD4205C007CE210 /* ProfilePictureViewController.swift */; };
 		5DAE3B741FD427FC007CE210 /* API_Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE3B731FD427FC007CE210 /* API_Handler.swift */; };
@@ -173,7 +171,6 @@
 		5D17FB322055B95E007E8270 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D17FB342055B95E007E8270 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		5D17FB362055B95E007E8270 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D1C3BCA1FE2D9D400B7574B /* GenreSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSelectionViewController.swift; sourceTree = "<group>"; };
 		5D1C3BCC1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGenres_TableViewCell.swift; sourceTree = "<group>"; };
 		5D1C5FF1203DDE430001F529 /* IRANYekanMobileLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANYekanMobileLight.ttf; sourceTree = "<group>"; };
 		5D1E260E2020DA3800A044EA /* WatchPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPostViewController.swift; sourceTree = "<group>"; };
@@ -221,7 +218,6 @@
 		5DA64E301FBAEE8A006184E4 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		5DA6D9C7209F4713003218B6 /* AudioMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMixer.swift; sourceTree = "<group>"; };
 		5DACF1AF2010E96D006CC612 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		5DAE3B691FD4201C007CE210 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5DAE3B6B1FD42049007CE210 /* CodeVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeVerificationViewController.swift; sourceTree = "<group>"; };
 		5DAE3B6D1FD4205C007CE210 /* ProfilePictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureViewController.swift; sourceTree = "<group>"; };
 		5DAE3B731FD427FC007CE210 /* API_Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Handler.swift; sourceTree = "<group>"; };
@@ -363,10 +359,8 @@
 		5D4635101F42F0DC009DAAD0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5DAE3B691FD4201C007CE210 /* SignUpViewController.swift */,
 				5DAE3B6B1FD42049007CE210 /* CodeVerificationViewController.swift */,
 				5DAE3B6D1FD4205C007CE210 /* ProfilePictureViewController.swift */,
-				5D1C3BCA1FE2D9D400B7574B /* GenreSelectionViewController.swift */,
 				5D75EC6F1F3E050B008F57A7 /* Karaoke_VC.swift */,
 				5DACF1AF2010E96D006CC612 /* SearchViewController.swift */,
 				5D3DBEDD1FE1585A006FE33C /* ProfileViewController.swift */,
@@ -971,11 +965,9 @@
 				5D1C3BCD1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift in Sources */,
 				5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */,
 				5D5DC71F21694D9700E9A29F /* ModeSelectionViewController.swift in Sources */,
-				5D1C3BCB1FE2D9D400B7574B /* GenreSelectionViewController.swift in Sources */,
 				5D25BDB5218E110F00FFCB17 /* WHTrimmer.swift in Sources */,
 				5DAE3B741FD427FC007CE210 /* API_Handler.swift in Sources */,
 				5DAE3B6E1FD4205C007CE210 /* ProfilePictureViewController.swift in Sources */,
-				5DAE3B6A1FD4201C007CE210 /* SignUpViewController.swift in Sources */,
 				5D058DC01FBB0D89006E7230 /* KaraokeCard_CollectionViewCell.swift in Sources */,
 				5D3DBEDC1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift in Sources */,
 				5D66610720C998AD0065B486 /* SettingViewController.swift in Sources */,

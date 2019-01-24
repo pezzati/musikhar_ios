@@ -21,10 +21,12 @@ class DialougeView {
     func showBackgroundView(vc: UIViewController){
 		let blurEffect = UIBlurEffect(style: .dark)
 		shadowView = UIVisualEffectView(effect: blurEffect)
-        shadowView.frame = vc.view.bounds
-        shadowView.alpha = 1
+//        shadowView.frame = vc.view.bounds
+		shadowView.frame = UIScreen.main.bounds
+		shadowView.alpha = 1
 		shadowView.isUserInteractionEnabled = true
-        vc.view.addSubview(shadowView)
+		UIApplication.shared.keyWindow?.addSubview(shadowView)
+//        vc.view.addSubview(shadowView)
 //		vc.navigationController?.navigationBar.layer.zPosition = -1
 //		vc.tabBarController?.tabBar.layer.zPosition = -1
     }
@@ -32,7 +34,7 @@ class DialougeView {
     func waitingBox(vc: UIViewController){
         showBackgroundView(vc: vc)
 		
-        self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 80 , y: vc.view.bounds.height/2 - 80, width: 160, height: 160))
+        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 80 , y: scrHeight/2 - 80, width: 160, height: 160))
 		dialougeView.backgroundColor = UIColor.clear
         let loadingView = LOTAnimationView(name: "loading")
         loadingView.frame = CGRect(x: 0, y: 0, width: 160, height: 160)
@@ -49,7 +51,7 @@ class DialougeView {
         
         showBackgroundView(vc: vc)
 		
-        self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 130, width: 300, height: 260))
+        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
         self.shadowDialogue()
         
         let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 70))
@@ -306,73 +308,71 @@ class DialougeView {
         sender.view.addSubview(dialougeView!)
     }
     
-    func plugHeadphones(sender: UIViewController){
-        
-        showBackgroundView(vc: sender)
-        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 130, width: 300, height: 260))
-        self.dialougeView.backgroundColor = UIColor.white
-        self.dialougeView.layer.cornerRadius = 15
-        self.dialougeView.clipsToBounds = true
-        self.shadowDialogue()
-        
-        let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 60))
-        image.image = UIImage(named: "headphone")
-        image.contentMode = .scaleAspectFit
-        self.dialougeView.addSubview(image)
-        
-        //        let title = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 20))
-        //        title.text = "هشدار!"
-        //        title.adjustsFontSizeToFitWidth = true
-        //        title.textAlignment = .center
-        //        title.textColor = UIColor.black
-        //        self.dialougeView.addSubview(title)
-        
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 5
-        style.alignment = .center
-        let attributes = [NSAttributedStringKey.paragraphStyle : style]
-        
-        let subTitle = UILabel(frame: CGRect(x: 50, y: 100, width: 200, height: 80))
-        //        subTitle.text = "برای داشتن بهترین تجربه از هدفون استفاده کنید"
-        subTitle.textColor = UIColor.black
-        subTitle.numberOfLines = 0
-        subTitle.font = UIFont.systemFont(ofSize: 17)
-        subTitle.textAlignment = .center
-        subTitle.attributedText = NSAttributedString(string: "برای داشتن بهترین تجربه از هدفون استفاده کنید", attributes: attributes )
-        self.dialougeView.addSubview(subTitle)
-        
-        
-        let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 180, height: 40))
-        tryButton.text = "باشه"
-        tryButton.textColor = UIColor.white
-        tryButton.font = UIFont.systemFont(ofSize: 14)
-        tryButton.numberOfLines = 1
-        tryButton.textAlignment = .center
-        let tryButtonView = UIImageView(frame: CGRect(x: 60, y: 200, width: 180 , height: 40))
-        tryButtonView.image = UIImage(named: "button3")
-        tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
-        tryButtonView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        tryButtonView.layer.shadowRadius = 5
-        tryButtonView.layer.shadowOpacity = 0.3
-        tryButtonView.contentMode = .scaleAspectFill
-        tryButtonView.isUserInteractionEnabled = true
-        tryButtonView.addSubview(tryButton)
-        self.dialougeView.addSubview(tryButtonView)
-        
-        let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-            //            sender.dismiss(animated: true, completion: nil)
-            self.hide()
-        }
-        tryButtonView.addGestureRecognizer(tap!)
-        
-        let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-            self.hide()
-            //            sender.dismiss(animated: true, completion: nil)
-        }
-        //        self.shadowView.addGestureRecognizer(cancelTap!)
-        //        self.shadowView.isUserInteractionEnabled = true
-        
-        sender.view.addSubview(dialougeView!)
+	func plugHeadphones(sender: UIViewController, mode: Modes){
+		
+		showBackgroundView(vc: sender)
+		self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 220, width: 300, height: 440))
+		self.shadowDialogue()
+		
+		
+		let imageView = UIImageView(image: UIImage(named: "paymentDialogue"))
+		imageView.frame = CGRect(x: 55, y: 30, width: 180, height: 180)
+		imageView.contentMode = .scaleAspectFit
+		dialougeView.addSubview(imageView)
+		
+		let title = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 20, width: dialougeView.frame.width - 100, height: 25))
+		title.text = "اعتبار ناکافی"
+		title.textColor = UIColor.white
+		title.font = UIFont.boldSystemFont(ofSize: 19)
+		title.textAlignment = .center
+		dialougeView.addSubview(title)
+		
+		
+		let subTitle = UILabel(frame: CGRect(x: 50, y: title.frame.maxY + 15, width: dialougeView.frame.width - 100, height: 40))
+		subTitle.text = "برای خرید این آهنگ باید اعتبار خود را افزایش دهید"
+		subTitle.textColor = AppGlobal.dialogueTextColor
+		subTitle.numberOfLines = 2
+		subTitle.font = UIFont.systemFont(ofSize: 15)
+		subTitle.textAlignment = .center
+		self.dialougeView.addSubview(subTitle)
+		
+		
+		let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 250, height: 40))
+		tryButton.text = "رفتن به فروشگاه"
+		tryButton.textColor = UIColor.white
+		tryButton.font = UIFont.boldSystemFont(ofSize: 17)
+		tryButton.textAlignment = .center
+		let tryButtonView = UIImageView(frame: CGRect(x: 30, y: subTitle.frame.maxY + 40, width: 240 , height: 40))
+		tryButtonView.image = UIImage(named: "button")
+		tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
+		tryButtonView.contentMode = .scaleAspectFill
+		tryButtonView.isUserInteractionEnabled = true
+		tryButtonView.addSubview(tryButton)
+		self.dialougeView.addSubview(tryButtonView)
+		
+		
+		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY, width: 300, height: 40))
+		cancelButton.text = "بیخیال"
+		cancelButton.textColor = AppGlobal.dialogueTextColor
+		cancelButton.font = UIFont.systemFont(ofSize: 15)
+		cancelButton.textAlignment = .center
+		cancelButton.isUserInteractionEnabled = true
+		
+		self.dialougeView.addSubview(cancelButton)
+		
+		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			self.hide()
+		}
+		tryButtonView.addGestureRecognizer(tap!)
+		
+		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			self.hide()
+		}
+		
+		shadowView.addGestureRecognizer(cancelTap!)
+		cancelButton.addGestureRecognizer(cancelTap!)
+		
+		shadowView.contentView.addSubview(dialougeView)
     }
     
     func showUserAgreement(sender: UIViewController, shouldAsk : Bool = true , completionHandler: @escaping (Bool) -> ()){
@@ -451,7 +451,7 @@ class DialougeView {
     func update(force: Bool,downloadURL: String, vc: UIViewController){
         
         showBackgroundView(vc: vc)
-        self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 200, width: 300, height: 400))
+        self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 200, width: 300, height: 400))
         self.shadowDialogue()
         
         let image = UIImageView(frame: CGRect(x: 0, y: 30, width: 300, height: 170))
@@ -696,7 +696,7 @@ class DialougeView {
 	func paymentRequired(vc: UIViewController){
 		
 		showBackgroundView(vc: vc)
-		self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 220, width: 300, height: 440))
+		self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 220, width: 300, height: 440))
 		self.shadowDialogue()
 		
 		
@@ -765,7 +765,7 @@ class DialougeView {
 	func buyPost(vc: UIViewController, post: karaoke){
 		
 		showBackgroundView(vc: vc)
-		self.dialougeView = UIView(frame: CGRect(x: vc.view.bounds.width/2 - 150 , y: vc.view.bounds.height/2 - 230, width: 300, height: 460))
+		self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 230, width: 300, height: 460))
 		self.shadowDialogue()
 		
 		let imageView = UIImageView(frame: CGRect(x: 60, y: 30, width: 180, height: 180))
@@ -839,6 +839,73 @@ class DialougeView {
 	}
 	
 	
+	
+	func cameraPermission(vc: UIViewController){
+		
+		showBackgroundView(vc: vc)
+		self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 220, width: 300, height: 430))
+		self.shadowDialogue()
+		
+		
+		let imageView = UIImageView(image: UIImage(named: "camera_permission"))
+		imageView.frame = CGRect(x: 25, y: 30, width: 250, height: 100)
+		imageView.contentMode = .scaleAspectFit
+		dialougeView.addSubview(imageView)
+		
+		let title = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 20, width: dialougeView.frame.width - 100, height: 25))
+		title.text = "دسترسی به دوربین"
+		title.textColor = UIColor.white
+		title.font = UIFont.boldSystemFont(ofSize: 19)
+		title.textAlignment = .center
+		dialougeView.addSubview(title)
+		
+		
+		let subTitle = UILabel(frame: CGRect(x: 50, y: title.frame.maxY + 15, width: dialougeView.frame.width - 100, height: 70))
+		subTitle.text = "به تنظیمات بروید و اجازه دسترسی به دوربین را برای نرم افزار کانتو فعال کنید"
+		subTitle.textColor = AppGlobal.dialogueTextColor
+		subTitle.numberOfLines = 0
+		subTitle.font = UIFont.systemFont(ofSize: 15)
+		subTitle.textAlignment = .center
+		self.dialougeView.addSubview(subTitle)
+		
+		
+		let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 240, height: 40))
+		tryButton.text = "تنظیمات"
+		tryButton.textColor = UIColor.white
+		tryButton.font = UIFont.boldSystemFont(ofSize: 17)
+		tryButton.textAlignment = .center
+		let tryButtonView = UIImageView(frame: CGRect(x: 30, y: subTitle.frame.maxY + 40, width: 240 , height: 40))
+		tryButtonView.image = UIImage(named: "button")
+		tryButtonView.layer.shadowColor = UIColor.lightGray.cgColor
+		tryButtonView.contentMode = .scaleAspectFill
+		tryButtonView.isUserInteractionEnabled = true
+		tryButtonView.addSubview(tryButton)
+		self.dialougeView.addSubview(tryButtonView)
+		
+		
+		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY + 10, width: 300, height: 40))
+		cancelButton.text = "بازگشت"
+		cancelButton.textColor = AppGlobal.dialogueTextColor
+		cancelButton.font = UIFont.systemFont(ofSize: 15)
+		cancelButton.textAlignment = .center
+		cancelButton.isUserInteractionEnabled = true
+		
+		self.dialougeView.addSubview(cancelButton)
+		
+		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!)
+			self.hide()
+		}
+		
+		tryButtonView.addGestureRecognizer(tap!)
+		
+		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			self.hide()
+		}
+		cancelButton.addGestureRecognizer(cancelTap!)
+		
+		shadowView.contentView.addSubview(dialougeView)
+	}
 	
 	
     func shadowDialogue(){

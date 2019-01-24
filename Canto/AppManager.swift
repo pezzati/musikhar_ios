@@ -271,40 +271,67 @@ class AppManager: NSObject {
 		}
 	}
 	
+	//Permissions check
 	
-	
-	
-	
-	
-	func prepareVideo(post: unrenderedPost, completionHandler: @escaping (URL?) -> ()){
+	func askForCameraPermission(sender: UIViewController){
 		
-		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-		//        let currentDateTime = NSDate()
-		//        let formatter = DateFormatter()
-		//        formatter.dateFormat = "ddMMyyyy-HHmmss"
-		//        let date = formatter.string(from: currentDateTime as Date)
-		
-		let karaAudioName = [dirPath, "Temp" + "SILENT.mp4"]
-		let outputURL = NSURL.fileURL(withPathComponents: karaAudioName)
-		
-		if post.captured{
-			guard let url = URL(string: post.videoURL) else{
-				completionHandler(nil)
-				return
+		AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+			if !granted {
+				let dialogue = DialougeView()
+				dialogue.cameraPermission(vc: sender)
 			}
-			MediaHelper.cropAndWatermark(capturingVideoPath: url, silentVideoPath: outputURL!, completionHandler: { success in
-				if success{
-					completionHandler(outputURL!)
-				}else{ //error
-					completionHandler(nil)
-				}})
-		}else{
-			let previewImage = MediaHelper.userKaraPic(kara: post.kara)
-			MediaHelper.writeSingleImageToMovie(image: previewImage , movieLength: post.duration, outputFileURL: outputURL!, completion: {_ in
-				completionHandler(outputURL!)
-			})
-		}
+		})
 	}
+	
+	//MARK: -Microphone check
+	class func checkAudioIO()-> Bool{
+		
+		let currentRoute = AVAudioSession.sharedInstance().currentRoute
+		if currentRoute.outputs.count != 0 {
+			for item in currentRoute.outputs{
+				if item.portType == AVAudioSessionPortHeadphones{
+					return true
+				}else if item.portType == AVAudioSessionPortHeadsetMic{
+					return true
+				}
+			}
+		}
+		return false
+	}
+	
+	
+	
+	
+//	func prepareVideo(post: unrenderedPost, completionHandler: @escaping (URL?) -> ()){
+//		
+//		let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+//		//        let currentDateTime = NSDate()
+//		//        let formatter = DateFormatter()
+//		//        formatter.dateFormat = "ddMMyyyy-HHmmss"
+//		//        let date = formatter.string(from: currentDateTime as Date)
+//		
+//		let outputURL = AppManager.silentVideoURL()
+//		
+//		
+////		if post.captured{
+////			guard let url = URL(string: post.videoURL) else{
+////				completionHandler(nil)
+////				return
+////			}
+//			MediaHelper.cropAndWatermark(capturingVideoPath: AppManager.videoURL(), silentVideoPath: outputURL, completionHandler: { success in
+//				if success{
+//					completionHandler(outputURL)
+//				}else{ //error
+//					completionHandler(nil)
+//				}})
+////		}else{
+////			let previewImage = MediaHelper.userKaraPic(kara: post.kara)
+////			MediaHelper.writeSingleImageToMovie(image: previewImage , movieLength: post.duration, outputFileURL: outputURL!, completion: {_ in
+////				completionHandler(outputURL!)
+////			})
+////		}
+//	}
+	
 	
 	class func karaURL()->URL{
 		

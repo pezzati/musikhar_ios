@@ -21,7 +21,7 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
     var mobile = ""
     
     override func viewDidLoad() {
-        code_View.round()
+        code_View.layer.cornerRadius = 5
 		code.delegate = self
 		code.attributedPlaceholder = NSAttributedString(string: "1234", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedString.Key(rawValue: NSAttributedString.Key.kern.rawValue) : 30.0])
 		AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Code Verification", detail: "")

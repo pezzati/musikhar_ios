@@ -15,6 +15,7 @@ protocol AudioHelperDelegate: class {
 	func downloadProgress(percent : Float)
 	func playerToggled()
 	func updatePlayerTime(elapsed : Double)
+	func recordTimeEnded()
 	func failedToReadFile()
 }
 
@@ -35,6 +36,7 @@ class AudioHelper: NSObject {
 	var voiceWriter: AKAudioFile!
 	var voiceRecorder: AKNodeRecorder!
 	var micLowPass: AKLowPassFilter!
+	var micBooster: AKBooster!
 	var timer : Timer?
 	var mode : Modes!
 	var maxValue : Float = 1.0
@@ -46,10 +48,10 @@ class AudioHelper: NSObject {
 		self.mode = mode
 		mainMixer = AKMixer()
 		mic = AKMicrophone()
-		micLowPass = AKLowPassFilter(mic, cutoffFrequency: 2000, resonance: -20)
-		micReverb = AKReverb(micLowPass, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
+		micReverb = AKReverb(mic, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
+		micLowPass = AKLowPassFilter(micReverb, cutoffFrequency: 2000, resonance: -20)
 		micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeChamber)
-		monitorBooster = AKBooster(micReverb, gain: mode == .dubsmash ? 0.0 : 1.0)
+		monitorBooster = AKBooster(micLowPass, gain: mode == .dubsmash ? 0.0 : 1.0)
 		mainMixer.connect(input: monitorBooster)
 		AudioKit.output = mainMixer
 		
@@ -174,31 +176,31 @@ class AudioHelper: NSObject {
 			break
 		case 6 ... 15:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.mediumRoom)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		case 16 ... 25:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeRoom)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		case 26 ... 35:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.mediumHall)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		case 36 ... 50:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeChamber)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		case 51 ... 65:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeHall)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		case 66 ... 80:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.largeHall2)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		case 81 ... 100:
 			micReverb.loadFactoryPreset(AVAudioUnitReverbPreset.cathedral)
-			micReverb.dryWetMix = 0.3
+			micReverb.dryWetMix = 0.25
 			break
 		default:
 			break
@@ -211,39 +213,44 @@ class AudioHelper: NSObject {
 			delegate.updatePlayerTime(elapsed: filePlayer.currentTime)
 			let crr = filePlayer.currentTime/filePlayer.duration
 			if crr > Double(maxValue) {
-				seekTo(time: minValue)
+				if isRecording{
+					delegate.recordTimeEnded()
+				}else{
+					seekTo(time: minValue)
+				}
 			}
 		}
 	}
 	
-	func startRecording(){
+	func prepareToRecord(){
 		filePlayer.pause()
 		try? FileManager.default.removeItem(at: AppManager.karaURL())
-		fileWriter = try! AKAudioFile(forWriting: AppManager.karaURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount, AVSampleRateKey: filePlayer.processingFormat!.sampleRate], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
+		try? FileManager.default.removeItem(at: AppManager.voiceURL())
+		//		fileWriter = try! AKAudioFile(forWriting: AppManager.karaURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount, AVSampleRateKey: filePlayer.processingFormat!.sampleRate], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
+		
+		fileWriter = try! AKAudioFile(forWriting: AppManager.karaURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount, AVSampleRateKey: 44100], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
+		
 		fileRecorder = try! AKNodeRecorder(node: timePitch, file: fileWriter)
 		
-		print(filePlayer.processingFormat?.channelCount)
-		print(fileWriter.processingFormat.channelCount)
-		print(filePlayer.processingFormat)
-		print(fileWriter.processingFormat)
-		
-		
-		
 		if mode == .singing{
-			let format = mic.outputNode.outputFormat(forBus: 0)
-			voiceWriter = try! AKAudioFile(forWriting: AppManager.voiceURL(), settings:[AVNumberOfChannelsKey:format.channelCount as Any], commonFormat: format.commonFormat, interleaved: format.isInterleaved)
+			
+			voiceWriter = try! AKAudioFile(forWriting: AppManager.voiceURL(), settings: [AVNumberOfChannelsKey:filePlayer.processingFormat?.channelCount, AVSampleRateKey: 44100], commonFormat: (filePlayer.processingFormat?.commonFormat)!, interleaved: (filePlayer.processingFormat?.isInterleaved)!)
+			//				voiceWriter = try! AKAudioFile(forWriting: AppManager.voiceURL(), settings:[AVNumberOfChannelsKey:format.channelCount as Any], commonFormat: format.commonFormat, interleaved: format.isInterleaved)
 			voiceRecorder = try! AKNodeRecorder(node: mic, file: voiceWriter)
 		}
-		filePlayer.play(from: Double(minValue)*filePlayer.duration)
+	}
+	
+	
+	func startRecording(){
 		
-		let when = DispatchTime.now() + 0.1
+		let when = DispatchTime.now()
 		DispatchQueue.main.asyncAfter(deadline: when, execute: {
+			self.filePlayer.play(from: Double(self.minValue)*self.filePlayer.duration)
 			try! self.fileRecorder.record()
 			if self.mode == .singing {
 				try! self.voiceRecorder.record()
 			}
 		})
-		
 		isRecording = true
 	}
 	

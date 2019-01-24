@@ -120,9 +120,9 @@ class PurchaseTableViewController: UITableViewController {
         request.sendRequest(completionHandler: {data, success, msg in
             if success{
                 let url = data as! String
-                UIApplication.shared.open( URL(string: url )!, options: [:], completionHandler:{ bool in
-					self.navigationController?.popViewController(animated: true)
-				})
+				UIApplication.shared.open( URL(string: url )!, options: [:])
+				self.navigationController?.popViewController(animated: true)
+
 //                UIApplication.shared.openURL(URL(string: url )!)
 //                self.dismiss(animated: true, completion: nil)
             }else{

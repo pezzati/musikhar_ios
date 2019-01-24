@@ -21,6 +21,7 @@ class AudioMixer: NSObject {
     var booster : AKBooster!
     var isPlaying = false
     var fakePitch : AKTimePitch!
+	var currentEffect : soundFx = .none
 	
     
     init(recordedFileURL: URL, karaFileURL: URL) {
@@ -73,7 +74,8 @@ class AudioMixer: NSObject {
     }
     
     func setEffect(effect : soundFx){
-        
+		currentEffect = effect
+		
         self.mixer.disconnectInput(bus: 0)
  
         
@@ -105,11 +107,7 @@ class AudioMixer: NSObject {
             
             break
         }
-        
-        self.voicePlayer.setPosition(karaPlayer.currentTime )
-        if self.isPlaying{
-            self.play()
-        }
+		
     }
     
     
@@ -146,8 +144,12 @@ class AudioMixer: NSObject {
         karaPlayer.pause()
         voicePlayer.pause()
         let sampleTimeZero = AVAudioTime(sampleTime: 0, atRate: AudioKit.format.sampleRate)
-        karaPlayer.setPosition(time - 0.1)
-        voicePlayer.setPosition(time) 
+		
+        voicePlayer.setPosition(time + 0.1)
+		if currentEffect == .helium{
+			voicePlayer.setPosition(time + 0.2)
+		}
+		karaPlayer.setPosition(time)
     }
     
     public func setNotification(){

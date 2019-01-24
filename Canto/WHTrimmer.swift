@@ -52,7 +52,7 @@ class WHTrimmer: UIView {
 		
 		playingLine = UIView(frame: CGRect.zero)
 //		playingLine.round(corners: [.topRight, .bottomRight], radius: 5)
-		playingLine.backgroundColor = UIColor.green
+		playingLine.backgroundColor = UIColor(red: 238/255, green: 121/255, blue: 43/255, alpha: 1)
 		playingLine.clipsToBounds = true
 		trimLine.addSubview(playingLine)
 		

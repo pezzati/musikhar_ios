@@ -23,29 +23,32 @@ class SettingViewController: UIViewController {
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Setting", detail: "")
     }
 
-    @IBAction func editProfile(_ sender: Any) {
-        
-        let vc = storyboard?.instantiateViewController(withIdentifier: "PhotoPicker") as? ProfilePictureViewController
-        vc?.isFirstTime = false
-        self.present(vc!, animated: true, completion: nil)
-    }
+
     
     
     @IBAction func bugReport(_ sender: Any) {
 		
         AppManager.sharedInstance().addAction(action: "Bug Report Tapped", session: "Setting", detail: "")
+		 UIApplication.shared.openURL( URL(string: "http://t.me/cantoapp" )!)
     }
     
     
-    @IBAction func adviseOrComplain(_ sender: Any) {
-		
-        AppManager.sharedInstance().addAction(action: "Advise Or Complain Tapped", session: "Setting", detail: "")
-    }
+	
     
     @IBAction func askForSong(_ sender: Any) {
         AppManager.sharedInstance().addAction(action: "Ask For Song Tapped", session: "Setting", detail: "")
     }
-    
+	
+	@IBAction func inviteFriends(_ sender: Any) {
+		let objectsToShare = [ URL(string : "http://canto-app.ir")] as [Any]
+		let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+		
+		if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
+			activityVC.popoverPresentationController?.sourceView = sender as! UIView
+		}
+		self.present(activityVC, animated: true, completion: nil)
+	}
+	
     @IBAction func contactUs(_ sender: Any) {
         AppManager.sharedInstance().addAction(action: "Instagram Tapped", session: "Setting", detail: "")
         UIApplication.shared.openURL( URL(string: "http://instagram.com/canto_app" )!)

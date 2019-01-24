@@ -5,7 +5,7 @@
 //  Created by WhoTan on 11/17/17.
 //  Copyright © 2017 WhoTan. All rights reserved.
 //
-
+/*
 import UIKit
 import AVFoundation
 import Photos
@@ -1457,4 +1457,4 @@ class Record_VC: UIViewController,  AVCaptureFileOutputRecordingDelegate, UITabl
     }
     
 }
-
+*/

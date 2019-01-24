@@ -20,7 +20,11 @@ class ModeSelectionViewController: UIViewController {
     var post : karaoke!
     
     var attributes : [NSAttributedStringKey: NSMutableParagraphStyle]!
-    
+	
+	override var prefersStatusBarHidden: Bool {
+		return true
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         carousel.dataSource = self
@@ -41,12 +45,22 @@ class ModeSelectionViewController: UIViewController {
         initializeCamera()
 		view.isHidden = true
 		carouselTopConstraint.constant = 120*(UIScreen.main.bounds.height/568.0) - 80
-//		carousel.scroll(toOffset: 0.00001, duration: 0.0001)
         carousel.reloadData()
         carousel.scroll(toOffset: 0.00001, duration: 0.0001)
 		view.isHidden = false
     }
-    
+	
+	func askForCameraPermission(){
+		
+		AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+			if !granted {
+				let dialogue = DialougeView()
+				dialogue.cameraPermission(vc: self)
+			}
+		})
+	}
+	
+	
     func initializeCamera(){
 //            camera = try Camera(sessionPreset: .hd1280x720 , location: .frontFacing )
 		DispatchQueue.main.async {
