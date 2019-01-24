@@ -35,6 +35,9 @@ class ProfileViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.view.bringSubview(toFront: headerView)
+		Name.adjustsFontSizeToFitWidth = true
+		
+		posts = AppManager.sharedInstance().getUserPostsList()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,7 +45,6 @@ class ProfileViewController: UIViewController {
         if AppManager.sharedInstance().userInfo.username.isEmpty{
             AppManager.sharedInstance().fetchUserInfo(sender: self, force: true, completionHandler: {
                 _ in
-				
                 self.updateInfo()
             })
 		}else{
@@ -51,6 +53,8 @@ class ProfileViewController: UIViewController {
 		
         AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Profile", detail: "")
     }
+	
+
     
     override func viewDidDisappear(_ animated: Bool) {
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Profile", detail: "")
@@ -113,20 +117,23 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     
     func updateInfo(){
 		
-		profilePicture.sd_setImage(with: URL(string: AppManager.sharedInstance().userInfo.avatar.link), placeholderImage: UIImage(named: "userPH") )
-        Name.text = AppManager.sharedInstance().userInfo.username
-		self.posts = AppManager.sharedInstance().getUserPostsList()
-		noPostsView.isHidden = self.posts.posts.count != 0
-		songsCollectionView.reloadData()
-		
-		if AppManager.sharedInstance().userInfo.premium_days > 0 {
-			creditLbl.text = AppManager.sharedInstance().userInfo.premium_days.description
-			coinIV.isHidden = true
-			premiumIV.isHidden = false
-		}else{
-			creditLbl.text = AppManager.sharedInstance().userInfo.coins.description
-			coinIV.isHidden = false
-			premiumIV.isHidden = true
+		DispatchQueue.main.async {
+			
+			self.profilePicture.sd_setImage(with: URL(string: AppManager.sharedInstance().userInfo.avatar.link), placeholderImage: UIImage(named: "userPH") )
+			self.Name.text = AppManager.sharedInstance().userInfo.username
+			self.posts = AppManager.sharedInstance().userPosts
+			self.noPostsView.isHidden = self.posts.posts.count != 0
+			self.songsCollectionView.reloadData()
+			
+			if AppManager.sharedInstance().userInfo.premium_days > 0 {
+				self.creditLbl.text = AppManager.sharedInstance().userInfo.premium_days.description
+				self.coinIV.isHidden = true
+				self.premiumIV.isHidden = false
+			}else{
+				self.creditLbl.text = AppManager.sharedInstance().userInfo.coins.description
+				self.coinIV.isHidden = false
+				self.premiumIV.isHidden = true
+			}
 		}
     }
     
