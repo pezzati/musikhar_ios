@@ -125,6 +125,8 @@ class AppManager: NSObject {
 	
 	//MARK: -UserPosts
 	
+	
+	
 	public func getUserPostsList() -> userPostsList{
 		
 		if let jsonString = UserDefaults.standard.value(forKey: AppGlobal.UserPostsList ) as? String{
