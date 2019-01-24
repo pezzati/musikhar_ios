@@ -12,7 +12,8 @@ import GPUImage
 class CameraHelper: NSObject {
 
     var camera : GPUImageVideoCamera!
-    var blendFilter : GPUImageAddBlendFilter!
+    var blendFilter = GPUImageOverlayBlendFilter()
+	var blendInput : GPUImagePicture!
     var cameraView : GPUImageView?
 	var movieWriter: GPUImageMovieWriter!
 //	var size = CGSize(width: 720, height: 720)
@@ -20,11 +21,12 @@ class CameraHelper: NSObject {
     init(inView : UIView) {
         cameraView = GPUImageView(frame: inView.bounds)
         inView.addSubview(cameraView!)
-		camera = GPUImageVideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: AVCaptureDevice.Position.front )
+		camera = GPUImageVideoCamera(sessionPreset: AVCaptureSession.Preset.high.rawValue , cameraPosition: AVCaptureDevice.Position.front )
 		if camera == nil{ return }
 		camera.outputImageOrientation = .portrait
 		camera.horizontallyMirrorFrontFacingCamera = true
 		cameraView?.fillMode = .preserveAspectRatioAndFill
+
 		camera.addTarget(cameraView)
 		camera.startCapture()
 //		size = CGSize(width: 720, height: Int(Float(720*(inView.frame.height/inView.frame.width))))
@@ -36,8 +38,18 @@ class CameraHelper: NSObject {
             cameraView = GPUImageView(frame: inView.bounds)
 //			size = CGSize(width: 720.0, height: Double(Float(720*(inView.frame.height/inView.frame.width))))
             cameraView?.fillMode = .preserveAspectRatioAndFill
+			camera.horizontallyMirrorFrontFacingCamera = true
             inView.addSubview(cameraView!)
             if camera == nil { return }
+
+//			blendInput = GPUImagePicture(image: CameraHelper.blendLayerImage())
+//			blendInput?.processImage()
+//			blendInput?.addTarget(blendFilter)
+//			camera.addTarget(blendFilter)
+//
+//			blendFilter.addTarget(cameraView)
+			
+			
 			camera.addTarget(cameraView)
 			camera.outputImageOrientation = .portrait
             camera.startCapture()
@@ -46,26 +58,31 @@ class CameraHelper: NSObject {
     
     func rotateCamera(front : Bool, inView : UIView){
 		let location : AVCaptureDevice.Position = front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back
-		camera = GPUImageVideoCamera(sessionPreset: AVCaptureSession.Preset.hd1280x720.rawValue , cameraPosition: location )
+		camera = GPUImageVideoCamera(sessionPreset: AVCaptureSession.Preset.high.rawValue , cameraPosition: location )
 		if camera == nil{ return }
 		camera.outputImageOrientation = .portrait
 		updateView(inView: inView)
     }
 	
-	func startRecording(){
+	func initiateRecorder(){
 		try? FileManager.default.removeItem(at: AppManager.videoURL())
-		movieWriter = GPUImageMovieWriter(movieURL: AppManager.videoURL(), size: CGSize(width: 720, height: 1280))
-//		let blendInput = GP
-//		let blendInput = PictureInput(image: blendLayerImage())
-//		blendFilter = AddBlend()
-//		blendInput.processImage()
-//		blendInput --> blendFilter
-//		camera --> blendFilter -->  movieWriter
-//		camera --> movieWriter
+		movieWriter = GPUImageMovieWriter(movieURL: AppManager.videoURL(), size: CGSize(width: 1080, height: 1920))
 		if camera == nil{ return }
 		camera.horizontallyMirrorFrontFacingCamera = true
-		camera.addTarget(movieWriter)
-		movieWriter.startRecording()
+		blendInput = GPUImagePicture(image: CameraHelper.blendLayerImage())
+		blendInput?.processImage()
+		blendInput?.addTarget(blendFilter)
+		camera.addTarget(blendFilter)
+		blendFilter.addTarget(movieWriter)
+	}
+	
+	
+	func startRecording(){
+		let when = DispatchTime.now()
+		DispatchQueue.main.asyncAfter(deadline: when, execute: {
+			self.movieWriter.startRecording()
+		})
+		
 	}
 	
 	func stopRecording(){
@@ -73,16 +90,16 @@ class CameraHelper: NSObject {
 	}
     
     
-//    func blendLayerImage()->UIImage {
-//
-//        UIGraphicsBeginImageContext(CGSize(width: CGFloat(size.width), height: CGFloat(size.height)))
-//        let _img = UIImage(named: "watermark")
-//		_img?.draw(in: CGRect(x: 15.0, y: Double(size.height - 15 - 80), width: 80*3.2, height: 80.0))
-//        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//
-//        return finalImage!
-//    }
+    class func blendLayerImage()->UIImage {
+
+        UIGraphicsBeginImageContext(CGSize(width: 1080, height: 1920))
+        let _img = UIImage(named: "watermark")
+		_img?.draw(in: CGRect(x: (700 - 270)*1.5, y: 45*1.5, width: 270*1.5, height: 80.0*1.5))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return finalImage!
+    }
 //
 //    let blendInput = PictureInput(image: blendLayerImage())
 //    blendFilter = AddBlend()
