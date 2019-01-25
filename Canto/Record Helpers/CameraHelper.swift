@@ -38,9 +38,9 @@ class CameraHelper: NSObject {
             cameraView = GPUImageView(frame: inView.bounds)
 //			size = CGSize(width: 720.0, height: Double(Float(720*(inView.frame.height/inView.frame.width))))
             cameraView?.fillMode = .preserveAspectRatioAndFill
-			camera.horizontallyMirrorFrontFacingCamera = true
             inView.addSubview(cameraView!)
             if camera == nil { return }
+			camera.horizontallyMirrorFrontFacingCamera = true
 
 //			blendInput = GPUImagePicture(image: CameraHelper.blendLayerImage())
 //			blendInput?.processImage()

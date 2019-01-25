@@ -315,13 +315,13 @@ class DialougeView {
 		self.shadowDialogue()
 		
 		
-		let imageView = UIImageView(image: UIImage(named: "paymentDialogue"))
+		let imageView = UIImageView(image: UIImage(named: mode == .karaoke ? "speaker" : "handsfree"))
 		imageView.frame = CGRect(x: 55, y: 30, width: 180, height: 180)
 		imageView.contentMode = .scaleAspectFit
 		dialougeView.addSubview(imageView)
 		
 		let title = UILabel(frame: CGRect(x: 50, y: imageView.frame.maxY + 20, width: dialougeView.frame.width - 100, height: 25))
-		title.text = "اعتبار ناکافی"
+		title.text = mode == .karaoke ? "اسپیکر" : "هندزفری"
 		title.textColor = UIColor.white
 		title.font = UIFont.boldSystemFont(ofSize: 19)
 		title.textAlignment = .center
@@ -329,7 +329,7 @@ class DialougeView {
 		
 		
 		let subTitle = UILabel(frame: CGRect(x: 50, y: title.frame.maxY + 15, width: dialougeView.frame.width - 100, height: 40))
-		subTitle.text = "برای خرید این آهنگ باید اعتبار خود را افزایش دهید"
+		subTitle.text = mode == .karaoke ? "لطفا موبایل خود را توسط کابل به اسپیکر وصل کنید" : "برای ضبط با کیفیت صدا از هندزفری استفاده کنید"
 		subTitle.textColor = AppGlobal.dialogueTextColor
 		subTitle.numberOfLines = 2
 		subTitle.font = UIFont.systemFont(ofSize: 15)
@@ -338,7 +338,7 @@ class DialougeView {
 		
 		
 		let tryButton = UILabel(frame: CGRect(x: 0 , y: 0, width: 250, height: 40))
-		tryButton.text = "رفتن به فروشگاه"
+		tryButton.text = mode == .karaoke ? "دوباره چک کن" : "باشه"
 		tryButton.textColor = UIColor.white
 		tryButton.font = UIFont.boldSystemFont(ofSize: 17)
 		tryButton.textAlignment = .center
@@ -352,7 +352,7 @@ class DialougeView {
 		
 		
 		let cancelButton = UILabel(frame: CGRect(x: 0 , y: tryButtonView.frame.maxY, width: 300, height: 40))
-		cancelButton.text = "بیخیال"
+		cancelButton.text = "بازگشت"
 		cancelButton.textColor = AppGlobal.dialogueTextColor
 		cancelButton.font = UIFont.systemFont(ofSize: 15)
 		cancelButton.textAlignment = .center
@@ -361,11 +361,14 @@ class DialougeView {
 		self.dialougeView.addSubview(cancelButton)
 		
 		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-			self.hide()
+			if mode == .singing || AppManager.checkAudioIO(){
+				self.hide()
+			}
 		}
 		tryButtonView.addGestureRecognizer(tap!)
 		
 		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			(sender as! WHRecordVC).closeTapped(UIButton())
 			self.hide()
 		}
 		

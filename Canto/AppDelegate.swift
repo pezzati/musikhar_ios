@@ -36,11 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         var vc : UIViewController!
         
-        if (UserDefaults.standard.value(forKey: "110Cache") as? Bool) == nil {
-//            AppManager.sharedInstance().clearGenresCache()
-            UserDefaults.standard.setValue(true, forKey: "110Cache")
-        }
-        
         
         if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
             if token.characters.count > 10 {
