@@ -32,27 +32,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppManager.initialize()
         let customFont = UIFont(name: "IRANYekanMobile", size: 17.0)!
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: customFont], for: .normal)
-        self.window = UIWindow.init(frame: UIScreen.main.bounds)
-        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        var vc : UIViewController!
-        
-        
-        if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
-            if token.characters.count > 10 {
-                
-//                if AppManager.sharedInstance().getUserInfo().first_name == ""{
-//                    vc = storyBoard.instantiateViewController(withIdentifier: "PhotoPicker")
-//                }
-                vc = storyBoard.instantiateViewController(withIdentifier: "mainTabBar")
-            }else{
-                vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
-            }
-        }else{
-            vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
-        }
+//        self.window = UIWindow.init(frame: UIScreen.main.bounds)
+//        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+//        var vc : UIViewController!
 		
-        self.window!.rootViewController = vc
-        self.window!.makeKeyAndVisible()
+        
+//        if let token = UserDefaults.standard.value(forKey: AppGlobal.Token) as? String{
+//            if token.characters.count > 10 {
+//
+//                vc = storyBoard.instantiateViewController(withIdentifier: "mainTabBar")
+//            }else{
+//                vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
+//            }
+//        }else{
+//            vc = storyBoard.instantiateViewController(withIdentifier: "LoginMethod")
+//        }
+		
+//        self.window!.rootViewController = vc
+//        self.window!.makeKeyAndVisible()
         AppManager.initialize()
         
         Fabric.with([Crashlytics.self])
@@ -67,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Nassab version : f0d1c6de-76e1-4353-ac2e-28c8e77e4edb
         //Sibapp Version: 2e88f03c-0769-4b2a-b48f-0a1c1b0a9384
         OneSignal.initWithLaunchOptions(launchOptions,
-                                        appId: "f0d1c6de-76e1-4353-ac2e-28c8e77e4edb",
+                                        appId: "2e88f03c-0769-4b2a-b48f-0a1c1b0a9384",
                                         handleNotificationAction: nil,
                                         settings: onesignalInitSettings)
         
@@ -75,48 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Recommend moving the below line to prompt for push after informing the user about
         //   how your app will use them.
-        
-        
-        var playerId : String = ""
-        if let x = OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId {
-            playerId = x
-        }
-        
-        OneSignal.promptForPushNotifications(userResponse: { accepted in
-            print("User accepted notifications: \(accepted)")
-            if accepted{
-                if let userId = OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId{
-                    playerId = userId
-                    print("player id is: \(String(describing: userId))")
-                }
-            }
-        })
-        
-        var buildVersion = 100
-        
-        if let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-            buildVersion = Int(version)! 
-        }
-        
-        let params = ["build_version" : buildVersion, "device_type" : "ios" , "udid" : UIDevice.current.identifierForVendor!.uuidString, "one_signal_id" : playerId, "bundle" : Bundle.main.bundleIdentifier!  ] as [String : Any]
-        
-        let request = RequestHandler(type: .handShake , requestURL: AppGlobal.HandShake, params: params, shouldShowError: false, retry: 1, sender: vc, waiting: false, force: false)
-        
-        request.sendRequest(completionHandler: {
-            data, success, msg in
-            
-            if success {
-                let result = data as! handShakeResult
-                if result.force_update{
-                    let dialog = DialougeView()
-                    dialog.update(force: true, downloadURL: result.url, vc: vc)
-                }else if result.suggest_update{
-                    let dialog = DialougeView()
-                    dialog.update(force: false, downloadURL: result.url, vc: vc)
-                }
-            }
-            
-        })
+		
 		
 		UIApplication.shared.isIdleTimerDisabled = true
         return true

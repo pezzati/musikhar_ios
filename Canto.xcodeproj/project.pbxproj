@@ -54,6 +54,7 @@
 		5D7FF58C21EE0AA0000EF3FE /* AvatarPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7FF58B21EE0AA0000EF3FE /* AvatarPickerViewController.swift */; };
 		5DA4E2B02168A0770075C00A /* UserPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA4E2AE2168A0770075C00A /* UserPostCollectionViewCell.swift */; };
 		5DA4E2B12168A0770075C00A /* UserPostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA4E2AF2168A0770075C00A /* UserPostCollectionViewCell.xib */; };
+		5DA6372421FB54FF0026A14B /* LauncherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA6372321FB54FF0026A14B /* LauncherViewController.swift */; };
 		5DA64E311FBAEE8A006184E4 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA64E301FBAEE8A006184E4 /* Extentions.swift */; };
 		5DA6D9C8209F4713003218B6 /* AudioMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA6D9C7209F4713003218B6 /* AudioMixer.swift */; };
 		5DACF1B02010E96D006CC612 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DACF1AF2010E96D006CC612 /* SearchViewController.swift */; };
@@ -215,6 +216,7 @@
 		5D7FF58B21EE0AA0000EF3FE /* AvatarPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerViewController.swift; sourceTree = "<group>"; };
 		5DA4E2AE2168A0770075C00A /* UserPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCollectionViewCell.swift; sourceTree = "<group>"; };
 		5DA4E2AF2168A0770075C00A /* UserPostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserPostCollectionViewCell.xib; sourceTree = "<group>"; };
+		5DA6372321FB54FF0026A14B /* LauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewController.swift; sourceTree = "<group>"; };
 		5DA64E301FBAEE8A006184E4 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		5DA6D9C7209F4713003218B6 /* AudioMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMixer.swift; sourceTree = "<group>"; };
 		5DACF1AF2010E96D006CC612 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				5DB3F55821B60556008B620F /* LoginMethodViewController.swift */,
 				5DB3F55F21B60F0B008B620F /* LoginViewController.swift */,
 				5D7FF58B21EE0AA0000EF3FE /* AvatarPickerViewController.swift */,
+				5DA6372321FB54FF0026A14B /* LauncherViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -960,6 +963,7 @@
 				5D1712731FC2D07F0041E74A /* iCarousel.m in Sources */,
 				5DACF1B02010E96D006CC612 /* SearchViewController.swift in Sources */,
 				5D4EF7BD1FC8395500BF4DA4 /* ShowMessage.swift in Sources */,
+				5DA6372421FB54FF0026A14B /* LauncherViewController.swift in Sources */,
 				5DD065752192EC990011DA56 /* circularProgress.swift in Sources */,
 				5D4EF7BB1FC8381E00BF4DA4 /* AppGlobal.swift in Sources */,
 				5D1C3BCD1FE6A08100B7574B /* FavoriteGenres_TableViewCell.swift in Sources */,
@@ -1068,7 +1072,7 @@
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.canto.application.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1089,7 +1093,7 @@
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.canto.application.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1221,7 +1225,7 @@
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application;
+				PRODUCT_BUNDLE_IDENTIFIER = com.canto.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Canto/Canto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1244,7 +1248,7 @@
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.canto.application;
+				PRODUCT_BUNDLE_IDENTIFIER = com.canto.application;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Canto/Canto-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;

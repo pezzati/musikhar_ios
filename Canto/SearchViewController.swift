@@ -28,19 +28,19 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationItem.title = ""
         
-        DispatchQueue.global(qos: .background).async {
-            self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: AppGlobal.PopularKaraokesGenre)
-            DispatchQueue.main.async {
-                if self.results.count > 0 {
-                    self.resultCollectionView.reloadData()
-                    self.resultCollectionView.isHidden = false
-                    self.searchPlease.isHidden = true
-                }else{
-                    self.searchPlease.isHidden = false
-                    self.resultCollectionView.isHidden = true
-                }
-            }
-        }
+//        DispatchQueue.global(qos: .background).async {
+//            self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: AppGlobal.PopularKaraokesGenre)
+//            DispatchQueue.main.async {
+//                if self.results.count > 0 {
+//                    self.resultCollectionView.reloadData()
+//                    self.resultCollectionView.isHidden = false
+//                    self.searchPlease.isHidden = true
+//                }else{
+//                    self.searchPlease.isHidden = false
+//                    self.resultCollectionView.isHidden = true
+//                }
+//            }
+//        }
         self.navigationItem.title = "جستجو"
 		searchTextField.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
 
@@ -64,20 +64,20 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Search", detail: "")
         if searchPlease.text ==  "نتیجه ای یافت نشد" {
             self.searchPlease.text = "آهنگ مورد نظر را جست و جو کنید"
-            DispatchQueue.global(qos: .background).async {
-                self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: AppGlobal.PopularKaraokesGenre)
-                DispatchQueue.main.async {
-                    if self.results.count > 0 {
-                        self.resultCollectionView.reloadData()
-                        self.resultCollectionView.isHidden = false
-                        self.searchPlease.isHidden = true
-                    }else{
-                        self.searchPlease.isHidden = false
-                        self.resultCollectionView.isHidden = true
-                    }
-                    
-                }
-            }
+//            DispatchQueue.global(qos: .background).async {
+//                self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: AppGlobal.PopularKaraokesGenre)
+//                DispatchQueue.main.async {
+//                    if self.results.count > 0 {
+//                        self.resultCollectionView.reloadData()
+//                        self.resultCollectionView.isHidden = false
+//                        self.searchPlease.isHidden = true
+//                    }else{
+//                        self.searchPlease.isHidden = false
+//                        self.resultCollectionView.isHidden = true
+//                    }
+//
+//                }
+//            }
         }
     }
     
@@ -113,9 +113,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             if success {
                 if nextPage{
                     let result = more_posts as! genre_more
+					if result.next == self.results.next{ return }
                     self.results.next = (result.next)
                     self.results.previous = (result.previous)
-                    self.results.count = self.results.count + (result.count)
+//                    self.results.count = self.results.count + (result.count)
                     for item in (result.results){
                         self.results.results.append(item)
                     }

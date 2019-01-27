@@ -23,7 +23,7 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         code_View.layer.cornerRadius = 5
 		code.delegate = self
-		code.attributedPlaceholder = NSAttributedString(string: "1234", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedString.Key(rawValue: NSAttributedString.Key.kern.rawValue) : 30.0])
+		code.attributedPlaceholder = NSAttributedString(string: "****", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedString.Key(rawValue: NSAttributedString.Key.kern.rawValue) : 30.0])
 		AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Code Verification", detail: "")
 		titleLbl.text = mobile.count == 0 ? "تایید آدرس ایمیل" : "تایید شماره همراه"
 		descLbl.text = mobile.count == 0 ? "کد تایید برای آدرس ایمیل زیر ارسال شد" : "کد تایید برای شماره موبایل زیر ارسال شد"
@@ -35,6 +35,10 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
 		
 		code.addTarget(self, action: "textFieldDidChange:", for: UIControlEvents.editingChanged)
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		code.becomeFirstResponder()
+	}
 
 	
 	

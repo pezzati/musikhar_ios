@@ -451,7 +451,7 @@ class DialougeView {
     }
     
     
-    func update(force: Bool,downloadURL: String, vc: UIViewController){
+	func update(force: Bool,downloadURL: String,validToken: Bool = false, vc: UIViewController){
         
         showBackgroundView(vc: vc)
         self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 200, width: 300, height: 400))
@@ -511,7 +511,11 @@ class DialougeView {
 			self.dialougeView.addSubview(cancelButtonView)
 			
 			let cancelTp =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
-				if !force{ self.hide() }
+				if !force{
+					self.hide()
+					let nextVC = vc.storyboard!.instantiateViewController(withIdentifier: validToken ?  "mainTabBar" : "LoginMethod" )
+					vc.present(nextVC, animated: true, completion: nil)
+				}
 			}
 			cancelButtonView.addGestureRecognizer(cancelTp!)
 		}

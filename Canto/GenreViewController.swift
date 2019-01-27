@@ -43,14 +43,14 @@ class GenreViewController: UIViewController {
     
     func getMorePosts(){
 		
-		let request = RequestHandler(type: .genrePosts , requestURL: results.count == 0 ? self.url : self.results.next, shouldShowError: true, sender: self, waiting: false, force: false)
+		let request = RequestHandler(type: .genrePosts , requestURL: results.results.count == 0 ? self.url : self.results.next, shouldShowError: true, sender: self, waiting: results.results.count == 0, force: false)
         
         request.sendRequest(completionHandler: { more_posts, success, msg in
             if success {
                 let result = more_posts as! genre_more
+				if result.next == self.results.next { return }
                 self.results.next = (result.next)
                 self.results.previous = (result.previous)
-                self.results.count = self.results.count + (result.count)
                 for item in (result.results){
                     self.results.results.append(item)
                 }
