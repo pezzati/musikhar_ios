@@ -80,7 +80,9 @@ class CameraHelper: NSObject {
 	func startRecording(){
 		let when = DispatchTime.now()
 		DispatchQueue.main.asyncAfter(deadline: when, execute: {
-			self.movieWriter.startRecording()
+			if self.movieWriter.assetWriter.status.rawValue == 0{
+				self.movieWriter.startRecording()
+			}
 		})
 		
 	}

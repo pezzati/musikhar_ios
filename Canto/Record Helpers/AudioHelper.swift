@@ -47,6 +47,7 @@ class AudioHelper: NSObject {
 		
 		self.mode = mode
 		mainMixer = AKMixer()
+		AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
 		mic = AKMicrophone()
 		micReverb = AKReverb(mic, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
 		micLowPass = AKLowPassFilter(micReverb, cutoffFrequency: 2000, resonance: -20)
@@ -259,6 +260,7 @@ class AudioHelper: NSObject {
 		fileRecorder.stop()
 		if mode == .singing{ voiceRecorder.stop() }
 		isRecording = false
+		self.close()
 	}
 	
 }

@@ -18,7 +18,7 @@ struct AppGlobal {
     //Nassab Bundle : nassab.application.canto
     //Sibapp Bundle : com.canto.application
 	
-    public static let ServerURL = debugMode ? "https://test.canto-app.ir/" : "https://canto-app.ir/"
+    public static let ServerURL = debugMode ? "http://stg.canto-app.ir/" : "https://canto-app.ir/"
 //	public static let ServerURL = "http://192.168.1.145:8000/"
     public static let UserSignupURL =  ServerURL + "user/signup"
     public static let UserLoginURL = ServerURL + "user/login"

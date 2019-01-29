@@ -195,6 +195,7 @@ class EditVC: UIViewController {
 	
 	@IBAction func mixerTapped(_ sender: Any) {
 		self.mixPanelHeightConstraint.constant = self.mixPanelHeightConstraint.constant == 0 ? 330 : 0
+		
 		UIView.animate(withDuration: 1.5){
 			self.view.layoutSubviews()
 		}

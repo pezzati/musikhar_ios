@@ -65,7 +65,7 @@ class WHRecordVC: UIViewController {
     var isSquare = false
     var isFrontCamera = true
 	var songDuration : Double = 0
-	var currentLyra = 0
+	var nextLyra = 0
 	var isRecording = false
 	
     override var prefersStatusBarHidden: Bool {
@@ -84,7 +84,7 @@ class WHRecordVC: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		cameraHelper?.updateView(inView: cameraView)
 		
-		if !AppManager.checkAudioIO(){
+		if !AppManager.checkAudioIO() && mode != .dubsmash{
 			let dialog = DialougeView()
 			dialog.plugHeadphones(sender: self, mode: mode)
 		}
@@ -109,11 +109,13 @@ class WHRecordVC: UIViewController {
 		LubiaBackgroundIV.rotate(duration: 40)
 		controllersToolbarView.isHidden = mode != .karaoke
 		lyricsCloseButton.isHidden = true
-		lyricBoxHeightConstraint.constant = 0
-		lyricsBoxTopConstraint.constant = 58
+		lyricBoxHeightConstraint.constant = 100
+		lyricsBoxTopConstraint.constant = 8
 		line1.adjustsFontSizeToFitWidth = true
 		line2.adjustsFontSizeToFitWidth = true
 		line3.adjustsFontSizeToFitWidth = true
+		
+		line2.text = "در حال آماده سازی"
 		setupSliders()
 		prepareAudio()
 	}
@@ -170,11 +172,11 @@ class WHRecordVC: UIViewController {
 			lyricsBoxTopConstraint.constant = 58
 			lyricsCloseButton.setImage( UIImage(named: "expand_lyrics") , for: .normal)
 		}
-		if sender == lyricsCloseButton{
+//		if sender == lyricsCloseButton{
 			UIView.animate(withDuration: 1, animations: {
 				self.view.layoutIfNeeded()
 			})
-		}
+//		}
 	}
 	
     //MARK: -Recording Toolbar Actions
@@ -182,6 +184,7 @@ class WHRecordVC: UIViewController {
 		
 		if !isRecording{
 			trimmer.inactivate()
+			prepareLyricsToStart()
 			rotateButton.isHidden = true
 			isRecording = true
 			sender.setImage(UIImage(named: "stop"), for: .normal)
@@ -192,6 +195,7 @@ class WHRecordVC: UIViewController {
 			DispatchQueue.main.asyncAfter(deadline: when, execute: {
 				self.cameraHelper?.startRecording()
 				self.audioHelper?.startRecording()
+//				self.updateLyrics()
 			})
 		}else{
 			let when = DispatchTime.now() + 0.1
@@ -205,11 +209,10 @@ class WHRecordVC: UIViewController {
 	
 	func proceedToEdit(){
 		isRecording = false
+		audioHelper = nil
 		let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
 		editVC.mode = mode
 		editVC.post = post
-		audioHelper!.close()
-		audioHelper = nil
 		navigationController?.pushViewController(editVC, animated: true)
 	}
     
@@ -248,7 +251,33 @@ class WHRecordVC: UIViewController {
 	@IBAction func playerSliderTouchUpInside(_ sender: mySlider) {
 		print(sender.value)
 		audioHelper?.seekTo(time: sender.value)
+		
 	}
+	
+	func prepareLyricsToStart(){
+		
+		if mode != .dubsmash {
+			lyricsCloseButton.isHidden = false
+		}else{
+			self.closeLyrics(lyricsCloseButton)
+		}
+		
+		line1.text = ""
+		line2.text = ""
+		line3.text = ""
+		
+		let startTime = (audioHelper?.minValue)! * Float((audioHelper?.filePlayer.duration)!)
+		
+		let lives = post.content.liveLyrics
+		
+		if let nextLine = lives.first(where: {$0.time > startTime}) {
+			line3.text = nextLine.text
+			if let currentIndex = lives.lastIndex(of: nextLine){
+				nextLyra = currentIndex
+			}
+		}
+	}
+	
 }
 
 extension WHRecordVC: AudioHelperDelegate{
@@ -265,12 +294,15 @@ extension WHRecordVC: AudioHelperDelegate{
 			trimmer.updatePlayLine(end: elapsed/songDuration)
 		}
 		
+		if mode == .dubsmash { return }
 		let lyrics = post.content.liveLyrics
-		if currentLyra + 1 < lyrics.count {
-			if Float(elapsed) > lyrics[currentLyra+1].time{
-				updateLyrics()
+//		if nextLyra < lyrics.count {
+			if Float(elapsed) > lyrics[nextLyra].time{
+				if isRecording{
+					updateLyrics()
+				}
 			}
-		}
+//		}
 	}
 	
 	func recordTimeEnded() {
@@ -282,13 +314,18 @@ extension WHRecordVC: AudioHelperDelegate{
 		if !(audioHelper?.fileIsRead)! { return }
 		
 		let lives = post.content.liveLyrics
-		if let current = lives.last(where: {$0.time < Float((audioHelper?.filePlayer.currentTime)!)}) {
-			line2.text = current.text
-			if let currentIndex = lives.lastIndex(of: current){
-				currentLyra = currentIndex
-				line3.text = currentIndex + 1 < lives.count ? lives[currentIndex+1].text : ""
-				line1.text = currentIndex == 0 ? "" :  lives[currentIndex-1].text
-			}else{
+		if let next = lives.first(where: {$0.time > Float((audioHelper?.filePlayer.currentTime)!)}) {
+			line3.text = next.text
+			
+			if let nextIndex = lives.lastIndex(of: next){
+				nextLyra = nextIndex
+				line2.text = nextIndex - 1 >= 0 ? lives[nextIndex-1].text : ""
+				line1.text = nextIndex - 2 >= 0 ? lives[nextIndex - 2].text : ""
+			}
+		}else{
+			if !(line3.text?.isEmpty)!{
+				line1.text = line2.text
+				line2.text = line3.text
 				line3.text = ""
 			}
 		}
@@ -298,11 +335,19 @@ extension WHRecordVC: AudioHelperDelegate{
 		if audioHelper!.filePlayer != nil && audioHelper!.fileIsRead {
 			playButton.setImage(UIImage(named: audioHelper?.filePlayer.isPlaying ?? false ? "pause" : "play"), for: .normal)
 		}
-		updateLyrics()
+		if isRecording{
+			updateLyrics()
+		}
 	}
 	
 	func fileIsReady(duration : Double) {
 		songDuration = duration
+		
+		line2.text = "۶۰ ثانیه مورد نظر از آهنگ را انتخاب کنید"
+		line3.text = "برای شروع دکمه ضبط را لمس کنید"
+		if controllersToolbarView.isHidden && mode != .karaoke{
+			settingTapped(settingButton)
+		}
 		
 		
 		if mode == .karaoke{
@@ -336,16 +381,14 @@ extension WHRecordVC: AudioHelperDelegate{
 			
 		}
 		
-		if mode != .dubsmash && lyricBoxHeightConstraint.constant == 0 {
-			lyricsCloseButton.isHidden = false
-			self.closeLyrics(UIButton())
-		}
-		
 //		controllersToolbarView.isHidden = false
 		if !(audioHelper?.filePlayer.isPlaying)!{ audioHelper?.togglePlay()}
 	}
 
     func downloadProgress(percent: Float) {
+		line1.text = "در حال آماده سازی"
+		line2.text = "در حال دانلود فایل"
+		
 		if mode == .karaoke{
 			karaokeDownloadProgress.setProgressWithAnimation(duration: 0, value: percent)
 		}else{
@@ -389,6 +432,9 @@ extension WHRecordVC: WHTrimmerDelegate {
 		audioHelper?.seekTo(time: minVal)
 		audioHelper?.minValue = minVal
 		audioHelper?.maxValue = maxVal
+		line1.text = "۶۰ ثانیه مورد نظر از آهنگ را انتخاب کنید"
+		line2.text = "برای شروع دکمه ضبط را لمس کنید"
+		line3.text = ""
 	}
 	
 	

@@ -23,7 +23,9 @@ class GenreViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 //        self.results = AppManager.sharedInstance().getGenreMoreKaras(genreURL: self.url)
-		getMorePosts()
+		if results.results.isEmpty{
+			getMorePosts(firstTime: true)
+		}
         self.collectionView.reloadData()
         self.navigationItem.title = name
     }
@@ -41,9 +43,11 @@ class GenreViewController: UIViewController {
         AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Genre More", detail: name)
     }
     
-    func getMorePosts(){
+	func getMorePosts(firstTime: Bool = false){
 		
-		let request = RequestHandler(type: .genrePosts , requestURL: results.results.count == 0 ? self.url : self.results.next, shouldShowError: true, sender: self, waiting: results.results.count == 0, force: false)
+		if !firstTime && results.next.isEmpty { return }
+		
+		let request = RequestHandler(type: .genrePosts , requestURL: firstTime ? self.url : self.results.next, shouldShowError: true, sender: self, waiting: results.results.count == 0, force: false)
         
         request.sendRequest(completionHandler: { more_posts, success, msg in
             if success {
