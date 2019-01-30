@@ -215,6 +215,7 @@ class AudioHelper: NSObject {
 			let crr = filePlayer.currentTime/filePlayer.duration
 			if crr > Double(maxValue) {
 				if isRecording{
+					filePlayer.stop()
 					delegate.recordTimeEnded()
 				}else{
 					seekTo(time: minValue)

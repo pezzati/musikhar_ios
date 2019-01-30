@@ -48,7 +48,7 @@ class KaraokeCard_CollectionViewCell: UICollectionViewCell {
         bottomDarkGradient.frame = CGRect(x: 0, y: self.frame.width - 20, width: self.frame.width, height: 21)
 		
 		if post.price == 0 {
-			priceLbl.text = ""
+			priceLbl.text = "رایگان"
 			coinIV.image = UIImage(named: "free")
 			coinIVHeightConstraint.constant = 12
 			coinIV.isHidden = false

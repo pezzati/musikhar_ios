@@ -87,6 +87,11 @@ class ProfilePictureViewController: UIViewController, UITextFieldDelegate {
 			return
 		}
 		
+		if isFirstTime && (nameTF.text?.isEmpty)!{
+			nameTF.shake()
+			return
+		}
+		
 		nameTF.resignFirstResponder()
 		
 		let params = ["username" : nameTF.text!, "avatar" : AppManager.sharedInstance().userInfo.avatar.id.description]

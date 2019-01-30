@@ -67,6 +67,7 @@ class WHRecordVC: UIViewController {
 	var songDuration : Double = 0
 	var nextLyra = 0
 	var isRecording = false
+	var waitingBox : DialougeView? = nil
 	
     override var prefersStatusBarHidden: Bool {
         return true
@@ -95,7 +96,6 @@ class WHRecordVC: UIViewController {
 			trimmer.updateLayout()
 		}
 	}
-	
 	
 	func setup(){
 		closeButton.setImage(#imageLiteral(resourceName: "close").maskWithColor(color: UIColor.white), for: .normal)
@@ -195,9 +195,10 @@ class WHRecordVC: UIViewController {
 			DispatchQueue.main.asyncAfter(deadline: when, execute: {
 				self.cameraHelper?.startRecording()
 				self.audioHelper?.startRecording()
-//				self.updateLyrics()
 			})
 		}else{
+			waitingBox = DialougeView()
+			waitingBox!.waitingBox(vc: self)
 			let when = DispatchTime.now() + 0.1
 			DispatchQueue.main.asyncAfter(deadline: when, execute: {
 				self.cameraHelper?.stopRecording()
@@ -213,6 +214,8 @@ class WHRecordVC: UIViewController {
 		let editVC = storyboard?.instantiateViewController(withIdentifier: "EditVC") as! EditVC
 		editVC.mode = mode
 		editVC.post = post
+		waitingBox!.hide()
+		waitingBox = nil
 		navigationController?.pushViewController(editVC, animated: true)
 	}
     
