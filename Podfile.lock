@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.0)
   - AudioKit (4.5.4):
     - AudioKit/Core (= 4.5.4)
     - AudioKit/UI (= 4.5.4)
@@ -40,7 +40,7 @@ PODS:
   - SDWebImage/Core (4.4.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4)
+  - Alamofire (~> 4.8)
   - AudioKit (= 4.5.4)
   - Crashlytics
   - EVReflection/Alamofire
@@ -66,7 +66,7 @@ SPEC REPOS:
     - SDWebImage
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AudioKit: af3f5b73e22f85f3cd03076fea8afbb9658f0938
   Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
   EVReflection: 640322f8a3aaf78cbc3c23892476b6adb636ebf0
@@ -79,6 +79,6 @@ SPEC CHECKSUMS:
   OneSignal: 0173a4e48c620089e4a1aba44c82d4148547d812
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: c96fe062ea2cf6cb4c0ab2cf412f8a023fdeef8a
+PODFILE CHECKSUM: dad7c0f9c72f4ac093b21f4a13bd5f2e5d025d76
 
 COCOAPODS: 1.5.3

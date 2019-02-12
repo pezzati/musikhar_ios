@@ -97,11 +97,12 @@ extension LoginMethodViewController: GIDSignInUIDelegate, GIDSignInDelegate{
 					if json!["new_user"] as! Bool {
 						
 						let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker")
-						UIApplication.topViewController()?.present(vc!, animated: true, completion: nil)
+						self.navigationController?.pushViewController(vc!, animated: true)
 					}else{
 						
 						let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
-						UIApplication.topViewController()?.present(vc!, animated: true, completion: nil)
+//						UIApplication.topViewController()?.present(vc!, animated: true, completion: nil)
+						self.navigationController?.pushViewController(vc!, animated: true)
 						
 					}
 					

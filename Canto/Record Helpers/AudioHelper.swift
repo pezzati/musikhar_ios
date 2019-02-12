@@ -43,11 +43,28 @@ class AudioHelper: NSObject {
 	var minValue : Float = 0.0
 	var isRecording = false
 	
+	
 	init(mode: Modes) {
+		
+		print(AudioKit.engine.inputNode.outputFormat(forBus: 0).sampleRate)
+		print(AKSettings.sampleRate)
+		
+		do{
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker )
+			try AVAudioSession.sharedInstance().setActive(true)
+		}catch{
+			print("failed to set AVAudioSession Category" + error.localizedDescription)
+		}
 		
 		self.mode = mode
 		mainMixer = AKMixer()
-		AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+//		let x = AudioKit.engine.inputNode
+//		let y = x.outputFormat(forBus: 0).sampleRate
+//		AKSettings.sampleRate = x.inputFormat(forBus: 0).sampleRate
+		
+		print(AudioKit.engine.inputNode.outputFormat(forBus: 0).sampleRate)
+		print(AKSettings.sampleRate)
+		
 		mic = AKMicrophone()
 		micReverb = AKReverb(mic, dryWetMix: mode == .karaoke ? 0.3 : 0.0)
 		micLowPass = AKLowPassFilter(micReverb, cutoffFrequency: 2000, resonance: -20)
@@ -58,8 +75,6 @@ class AudioHelper: NSObject {
 		
 		do{
 			try AudioKit.start()
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker )
-			try AVAudioSession.sharedInstance().setActive(true)
 		} catch{
 			print("Initializing AudioMixer (AudioKit) Failed" + error.localizedDescription)
 		}
@@ -69,6 +84,7 @@ class AudioHelper: NSObject {
 		if downloadRequest != nil {
 			downloadRequest?.cancel()
 		}
+		
 		AudioKit.disconnectAllInputs()
 		try? AudioKit.stop()
 		if timer != nil {
@@ -97,15 +113,19 @@ class AudioHelper: NSObject {
 		let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 			return (filePath, [.removePreviousFile])
 		}
-
+		
 		downloadRequest = Alamofire.download(url!, to: destination).downloadProgress(closure: { (progress) in
 			DispatchQueue.main.async {
 				self.downloadPercent = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
 				self.delegate.downloadProgress(percent: self.downloadPercent)
+				print(self.downloadPercent.description)
 			}}).responseData { response in
+				print(response.destinationURL?.absoluteString)
+				print(response.error?.localizedDescription)
+				print(response.response?.statusCode)
+				print(response.result.error?.localizedDescription)
 				self.readFile(url: filePath)
 		}
-		
 	}
 	
 	func readFile(url : URL){

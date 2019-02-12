@@ -160,14 +160,34 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
         let currentMode = Modes(rawValue: carousel.currentItemIndex)
         modeNameLabel.text = AppGlobal.modeNames[currentMode!]
         descriptionLabel.attributedText = NSAttributedString(string: AppGlobal.modesDescription[currentMode!]!, attributes: attributes)
-  
     }
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
-        vc.post = post
-        vc.mode = Modes(rawValue: index)
-        navigationController?.pushViewController(vc, animated: true)
+		let vc = storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
+		vc.post = post
+		vc.mode = Modes(rawValue: index)
+		
+		if Modes(rawValue: index) == .karaoke {
+			navigationController?.pushViewController(vc, animated: true)
+			return
+		}
+		
+		AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+			if !granted {
+				DispatchQueue.main.async {
+					let dialogue = DialougeView()
+					dialogue.cameraPermission(vc: self)
+				}
+			
+			}else{
+				DispatchQueue.main.async {
+					self.navigationController?.pushViewController(vc, animated: true)
+				}
+			}
+		})
+		
+		
+		
     }
     
 }

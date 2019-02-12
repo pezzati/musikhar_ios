@@ -26,9 +26,10 @@ class AudioMixer: NSObject {
     
     init(recordedFileURL: URL, karaFileURL: URL) {
         
-       
+		try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback , with: .defaultToSpeaker)
+		try? AVAudioSession.sharedInstance().setActive(true)
     
-        AKSettings.enableCategoryChangeHandling = false
+//        AKSettings.enableCategoryChangeHandling = false
 //        try? AKSettings.setSession(category: AKSettings.SessionCategory.playback, with: .defaultToSpeaker )
         
         karaPlayer = AKPlayer(url: karaFileURL)
@@ -152,36 +153,36 @@ class AudioMixer: NSObject {
 		karaPlayer.setPosition(time)
     }
     
-    public func setNotification(){
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(configurationChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange , object: AudioKit.engine)
-    }
-    
-    public func removeNotification(){
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func configurationChanged(){
-        
-        do{
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker)
-            try AVAudioSession.sharedInstance().setActive(true)
-            try AudioKit.start()
-            if self.isPlaying{
-                self.pause()
-            }
-            
-            
-        } catch {
-            print(error)
-        }
-        
-        if self.isPlaying{
-            self.pause()
-        }
-        
-    }
-    
+//    public func setNotification(){
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(configurationChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange , object: AudioKit.engine)
+//    }
+//
+//    public func removeNotification(){
+//        NotificationCenter.default.removeObserver(self)
+//    }
+	
+//    @objc func configurationChanged(){
+//
+//        do{
+//            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord , with: .defaultToSpeaker)
+//            try AVAudioSession.sharedInstance().setActive(true)
+//            try AudioKit.start()
+//            if self.isPlaying{
+//                self.pause()
+//            }
+//
+//
+//        } catch {
+//            print(error)
+//        }
+//
+//        if self.isPlaying{
+//            self.pause()
+//        }
+//
+//    }
+	
     func render(url: URL){
         
         try? FileManager.default.removeItem(at: url)
@@ -196,8 +197,9 @@ class AudioMixer: NSObject {
                     self.seekTo(time: 0)
                     self.play()
                 })
-            
-            try AudioKit.stop()
+			
+			AudioKit.disconnectAllInputs()
+            try? AudioKit.stop()
             
             
 //            }else{

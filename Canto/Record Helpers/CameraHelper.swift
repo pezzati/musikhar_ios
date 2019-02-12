@@ -41,7 +41,7 @@ class CameraHelper: NSObject {
             inView.addSubview(cameraView!)
             if camera == nil { return }
 			camera.horizontallyMirrorFrontFacingCamera = true
-
+			
 //			blendInput = GPUImagePicture(image: CameraHelper.blendLayerImage())
 //			blendInput?.processImage()
 //			blendInput?.addTarget(blendFilter)
@@ -76,7 +76,6 @@ class CameraHelper: NSObject {
 		blendFilter.addTarget(movieWriter)
 	}
 	
-	
 	func startRecording(){
 		let when = DispatchTime.now()
 		DispatchQueue.main.asyncAfter(deadline: when, execute: {
@@ -84,7 +83,6 @@ class CameraHelper: NSObject {
 				self.movieWriter.startRecording()
 			}
 		})
-		
 	}
 	
 	func stopRecording(){

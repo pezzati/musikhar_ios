@@ -43,6 +43,7 @@ class Karaoke_VC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.isNavigationBarHidden = false
     }
 	
 	func fetchData(refresh: Bool = false){

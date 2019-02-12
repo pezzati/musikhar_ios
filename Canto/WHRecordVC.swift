@@ -83,6 +83,9 @@ class WHRecordVC: UIViewController {
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
+		
+		
+		
 		cameraHelper?.updateView(inView: cameraView)
 		
 		if !AppManager.checkAudioIO() && mode != .dubsmash{
@@ -183,6 +186,9 @@ class WHRecordVC: UIViewController {
     @IBAction func recordTapped(_ sender: UIButton) {
 		
 		if !isRecording{
+			
+			
+			
 			trimmer.inactivate()
 			prepareLyricsToStart()
 			rotateButton.isHidden = true
@@ -299,13 +305,13 @@ extension WHRecordVC: AudioHelperDelegate{
 		
 		if mode == .dubsmash { return }
 		let lyrics = post.content.liveLyrics
-//		if nextLyra < lyrics.count {
+		if nextLyra > lyrics.count {
 			if Float(elapsed) > lyrics[nextLyra].time{
 				if isRecording{
 					updateLyrics()
 				}
 			}
-//		}
+		}
 	}
 	
 	func recordTimeEnded() {

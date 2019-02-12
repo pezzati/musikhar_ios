@@ -6,7 +6,7 @@ target 'Canto' do
   use_frameworks!
   
   pod 'EVReflection/Alamofire'
-  pod 'Alamofire', '~> 4.4'
+  pod 'Alamofire', '~> 4.8'
   pod 'SDWebImage', '~> 4.0'
   pod 'lottie-ios'
   pod 'OneSignal', '>= 2.6.2', '< 3.0'

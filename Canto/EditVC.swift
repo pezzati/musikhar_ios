@@ -93,7 +93,7 @@ class EditVC: UIViewController {
 		if mode == .singing{
 			if mixer != nil{
 				mixer.pause()
-				NotificationCenter.default.removeObserver(mixer)
+//				NotificationCenter.default.removeObserver(mixer)
 				mixer = nil
 			}
 		}else{
@@ -115,7 +115,7 @@ class EditVC: UIViewController {
 	func loadAudio(){
 		if mode == .singing{
 			mixer = AudioMixer(recordedFileURL: AppManager.voiceURL(), karaFileURL: AppManager.karaURL())
-			mixer.setNotification()
+//			mixer.setNotification()
 			mixer.seekTo(time: 0.0)
 			mixer.setVoiceVol(vol: 0.5)
 			mixer.setPlaybackVol(vol: 0.5)
@@ -215,6 +215,7 @@ class EditVC: UIViewController {
 	}
 	
 	@IBAction func closeTapped(_ sender: Any) {
+		navigationController?.isNavigationBarHidden = false
 		navigationController?.popToRootViewController(animated: true)
 	}
 	
