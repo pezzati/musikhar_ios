@@ -82,16 +82,46 @@ class WHRecordVC: UIViewController {
 		setup()
     }
 	
+	override func viewDidDisappear(_ animated: Bool) {
+		
+		var modeStr = ""
+		switch mode.rawValue {
+		case 0:
+			modeStr = "Singing"
+			break
+		case 1:
+			modeStr = "Dubsmash"
+			break
+		case 2:
+			modeStr = "Karaoke"
+		default:
+			break
+		}
+		AppManager.sharedInstance().addAction(action: "Exited Mode View", session: post.id.description, detail: modeStr)
+	}
+	
 	override func viewDidAppear(_ animated: Bool) {
-		
-		
-		
+
+		var modeStr = ""
+		switch mode.rawValue {
+		case 0:
+			modeStr = "Singing"
+			break
+		case 1:
+			modeStr = "Dubsmash"
+			break
+		case 2:
+			modeStr = "Karaoke"
+		default:
+			break
+		}
+		AppManager.sharedInstance().addAction(action: "Entered Mode View", session: post.id.description, detail: modeStr)
 		cameraHelper?.updateView(inView: cameraView)
 		
-		if !AppManager.checkAudioIO() && mode != .dubsmash{
-			let dialog = DialougeView()
-			dialog.plugHeadphones(sender: self, mode: mode)
-		}
+//		if !AppManager.checkAudioIO() && mode != .dubsmash{
+//			let dialog = DialougeView()
+//			dialog.plugHeadphones(sender: self, mode: mode)
+//		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -130,7 +160,7 @@ class WHRecordVC: UIViewController {
 		slider4.delegate = self
 		
 		
-		if mode != .dubsmash{
+		if mode == .karaoke{
 			slider1.setup(of: .pitch)
 			slider2.setup(of: .rate)
 			slider3.setup(of: .reverb)
@@ -305,9 +335,9 @@ extension WHRecordVC: AudioHelperDelegate{
 		
 		if mode == .dubsmash { return }
 		let lyrics = post.content.liveLyrics
-		if nextLyra > lyrics.count {
+		if nextLyra < lyrics.count {
 			if Float(elapsed) > lyrics[nextLyra].time{
-				if isRecording{
+				if isRecording || mode == .karaoke{
 					updateLyrics()
 				}
 			}
@@ -338,13 +368,16 @@ extension WHRecordVC: AudioHelperDelegate{
 				line3.text = ""
 			}
 		}
+		
+	
+		
 	}
 	
 	func playerToggled() {
 		if audioHelper!.filePlayer != nil && audioHelper!.fileIsRead {
 			playButton.setImage(UIImage(named: audioHelper?.filePlayer.isPlaying ?? false ? "pause" : "play"), for: .normal)
 		}
-		if isRecording{
+		if isRecording || mode == .karaoke{
 			updateLyrics()
 		}
 	}
@@ -352,8 +385,21 @@ extension WHRecordVC: AudioHelperDelegate{
 	func fileIsReady(duration : Double) {
 		songDuration = duration
 		
-		line2.text = "۶۰ ثانیه مورد نظر از آهنگ را انتخاب کنید"
-		line3.text = "برای شروع دکمه ضبط را لمس کنید"
+		if mode != .karaoke{
+			line2.text = "۶۰ ثانیه مورد نظر از آهنگ را انتخاب کنید"
+			line3.text = "برای شروع دکمه ضبط را لمس کنید"
+		}else{
+			line2.text = ""
+			line1.text = ""
+			line3.text = ""
+			if post.content.liveLyrics.isEmpty{
+				closeLyrics(lyricsCloseButton)
+				lyricsCloseButton.alpha = 0
+			}
+		}
+		
+	
+		
 		if controllersToolbarView.isHidden && mode != .karaoke{
 			settingTapped(settingButton)
 		}
@@ -374,9 +420,9 @@ extension WHRecordVC: AudioHelperDelegate{
 		}else{
 			slider2.activate()
 			slider3.activate()
-			if mode == .singing{
-				slider1.activate()
-			}
+//			if mode == .singing{
+//				slider1.activate()
+//			}
 			
 			DispatchQueue.main.async {
 				let trimLenght = 60.0/duration

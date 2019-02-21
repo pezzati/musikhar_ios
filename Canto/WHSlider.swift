@@ -64,10 +64,10 @@ class WHSlider: UIView {
 		addGestureRecognizer(panGesture)
 		alpha = 0
 		
-		if type == controller.micVolume{
-			currentValue = 50
-			fillerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0)
-		}
+//		if type == controller.micVolume{
+//			currentValue = 50
+//			fillerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0)
+//		}
 		
 		
 	}
@@ -77,11 +77,11 @@ class WHSlider: UIView {
 		imageName = controllerType.rawValue
 		imageView.image = UIImage(named: imageName + "_mid")
 		
-		if type == controller.micVolume{
-			currentValue = 50
-			fillerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0)
-			delegate?.valueChanged(sender: self, percent: 0)
-		}
+//		if type == controller.micVolume{
+//			currentValue = 50
+//			fillerView.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0)
+//			delegate?.valueChanged(sender: self, percent: 0)
+//		}
 		
 		UIView.animate(withDuration: 1, animations: {
 			self.alpha = 1

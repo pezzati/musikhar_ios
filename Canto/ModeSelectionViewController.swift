@@ -166,6 +166,21 @@ extension ModeSelectionViewController : iCarouselDelegate, iCarouselDataSource {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "WHRecord") as! WHRecordVC
 		vc.post = post
 		vc.mode = Modes(rawValue: index)
+		var modeStr = ""
+		switch index {
+		case 0:
+			modeStr = "Singing"
+			break
+		case 1:
+			modeStr = "Dubsmash"
+			break
+		case 2:
+			modeStr = "Karaoke"
+		default:
+			break
+		}
+		
+		AppManager.sharedInstance().addAction(action: "Mode selected", session: (post.id.description), detail: modeStr )
 		
 		if Modes(rawValue: index) == .karaoke {
 			navigationController?.pushViewController(vc, animated: true)

@@ -24,7 +24,6 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
         code_View.layer.cornerRadius = 5
 		code.delegate = self
 		code.attributedPlaceholder = NSAttributedString(string: "****", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedString.Key(rawValue: NSAttributedString.Key.kern.rawValue) : 30.0])
-		AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Code Verification", detail: "")
 		titleLbl.text = mobile.count == 0 ? "تایید آدرس ایمیل" : "تایید شماره همراه"
 		descLbl.text = mobile.count == 0 ? "کد تایید برای آدرس ایمیل زیر ارسال شد" : "کد تایید برای شماره موبایل زیر ارسال شد"
 		code.defaultTextAttributes.updateValue(30.0,forKey: NSAttributedString.Key.kern.rawValue)
@@ -55,17 +54,16 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
 	
     
     override func viewDidDisappear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Code Verification", detail: "")
+		
     }
     
     @IBAction func nextTapped(_ sender: Any) {
-        
-        AppManager.sharedInstance().addAction(action: "Next Tapped", session: "Code Verification", detail: "")
+		
         
         if code.text?.englishDigits.characters.count != 4 {
             ShowMessage.message(message: "کد تایید ۴ رقم است", vc: self)
             code_View.shake()
-            AppManager.sharedInstance().addAction(action: "Wrong Code", session: "Code Verification", detail: "Not 4 Digits")
+
         }else{
             let params = ["code" : code.text!.englishDigits, "mobile" : self.mobile , "email" : self.email, "udid" : UIDevice.current.identifierForVendor!.uuidString, "bundle" : Bundle.main.bundleIdentifier! ]  as [String : Any]
             
@@ -81,14 +79,14 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
 //                    AppManager.sharedInstance().fetchBanners(sender: self, force: false, completionHandler: {_ in })
 //                    AppManager.sharedInstance().fetchHomeFeed(sender: self, force: false, all: true, completionHandler: {_ in })
 //                    AppManager.sharedInstance().fetchUserInfo(sender: self, force: false, completionHandler: {_ in })
-					
+					AppManager.sharedInstance().addAction(action: "Code verification", session: self.email.isEmpty ? "phone" : "email", detail: "success")
                     
                     if json!["new_user"] as! Bool {
-                        AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Signup")
+						
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker")
 						self.navigationController?.pushViewController(vc!, animated: true)
                     }else{
-                        AppManager.sharedInstance().addAction(action: "Code verified", session: "Code Verification", detail: "Login")
+						
                         let vc = self.storyboard?.instantiateViewController(withIdentifier: "mainTabBar")
                         self.present(vc!, animated: true, completion: nil)
                     }
@@ -96,7 +94,7 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
                 }else{
                     if message != nil {
                         ShowMessage.message(message: message!, vc: self)
-                        AppManager.sharedInstance().addAction(action: "Wrong Code", session: "Code Verification", detail: message!)
+						AppManager.sharedInstance().addAction(action: "Code verification", session: self.email.isEmpty ? "phone" : "email", detail: "wrong")
                     }
                 }
                 
@@ -105,8 +103,6 @@ class CodeVerificationViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func didNotRecieve(_ sender: Any) {
-        
-        AppManager.sharedInstance().addAction(action: "Resend code", session: "Code Verification", detail: "")
         
         let dialouge = DialougeView()
         dialouge.waitingBox(vc: self)

@@ -22,10 +22,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="O1M-hN-5O0">
-                                <rect key="frame" x="0.0" y="160" width="320" height="198"/>
+                                <rect key="frame" x="100" y="159" width="120" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="2DA-dn-GxG"/>
+                                    <constraint firstAttribute="height" constant="200" id="gZi-WH-vCX"/>
+                                </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tagline" translatesAutoresizingMaskIntoConstraints="NO" id="BdK-NP-AQY">
-                                <rect key="frame" x="81.5" y="370" width="157" height="31"/>
+                                <rect key="frame" x="81.5" y="371" width="157" height="31"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.14099776744842529" green="0.14481735229492188" blue="0.16141298413276672" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -34,7 +38,6 @@
                             <constraint firstItem="O1M-hN-5O0" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-25" id="5YE-Ot-xT9"/>
                             <constraint firstItem="BdK-NP-AQY" firstAttribute="top" secondItem="O1M-hN-5O0" secondAttribute="bottom" constant="12" id="EHe-az-a3k"/>
                             <constraint firstItem="BdK-NP-AQY" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SFF-ZU-6yy"/>
-                            <constraint firstAttribute="trailing" secondItem="O1M-hN-5O0" secondAttribute="trailing" id="euE-HX-ZlX"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -44,7 +47,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="117" height="198"/>
+        <image name="logo" width="40.333332061767578" height="67"/>
         <image name="tagline" width="157" height="31"/>
     </resources>
 </document>

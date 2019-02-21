@@ -700,7 +700,7 @@ class DialougeView {
     }
 	
 	
-	func paymentRequired(vc: UIViewController){
+	func paymentRequired(vc: UIViewController, post: karaoke){
 		
 		showBackgroundView(vc: vc)
 		self.dialougeView = UIView(frame: CGRect(x: scrWidth/2 - 150 , y: scrHeight/2 - 220, width: 300, height: 440))
@@ -755,11 +755,13 @@ class DialougeView {
 		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
 			let shopVC = vc.storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController") as! PurchaseTableViewController
 			vc.navigationController?.pushViewController(shopVC, animated: true)
+			AppManager.sharedInstance().addAction(action: "Go to shop", session: (post.id.description), detail: "tapped")
 			self.hide()
 		}
 		tryButtonView.addGestureRecognizer(tap!)
 		
 		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			AppManager.sharedInstance().addAction(action: "Go to shop", session: (post.id.description), detail: "canceled")
 			self.hide()
 		}
 		
@@ -831,11 +833,13 @@ class DialougeView {
 		
 		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
 			self.hide()
+			AppManager.sharedInstance().addAction(action: "Buy song", session: (post.id.description), detail: "tapped")
 			AppManager.sharedInstance().buyPost(post: post, sender: vc)
 		}
 		tryButtonView.addGestureRecognizer(tap!)
 		
 		let cancelTap =  UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			AppManager.sharedInstance().addAction(action: "Buy song", session: (post.id.description), detail: "canceled")
 			self.hide()
 		}
 		

@@ -650,7 +650,7 @@
 					};
 					5D75EC691F3E050B008F57A7 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 3M536NNGRQ;
+						DevelopmentTeam = 2AT8DJ7NBR;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1221,7 +1221,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Canto/Canto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3M536NNGRQ;
+				DEVELOPMENT_TEAM = 2AT8DJ7NBR;
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1244,7 +1244,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Canto/Canto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3M536NNGRQ;
+				DEVELOPMENT_TEAM = 2AT8DJ7NBR;
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

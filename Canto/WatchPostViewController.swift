@@ -127,7 +127,6 @@ class WatchPostViewController: UIViewController {
 			if sure{
 				dialog.hide()
 				self.close(self)
-				AppManager.sharedInstance().addAction(action: "Remove Tapped", session: "User Post", detail: self.post.kara.id.description)
 				AppManager.sharedInstance().removeUserPost(index: self.index, fileURL: self.fileURL)
 			}else{
 				dialog.hide()
@@ -183,7 +182,6 @@ class WatchPostViewController: UIViewController {
 	}
 	
 	@IBAction func close(_ sender: Any) {
-		AppManager.sharedInstance().addAction(action: "Close Tapped", session: "User Post", detail: "")
 		Player?.pause()
 		self.dismiss(animated: true, completion: nil)
 	}

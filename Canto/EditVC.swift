@@ -24,6 +24,7 @@ class EditVC: UIViewController {
 	var post: karaoke!
 	var mixer: AudioMixer!
 	let waitingView = DialougeView()
+	var selectedEffect : soundFx = .none
 	
 	@IBOutlet weak var mixerBoxView: UIView!
 	
@@ -154,6 +155,7 @@ class EditVC: UIViewController {
 			self.effect0IV.isHighlighted = true
 			self.mixer.setEffect(effect: .none )
 			self.playerItemDidPlayToEndTime()
+			self.selectedEffect = .none
 		}
 		effect0IV.addGestureRecognizer(effect0Tap!)
 		
@@ -162,6 +164,7 @@ class EditVC: UIViewController {
 			self.effect1IV.isHighlighted = true
 			self.mixer.setEffect(effect: .reverb )
 			self.playerItemDidPlayToEndTime()
+			self.selectedEffect = .reverb
 		}
 		effect1IV.addGestureRecognizer(effect1Tap!)
 		
@@ -170,6 +173,7 @@ class EditVC: UIViewController {
 			self.effect2IV.isHighlighted = true
 			self.mixer.setEffect(effect: .multiline )
 			self.playerItemDidPlayToEndTime()
+			self.selectedEffect = .multiline
 		}
 		effect2IV.addGestureRecognizer(effect2Tap!)
 		
@@ -178,6 +182,7 @@ class EditVC: UIViewController {
 			self.effect3IV.isHighlighted = true
 			self.mixer.setEffect(effect: .helium )
 			self.playerItemDidPlayToEndTime()
+			self.selectedEffect = .helium
 		}
 		effect3IV.addGestureRecognizer(effect3Tap!)
 		
@@ -186,6 +191,7 @@ class EditVC: UIViewController {
 			self.effect4IV.isHighlighted = true
 			self.mixer.setEffect(effect: .grunge )
 			self.playerItemDidPlayToEndTime()
+			self.selectedEffect = .grunge
 		}
 		effect4IV.addGestureRecognizer(effect4Tap!)
 		
@@ -242,6 +248,11 @@ class EditVC: UIViewController {
 	}
 	
 	func saveVideo(){
+		AppManager.sharedInstance().addAction(action: "Save tapped", session: post.id.description, detail: mode == .dubsmash ? "Dubsmash" : "Singing")
+		
+		if mode == .singing{
+			AppManager.sharedInstance().addAction(action: "Edit view disappeared", session: post.id.description, detail: selectedEffect.rawValue)
+		}
 		
 		let finalURL = AppManager.finalOutputURL()
 		MediaHelper.mixAudioVideo(audio: mode == .dubsmash ? AppManager.karaURL() : AppManager.mixedAudioURL() , video: AppManager.videoURL(), output: finalURL, completionHandler: {

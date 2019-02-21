@@ -175,6 +175,8 @@ class AppManager: NSObject {
 						vc.post = post
 						sender.navigationController?.pushViewController(vc, animated: true)
 					}
+					
+					AppManager.sharedInstance().addAction(action: "Karaoke tapped", session: (post?.id.description)!, detail: "OK")
 				})
 			}else{
 				if msg == nil { return }
@@ -182,8 +184,10 @@ class AppManager: NSObject {
 				let dialogue = DialougeView()
 				
 				if msg == AppGlobal.PAYMENT_REQUIRED{
-					dialogue.paymentRequired(vc: sender)
+					AppManager.sharedInstance().addAction(action: "Karaoke tapped", session: (post.id.description), detail: "Payment Required")
+					dialogue.paymentRequired(vc: sender, post: post)
 				}else if msg == AppGlobal.SHOULD_BUY{
+					AppManager.sharedInstance().addAction(action: "Karaoke tapped", session: (post.id.description), detail: "Should buy")
 					dialogue.buyPost(vc: sender, post: post)
 				}
 				
@@ -216,7 +220,7 @@ class AppManager: NSObject {
 				if msg == nil { return }
 				if msg == AppGlobal.PAYMENT_REQUIRED{
 					let dialogue = DialougeView()
-					dialogue.paymentRequired(vc: sender)
+					dialogue.paymentRequired(vc: sender, post: post)
 				}
 			}
 		}
@@ -253,7 +257,7 @@ class AppManager: NSObject {
 		
 		if !isSendingActions{
 			let actions = self.getActionList()
-			if actions.list.count > 9{
+			if actions.list.count > 4{
 				let request = RequestHandler(type: .actionLog, requestURL: AppGlobal.UserActionsLog, params: [:], retry: 0  , sender: nil)
 				isSendingActions = true
 				request.sendRequest(completionHandler: { data, success , msg in

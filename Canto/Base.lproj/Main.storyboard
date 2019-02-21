@@ -145,7 +145,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="پاپ ایرانی" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="MHd-0V-gQ8">
-                                                    <rect key="frame" x="80" y="16" width="220" height="33"/>
+                                                    <rect key="frame" x="80" y="16" width="314" height="33"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="33" id="hQl-oX-H2s"/>
                                                     </constraints>
@@ -154,7 +154,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aOR-Xh-SeL">
-                                                    <rect key="frame" x="0.0" y="64" width="320" height="176"/>
+                                                    <rect key="frame" x="0.0" y="64" width="414" height="176"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Y5g-9P-arD">
                                                         <size key="itemSize" width="120" height="175"/>
@@ -597,22 +597,31 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PurchaceTableViewCell" id="9zo-84-dv1">
-                                <rect key="frame" x="0.0" y="147.33333333333334" width="414" height="180.00000000000003"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PurchaceTableViewCell" rowHeight="100" id="9zo-84-dv1">
+                                <rect key="frame" x="0.0" y="147.33333333333334" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9zo-84-dv1" id="F2j-tK-fzS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCodeTableViewCell" id="hJy-C2-ST2">
+                                <rect key="frame" x="0.0" y="247.33333333333337" width="414" height="180"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hJy-C2-ST2" id="pX4-U3-bax">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RrK-YQ-Cfe">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K0K-AN-tn9">
                                             <rect key="frame" x="20" y="4" width="374" height="172"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="RrK-YQ-Cfe" firstAttribute="leading" secondItem="F2j-tK-fzS" secondAttribute="leading" constant="20" id="8Nn-5w-9rS"/>
-                                        <constraint firstAttribute="bottom" secondItem="RrK-YQ-Cfe" secondAttribute="bottom" constant="4" id="M7H-2p-Gbe"/>
-                                        <constraint firstItem="RrK-YQ-Cfe" firstAttribute="top" secondItem="F2j-tK-fzS" secondAttribute="top" constant="4" id="hiH-br-RVm"/>
-                                        <constraint firstAttribute="trailing" secondItem="RrK-YQ-Cfe" secondAttribute="trailing" constant="20" id="y5p-zD-lHL"/>
+                                        <constraint firstAttribute="bottom" secondItem="K0K-AN-tn9" secondAttribute="bottom" constant="4" id="1qX-QE-8q7"/>
+                                        <constraint firstItem="K0K-AN-tn9" firstAttribute="leading" secondItem="pX4-U3-bax" secondAttribute="leading" constant="20" id="dta-Nu-MDo"/>
+                                        <constraint firstAttribute="trailing" secondItem="K0K-AN-tn9" secondAttribute="trailing" constant="20" id="fyi-5K-K5N"/>
+                                        <constraint firstItem="K0K-AN-tn9" firstAttribute="top" secondItem="pX4-U3-bax" secondAttribute="top" constant="4" id="krK-Ms-XAS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -626,7 +635,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c7b-eF-BY1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3450" y="-1314"/>
+            <point key="canvasLocation" x="3449.275362318841" y="-1314.1304347826087"/>
         </scene>
         <!--انتخاب آواتار-->
         <scene sceneID="P6s-jp-dHZ">
@@ -2011,7 +2020,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ورود به کانتو با :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qx2-aF-9vw">
-                                <rect key="frame" x="148" y="446.66666666666669" width="118.33333333333331" height="20.333333333333314"/>
+                                <rect key="frame" x="152" y="444.66666666666669" width="110.33333333333331" height="22.333333333333314"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="19"/>
                                 <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2052,10 +2061,14 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="a7a-PO-TkX">
-                                <rect key="frame" x="187" y="75" width="40" height="67"/>
+                                <rect key="frame" x="147" y="75" width="120" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Dhv-cb-6Tw"/>
+                                    <constraint firstAttribute="height" constant="200" id="x7f-O7-aMp"/>
+                                </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tagline" translatesAutoresizingMaskIntoConstraints="NO" id="aEX-1c-je3">
-                                <rect key="frame" x="128.66666666666666" y="152" width="156.99999999999997" height="31"/>
+                                <rect key="frame" x="128.66666666666666" y="285" width="156.99999999999997" height="31"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.14117647058823529" green="0.14509803921568626" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2592,15 +2605,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="olZ-91-xht">
-                                <rect key="frame" x="0.0" y="309.66666666666669" width="414" height="67"/>
+                                <rect key="frame" x="147" y="243" width="120" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="ro4-j6-WMU"/>
+                                    <constraint firstAttribute="height" constant="200" id="x6u-t5-FIF"/>
+                                </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tagline" translatesAutoresizingMaskIntoConstraints="NO" id="E54-ld-khM">
-                                <rect key="frame" x="128.66666666666666" y="388.66666666666669" width="156.99999999999997" height="31"/>
+                                <rect key="frame" x="128.66666666666666" y="455" width="156.99999999999997" height="31"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.1409977674" green="0.14481735230000001" blue="0.16141298409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="olZ-91-xht" secondAttribute="trailing" id="RJq-MZ-oFW"/>
                             <constraint firstItem="olZ-91-xht" firstAttribute="centerY" secondItem="4z7-8Y-Knb" secondAttribute="centerY" constant="-25" id="gTD-8Q-sSE"/>
                             <constraint firstItem="E54-ld-khM" firstAttribute="top" secondItem="olZ-91-xht" secondAttribute="bottom" constant="12" id="hUy-rI-dQj"/>
                             <constraint firstItem="olZ-91-xht" firstAttribute="centerX" secondItem="4z7-8Y-Knb" secondAttribute="centerX" id="igS-1u-Wrf"/>

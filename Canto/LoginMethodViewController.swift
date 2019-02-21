@@ -48,13 +48,14 @@ class LoginMethodViewController: UIViewController {
 	}
 
 	@IBAction func phoneTapped(_ sender: Any) {
-		
+		AppManager.sharedInstance().addAction(action: "Signup", session: "phone", detail: "")
 		let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
 		vc.method = .phone
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
 	@IBAction func emailTapped(_ sender: Any) {
+		AppManager.sharedInstance().addAction(action: "Signup", session: "email", detail: "")
 		let vc = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
 		vc.method = .email
 		navigationController?.pushViewController(vc, animated: true)
@@ -82,7 +83,7 @@ extension LoginMethodViewController: GIDSignInUIDelegate, GIDSignInDelegate{
 			
 			let params = ["token" : idToken! ]
 			
-			AppManager.sharedInstance().addAction(action: "Sign in with google", session: "Signup", detail: "")
+			AppManager.sharedInstance().addAction(action: "Signup", session: "Google", detail: "")
 			
 			let request = RequestHandler(type: .googleSignIn , requestURL: AppGlobal.GoogleSignIn , params: params, shouldShowError: true, timeOut: 10, retry: 1, sender: self, waiting: true, force: false)
 			
@@ -109,7 +110,6 @@ extension LoginMethodViewController: GIDSignInUIDelegate, GIDSignInDelegate{
 				}else{
 					if message != nil {
 						ShowMessage.message(message: message!, vc: self)
-						AppManager.sharedInstance().addAction(action: "Wrong Code", session: "Code Verification", detail: message!)
 					}
 				}
 				

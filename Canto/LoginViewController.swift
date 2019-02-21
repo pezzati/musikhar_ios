@@ -79,13 +79,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 				dialog.showUserAgreement(sender: self, completionHandler: {
 					accepted in
 					if accepted{
-						AppManager.sharedInstance().addAction(action: "Agreed Agreement", session: "Signup", detail: "")
+						
 						let vc = self.storyboard?.instantiateViewController(withIdentifier: "SMSVerification") as? CodeVerificationViewController
 						vc?.email = params["email"]!
 						vc?.mobile = params["mobile"]!
 						self.navigationController?.pushViewController(vc!, animated: true)
 					}else{
-						AppManager.sharedInstance().addAction(action: "Disagreed Agreement", session: "Signup", detail: "")
+						
 					}
 				})
 			}else if message != nil{

@@ -26,11 +26,9 @@ class PurchaseTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Shop", detail: "")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Shop", detail: "")
     }
     
     func getPackages(){
@@ -51,7 +49,7 @@ class PurchaseTableViewController: UITableViewController {
 
 
     @IBAction func close(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Close Tapped", session: "Shop", detail: "")
+
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -104,7 +102,7 @@ class PurchaseTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
         if indexPath.section == 1{
-            AppManager.sharedInstance().addAction(action: "Package Tapped", session: "Shop", detail: self.packages[indexPath.row].serial_number )
+            AppManager.sharedInstance().addAction(action: "Package Tapped", session: self.packages[indexPath.row].serial_number, detail: "")
             tableView.deselectRow(at: indexPath, animated: false)
             self.getPackageURL(serialNumber : self.packages[indexPath.row].serial_number)
         }else{

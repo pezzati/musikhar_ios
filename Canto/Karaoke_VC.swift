@@ -78,7 +78,7 @@ class Karaoke_VC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.Home_TableView.setContentOffset(self.currentOffset, animated: true)
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Home", detail: "")
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

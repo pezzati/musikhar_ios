@@ -51,26 +51,23 @@ class ProfileViewController: UIViewController {
 			self.updateInfo()
 		}
 		
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Profile", detail: "")
     }
 	
 
     
     override func viewDidDisappear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Profile", detail: "")
+		
     }
     
     @IBAction func editInfo(_ sender: Any) {
-        
-        AppManager.sharedInstance().addAction(action: "Photo/Name Tapped", session: "Profile", detail: "")
+		
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhotoPicker") as? ProfilePictureViewController
 		vc?.isFirstTime = false
 		navigationController?.pushViewController(vc!, animated: true)
     }
     
     @objc func onSettingClicked(){
-        
-        AppManager.sharedInstance().addAction(action: "Setting Tapped", session: "Profile", detail: "")
+		
         let vc = storyboard?.instantiateViewController(withIdentifier: "Setting")
         navigationController?.pushViewController(vc!, animated: true)
     }
@@ -97,7 +94,6 @@ extension ProfileViewController : UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        AppManager.sharedInstance().addAction(action: "Post Tapped", session: "Profile", detail: indexPath.row.description)
         let vc = storyboard?.instantiateViewController(withIdentifier: "WatchPostViewController") as! WatchPostViewController
         vc.index = indexPath.row
         self.present(vc, animated: true, completion: nil)

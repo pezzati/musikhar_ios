@@ -29,7 +29,7 @@ class AvatarPickerViewController: UIViewController, UICollectionViewDelegate, UI
 		request.sendRequest(completionHandler: { more_posts, success, msg in
 			if success {
 				let result = more_posts as! AvatarsList
-				if self.avatars.next != result.next{
+				if self.avatars.next != result.next || self.avatars.results.isEmpty{
 					self.avatars.next = result.next
 					self.avatars.previous = (result.previous)
 					for item in (result.results){

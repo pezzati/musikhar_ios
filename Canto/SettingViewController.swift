@@ -14,21 +14,8 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
 		navigationController?.navigationBar.prefersLargeTitles = false
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Setting", detail: "")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Setting", detail: "")
-    }
-
-
-    
-    
+	
     @IBAction func bugReport(_ sender: Any) {
-		
-        AppManager.sharedInstance().addAction(action: "Bug Report Tapped", session: "Setting", detail: "")
 		 UIApplication.shared.openURL( URL(string: "http://t.me/cantoapp" )!)
     }
     
@@ -36,7 +23,7 @@ class SettingViewController: UIViewController {
 	
     
     @IBAction func askForSong(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Ask For Song Tapped", session: "Setting", detail: "")
+
     }
 	
 	@IBAction func inviteFriends(_ sender: Any) {
@@ -50,12 +37,10 @@ class SettingViewController: UIViewController {
 	}
 	
     @IBAction func contactUs(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Instagram Tapped", session: "Setting", detail: "")
         UIApplication.shared.openURL( URL(string: "http://instagram.com/canto_app" )!)
     }
     
     @IBAction func cantoWebsite(_ sender: Any) {
-        AppManager.sharedInstance().addAction(action: "Website Tapped", session: "Setting", detail: "")
          UIApplication.shared.openURL( URL(string: "http://canto-app.ir" )!)
     }
     
@@ -64,8 +49,6 @@ class SettingViewController: UIViewController {
         
         let dialog = DialougeView()
         dialog.showUserAgreement(sender: self, shouldAsk: false, completionHandler: {_ in })
-        AppManager.sharedInstance().addAction(action: "Rules Tapped", session: "Setting", detail: "")
-
     }
 	
 }

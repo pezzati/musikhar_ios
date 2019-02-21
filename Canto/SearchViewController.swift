@@ -49,7 +49,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        AppManager.sharedInstance().addAction(action: "View Did Appear", session: "Search", detail: "")
+
         let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
             self.searchTextField.resignFirstResponder()
         }
@@ -61,7 +61,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        AppManager.sharedInstance().addAction(action: "View Did Disappear", session: "Search", detail: "")
         if searchPlease.text ==  "نتیجه ای یافت نشد" {
             self.searchPlease.text = "آهنگ مورد نظر را جست و جو کنید"
 //            DispatchQueue.global(qos: .background).async {
@@ -83,7 +82,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
-        AppManager.sharedInstance().addAction(action: "Search Tapped", session: "Search", detail: self.searchTextField.text ?? "")
+        AppManager.sharedInstance().addAction(action: "Searched", session: "", detail: self.searchTextField.text ?? "")
         self.searchTextField.resignFirstResponder()
         
         if self.searchTextField.text != nil{
@@ -165,7 +164,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AppManager.sharedInstance().addAction(action: "Karaoke Tapped", session: "Search", detail: self.results.results[indexPath.row].id.description )
+        
 //        let dialogue = DialougeView()
 //        dialogue.chooseKaraType(kara: self.results.results[indexPath.row], sender: self)
 		AppManager.sharedInstance().karaTapped(post: results.results[indexPath.row], sender: self)
