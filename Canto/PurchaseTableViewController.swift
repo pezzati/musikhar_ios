@@ -17,6 +17,19 @@ class PurchaseTableViewController: UITableViewController {
 	override func viewDidLoad() {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		tabBarController?.hidesBottomBarWhenPushed = true
+		
+		
+		tableView.register(GiftCodeTableViewCell.self, forCellReuseIdentifier: "GiftCodeTableViewCell")
+		tableView.register(UINib(nibName: "GiftCodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftCodeTableViewCell")
+		
+		
+		let tap = UITapGestureRecognizer { (gesture:UIGestureRecognizer?) in
+			if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? GiftCodeTableViewCell{
+				cell.resignResponder()
+			}
+		}
+		tap?.cancelsTouchesInView = false
+		self.view.addGestureRecognizer(tap!)
 	}
 	
     
@@ -57,11 +70,11 @@ class PurchaseTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? 1 : self.packages.count
+		return section == 2 ? self.packages.count : 1
     }
 
     
@@ -77,8 +90,15 @@ class PurchaseTableViewController: UITableViewController {
 			premiumDays.text = AppManager.sharedInstance().userInfo.premium_days.description
 			
 			return cell
-		}
-		else{
+		}else if indexPath.section == 1{
+		
+			let cell = tableView.dequeueReusableCell(withIdentifier: "GiftCodeTableViewCell") as! GiftCodeTableViewCell
+			cell.setup()
+			cell.delegate = self
+			cell.selectionStyle = .none
+			
+			return cell
+		}else{
 			
 			let cell = tableView.dequeueReusableCell(withIdentifier: "PurchaceTableViewCell", for: indexPath)
 			let image = cell.contentView.viewWithTag(101) as! UIImageView
@@ -96,12 +116,12 @@ class PurchaseTableViewController: UITableViewController {
 //        return indexPath.section == 1 ? 180 : 90
 		let width = view.bounds.width - 40
 	
-		return indexPath.section == 1 ? width/2.62 + 8 : width/4.24 + 32
+		return indexPath.section == 0 ? width/4.24 + 32 : width/2.62 + 8
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
-        if indexPath.section == 1{
+        if indexPath.section == 2{
             AppManager.sharedInstance().addAction(action: "Package Tapped", session: self.packages[indexPath.row].serial_number, detail: "")
             tableView.deselectRow(at: indexPath, animated: false)
             self.getPackageURL(serialNumber : self.packages[indexPath.row].serial_number)
@@ -162,6 +182,32 @@ class PurchaseTableViewController: UITableViewController {
         
         
     }
+
+extension PurchaseTableViewController : GiftCodeTVCellDelegate{
+	
+	func didTapApply(code: String) {
+		if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? GiftCodeTableViewCell{
+			cell.resignResponder()
+			let params = ["code" : code]
+			
+			let request = RequestHandler(type: .giftCode, requestURL: AppGlobal.GiftCode, params: params, shouldShowError: true, sender: self, waiting: true, force: false)
+			
+			request.sendRequest(){
+				data, success, msg in
+				
+				if success{
+						self.tableView.reloadData()
+				}else{
+					if msg != nil{
+						cell.setError(error: msg!)
+					}
+				}
+				
+			}
+		}
+	}
+	
+}
     
 
 

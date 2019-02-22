@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GiftCodeTableViewCell" rowHeight="107" id="KGk-i7-Jjw" customClass="GiftCodeTableViewCell" customModule="Canto" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="107"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="106.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmk-Ym-K7h">
+                        <rect key="frame" x="20" y="4" width="260" height="98.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GiftCodeTVCellBackground" translatesAutoresizingMaskIntoConstraints="NO" id="u0a-OI-2eE">
+                                <rect key="frame" x="0.0" y="0.0" width="260" height="98.5"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="کد هدیه دارید؟" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCZ-HR-mJj">
+                                <rect key="frame" x="159.5" y="10" width="88.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGM-7L-uIj">
+                                <rect key="frame" x="12" y="29.5" width="236" height="39.5"/>
+                                <color key="backgroundColor" red="0.2037242651" green="0.2074901462" blue="0.2282273769" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yff-H9-sby">
+                                <rect key="frame" x="12" y="29.5" width="73.5" height="39.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Yff-H9-sby" secondAttribute="height" multiplier="84:45" id="B9E-5l-Nxx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="اعمال" backgroundImage="giftCodeButtonBG"/>
+                                <connections>
+                                    <action selector="applyTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bT8-tq-5vU"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="XBp-hj-sG3">
+                                <rect key="frame" x="235" y="74.5" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="8Pa-AT-5dP"/>
+                                    <constraint firstAttribute="height" constant="10" id="XI4-CH-4pG"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="در این قسمت وارد کنید" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aa9-GS-g1d">
+                                <rect key="frame" x="88.5" y="32.5" width="157.5" height="33.5"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="قبلا استفاده کردید" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQs-ib-jhw">
+                                <rect key="frame" x="150" y="73" width="80" height="13.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rQs-ib-jhw" firstAttribute="centerY" secondItem="XBp-hj-sG3" secondAttribute="centerY" id="0xu-ei-CY5"/>
+                            <constraint firstItem="gGM-7L-uIj" firstAttribute="centerX" secondItem="gmk-Ym-K7h" secondAttribute="centerX" id="3Fs-6c-1tb"/>
+                            <constraint firstItem="aa9-GS-g1d" firstAttribute="height" secondItem="gGM-7L-uIj" secondAttribute="height" constant="-6" id="3a7-dm-oZ1"/>
+                            <constraint firstItem="CCZ-HR-mJj" firstAttribute="top" secondItem="gmk-Ym-K7h" secondAttribute="top" constant="10" id="5kz-iL-vIC"/>
+                            <constraint firstAttribute="trailing" secondItem="XBp-hj-sG3" secondAttribute="trailing" constant="15" id="9bm-Nw-h22"/>
+                            <constraint firstItem="u0a-OI-2eE" firstAttribute="top" secondItem="gmk-Ym-K7h" secondAttribute="top" id="Nnc-g3-gaQ"/>
+                            <constraint firstAttribute="trailing" secondItem="gGM-7L-uIj" secondAttribute="trailing" constant="12" id="R5X-VT-rSo"/>
+                            <constraint firstAttribute="trailing" secondItem="aa9-GS-g1d" secondAttribute="trailing" constant="14" id="S5y-ki-BTV"/>
+                            <constraint firstAttribute="trailing" secondItem="CCZ-HR-mJj" secondAttribute="trailing" constant="12" id="W2M-Pc-77u"/>
+                            <constraint firstItem="Yff-H9-sby" firstAttribute="height" secondItem="gGM-7L-uIj" secondAttribute="height" id="cF3-GW-msV"/>
+                            <constraint firstItem="aa9-GS-g1d" firstAttribute="leading" secondItem="Yff-H9-sby" secondAttribute="trailing" constant="3" id="eK1-se-MbK"/>
+                            <constraint firstItem="aa9-GS-g1d" firstAttribute="centerY" secondItem="gGM-7L-uIj" secondAttribute="centerY" id="edB-0d-G3M"/>
+                            <constraint firstItem="Yff-H9-sby" firstAttribute="leading" secondItem="gGM-7L-uIj" secondAttribute="leading" id="hSa-q1-CnY"/>
+                            <constraint firstItem="gGM-7L-uIj" firstAttribute="centerY" secondItem="gmk-Ym-K7h" secondAttribute="centerY" id="ho5-nE-U55"/>
+                            <constraint firstItem="u0a-OI-2eE" firstAttribute="leading" secondItem="gmk-Ym-K7h" secondAttribute="leading" id="jGR-Oj-Mnm"/>
+                            <constraint firstItem="Yff-H9-sby" firstAttribute="centerY" secondItem="gGM-7L-uIj" secondAttribute="centerY" id="jjv-kZ-fBO"/>
+                            <constraint firstAttribute="bottom" secondItem="XBp-hj-sG3" secondAttribute="bottom" constant="14" id="kKh-Zo-wR6"/>
+                            <constraint firstItem="XBp-hj-sG3" firstAttribute="leading" secondItem="rQs-ib-jhw" secondAttribute="trailing" constant="5" id="oEo-p7-7tb"/>
+                            <constraint firstAttribute="bottom" secondItem="u0a-OI-2eE" secondAttribute="bottom" id="xdU-CQ-WI0"/>
+                            <constraint firstItem="gGM-7L-uIj" firstAttribute="height" secondItem="gmk-Ym-K7h" secondAttribute="height" multiplier="0.4" id="zVZ-Y2-vk0"/>
+                            <constraint firstAttribute="trailing" secondItem="u0a-OI-2eE" secondAttribute="trailing" id="zzh-VR-MXQ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="gmk-Ym-K7h" secondAttribute="bottom" constant="4" id="Cjs-yk-0Ti"/>
+                    <constraint firstAttribute="trailing" secondItem="gmk-Ym-K7h" secondAttribute="trailing" constant="20" id="Dp7-Jx-Vqx"/>
+                    <constraint firstItem="gmk-Ym-K7h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="R7A-W4-Xvo"/>
+                    <constraint firstItem="gmk-Ym-K7h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="wJM-bo-K67"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="applyButton" destination="Yff-H9-sby" id="85a-VL-mGt"/>
+                <outlet property="codeTextField" destination="aa9-GS-g1d" id="HCR-z3-1n6"/>
+                <outlet property="errorLabel" destination="rQs-ib-jhw" id="RDk-GZ-eLW"/>
+                <outlet property="textFieldBackground" destination="gGM-7L-uIj" id="e9w-Pd-wfT"/>
+                <outlet property="warningImage" destination="XBp-hj-sG3" id="zx9-dc-vG7"/>
+            </connections>
+            <point key="canvasLocation" x="214.40000000000001" y="199.25037481259372"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="GiftCodeTVCellBackground" width="112" height="42"/>
+        <image name="giftCodeButtonBG" width="28" height="15"/>
+        <image name="warning" width="3.3333332538604736" height="3"/>
+    </resources>
+</document>

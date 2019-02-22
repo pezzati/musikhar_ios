@@ -170,6 +170,10 @@ class RequestHandler : NSObject{
 			self.request.httpMethod = self.method.rawValue
 			self.request.httpBody = try! JSONSerialization.data(withJSONObject: self.stringArray)
 			break
+		case .giftCode:
+			self.method = .post
+			self.request.httpMethod = self.method.rawValue
+			self.request.httpBody = try! JSONSerialization.data(withJSONObject: params)
 		case .purchaseLink:
 			self.method = .post
 			self.request.httpMethod = self.method.rawValue
@@ -312,7 +316,6 @@ class RequestHandler : NSObject{
 								}
 							}
 						}
-						
 					}else if (response.response?.statusCode)! == 426  {
 						if self.dialougeBox != nil {
 							self.dialougeBox.hide()
@@ -325,7 +328,7 @@ class RequestHandler : NSObject{
 							}catch{}
 						}
 					}else{
-						if self.requestType == .login || self.requestType == .signUp{
+						if self.requestType == .login || self.requestType == .signUp || self.requestType == .giftCode{
 							self.parseRecievedData(response: response){
 								Data, Success, msg in
 								if Success{ completionHandler(Data,false, msg)
@@ -468,6 +471,21 @@ class RequestHandler : NSObject{
 		}else if self.requestType == .avatarsList{
 			let result = AvatarsList(data: response.data!)
 			completionHandler(result, true, nil)
+		}else if self.requestType == .giftCode{
+			
+			if (response.response?.statusCode)! == 200{
+				let result = UserInventory(data: response.data!)
+				AppManager.sharedInstance().inventory = result
+				AppManager.sharedInstance().userInfo.coins = result.coins
+				AppManager.sharedInstance().userInfo.premium_days = result.days
+				completionHandler(nil, true, nil)
+			}
+			else{
+				do{ let json = try JSONSerialization.jsonObject(with: response.data!, options: []) as? [[String:String]]
+					if let errorMsg = json?[0]["error"]{ completionHandler(nil, true, errorMsg) } else{ completionHandler(nil, false, nil) }
+				}catch{ completionHandler(nil, false, nil) }
+			}
+			
 		}
 	}
 	

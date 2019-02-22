@@ -73,6 +73,8 @@
 		5DBFFF931FBB07CE00C8C15D /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBFFF921FBB07CE00C8C15D /* Classes.swift */; };
 		5DCE6D1D20B432A1004A2236 /* IRANYekanMobileBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */; };
 		5DD065752192EC990011DA56 /* circularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD065742192EC990011DA56 /* circularProgress.swift */; };
+		5DD12E2D221EFD8E00BAD18E /* GiftCodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD12E2B221EFD8E00BAD18E /* GiftCodeTableViewCell.swift */; };
+		5DD12E2E221EFD8E00BAD18E /* GiftCodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DD12E2C221EFD8E00BAD18E /* GiftCodeTableViewCell.xib */; };
 		5DEFB12A215C6ECF00DC045A /* KaraokeCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */; };
 		D43B72403482F8A298A67BD0 /* Pods_CantoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB0E397099A23349EBC7B60 /* Pods_CantoTests.framework */; };
 /* End PBXBuildFile section */
@@ -235,6 +237,8 @@
 		5DBFFF921FBB07CE00C8C15D /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		5DCE6D1C20B432A0004A2236 /* IRANYekanMobileBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANYekanMobileBold.ttf; sourceTree = "<group>"; };
 		5DD065742192EC990011DA56 /* circularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = circularProgress.swift; sourceTree = "<group>"; };
+		5DD12E2B221EFD8E00BAD18E /* GiftCodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftCodeTableViewCell.swift; sourceTree = "<group>"; };
+		5DD12E2C221EFD8E00BAD18E /* GiftCodeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiftCodeTableViewCell.xib; sourceTree = "<group>"; };
 		5DD997B3205E844600AC4597 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		5DD997B4205E849D00AC4597 /* Canto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Canto.entitlements; sourceTree = "<group>"; };
 		5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KaraokeCard.xib; sourceTree = "<group>"; };
@@ -531,6 +535,8 @@
 		5DBFFF8B1FBB012900C8C15D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5DD12E2B221EFD8E00BAD18E /* GiftCodeTableViewCell.swift */,
+				5DD12E2C221EFD8E00BAD18E /* GiftCodeTableViewCell.xib */,
 				5DBFFF901FBB020500C8C15D /* Genre_TableViewCell.swift */,
 				5D058DBF1FBB0D89006E7230 /* KaraokeCard_CollectionViewCell.swift */,
 				5D3DBEDB1FE1572D006FE33C /* ProfilePostCollectionViewCell.swift */,
@@ -754,6 +760,7 @@
 			files = (
 				5D75EC781F3E050B008F57A7 /* LaunchScreen.storyboard in Resources */,
 				5D75EC751F3E050B008F57A7 /* Assets.xcassets in Resources */,
+				5DD12E2E221EFD8E00BAD18E /* GiftCodeTableViewCell.xib in Resources */,
 				5DAFFCE220DD08BA00184226 /* IRANYekanMobileRegular.ttf in Resources */,
 				5DCE6D1D20B432A1004A2236 /* IRANYekanMobileBold.ttf in Resources */,
 				5DEFB12A215C6ECF00DC045A /* KaraokeCard.xib in Resources */,
@@ -958,6 +965,7 @@
 				5D29A87020A3426E00086F73 /* MixManager.swift in Sources */,
 				5D3DBEDE1FE1585A006FE33C /* ProfileViewController.swift in Sources */,
 				5D7730A61FBF0E7D004C4EC3 /* Record_VC.swift in Sources */,
+				5DD12E2D221EFD8E00BAD18E /* GiftCodeTableViewCell.swift in Sources */,
 				5D43D6852091F5EF0016C64B /* MediaHelper.swift in Sources */,
 				5D75EC701F3E050B008F57A7 /* Karaoke_VC.swift in Sources */,
 				5D1712731FC2D07F0041E74A /* iCarousel.m in Sources */,

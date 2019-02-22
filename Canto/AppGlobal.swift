@@ -44,7 +44,7 @@ struct AppGlobal {
     public static let Feed = ServerURL + "song/feeds"
 	public static let UserInventory = ServerURL + "user/users/inventory"
 	public static let AvatarsList = ServerURL + "user/avatar"
-
+	public static let GiftCode = ServerURL + "finance/giftcodes/apply/"
 	
 	
 	
@@ -116,6 +116,7 @@ public enum RequestType {
 	case inventory
 	case sing
 	case avatarsList
+	case giftCode
 }
 
 public enum RequestState {
