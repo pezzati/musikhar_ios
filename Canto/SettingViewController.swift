@@ -27,7 +27,7 @@ class SettingViewController: UIViewController {
     }
 	
 	@IBAction func inviteFriends(_ sender: Any) {
-		let objectsToShare = [ URL(string : "http://canto-app.ir")] as [Any]
+		let objectsToShare = [ URL(string : "https://canto-app.ir")] as [Any]
 		let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
 		
 		if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad ){
@@ -41,7 +41,7 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func cantoWebsite(_ sender: Any) {
-         UIApplication.shared.openURL( URL(string: "http://canto-app.ir" )!)
+         UIApplication.shared.openURL( URL(string: "https://canto-app.ir" )!)
     }
     
     

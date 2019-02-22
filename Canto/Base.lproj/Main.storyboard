@@ -705,7 +705,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYZ-DY-qTC">
-                                <rect key="frame" x="294" y="38" width="104" height="31"/>
+                                <rect key="frame" x="301" y="38" width="97" height="32"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="17"/>
                                 <state key="normal" title="اینستاگرام کانتو">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -715,7 +715,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUq-Kj-PKT">
-                                <rect key="frame" x="295" y="77" width="103" height="31"/>
+                                <rect key="frame" x="305" y="78" width="93" height="32"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="17"/>
                                 <state key="normal" title="درخواست آهنگ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -725,7 +725,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grC-cB-RD3">
-                                <rect key="frame" x="295" y="116" width="103" height="31"/>
+                                <rect key="frame" x="305" y="118" width="93" height="32"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="17"/>
                                 <state key="normal" title="پشتیبانی تلگرام">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -735,7 +735,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e5b-Oh-coW">
-                                <rect key="frame" x="309" y="155" width="89" height="31"/>
+                                <rect key="frame" x="318" y="158" width="80" height="32"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="17"/>
                                 <state key="normal" title="وبسایت کانتو">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -745,7 +745,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLo-7l-Beu">
-                                <rect key="frame" x="294" y="194" width="104" height="31"/>
+                                <rect key="frame" x="305" y="198" width="93" height="32"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="17"/>
                                 <state key="normal" title="قوانین و مقررات">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -755,7 +755,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOO-wY-4CP">
-                                <rect key="frame" x="292" y="233" width="106" height="31"/>
+                                <rect key="frame" x="301" y="238" width="97" height="32"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="17"/>
                                 <state key="normal" title="دعوت از دوستان">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -765,7 +765,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2I-gP-orK">
-                                <rect key="frame" x="368" y="272" width="30" height="28"/>
+                                <rect key="frame" x="368" y="278" width="30" height="30"/>
                                 <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="15"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -777,7 +777,7 @@
                                     <constraint firstAttribute="width" constant="100" id="aEd-13-Jdf"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver: 2.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bX1-Ku-lqj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver: 2.0.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bX1-Ku-lqj">
                                 <rect key="frame" x="178" y="700" width="58" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
