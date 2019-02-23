@@ -31,8 +31,9 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         songsCollectionView.register(UINib(nibName: "UserPostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "KaraokeCard")
-        let genreItem = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(self.onSettingClicked))
-        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([genreItem], animated: true)
+        let info = UIBarButtonItem(image: #imageLiteral(resourceName: "setting"), style: .plain, target: self, action: #selector(self.onSettingClicked))
+		let shop = UIBarButtonItem(image: UIImage(named: "shop"), style: .plain, target: self, action: #selector(self.onShopClicked))
+        self.navigationController?.navigationBar.topItem?.setRightBarButtonItems([info, shop], animated: true)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.view.bringSubview(toFront: headerView)
 		Name.adjustsFontSizeToFitWidth = true
@@ -71,6 +72,12 @@ class ProfileViewController: UIViewController {
         let vc = storyboard?.instantiateViewController(withIdentifier: "Setting")
         navigationController?.pushViewController(vc!, animated: true)
     }
+	
+	@objc func onShopClicked(){
+		let vc = storyboard?.instantiateViewController(withIdentifier: "PurchaseTableViewController")
+		navigationController?.pushViewController(vc!, animated: true)
+	}
+	
     
     override func viewWillLayoutSubviews() {
         profilePicture.round(corners: [.topLeft , .bottomLeft , .topRight, .bottomRight], radius: 15)

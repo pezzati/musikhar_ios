@@ -12,6 +12,9 @@ import GoogleSignIn
 import Fabric
 import Crashlytics
 
+//Nassab Bundle : nassab.application.canto
+//Sibapp Bundle : com.canto.application
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -26,7 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+		
+		//243773746715-nmhfb0t015odufjut8mri49i9i70q427.apps.googleusercontent.com    : Nassab
+		//243773746715-ahsopgmn3jfvqthmkn32mi75lbc69hso.apps.googleusercontent.com    : Sibapp
         GIDSignIn.sharedInstance().clientID = "243773746715-ahsopgmn3jfvqthmkn32mi75lbc69hso.apps.googleusercontent.com"
         
         AppManager.initialize()
