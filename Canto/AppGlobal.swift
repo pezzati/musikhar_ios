@@ -152,7 +152,3 @@ public enum loginMethod {
 	case phone
 	case email
 }
-
-
-
-

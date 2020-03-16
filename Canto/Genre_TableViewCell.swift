@@ -16,7 +16,7 @@ class Genre_TableViewCell: UITableViewCell {
     var collectionViewOffset: CGFloat {
         get {return KaraokeCollectionView.contentOffset.x}
         set {KaraokeCollectionView.contentOffset.x = newValue}
-    }
+    } 
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,3 +39,5 @@ class Genre_TableViewCell: UITableViewCell {
     }
 
 }
+
+

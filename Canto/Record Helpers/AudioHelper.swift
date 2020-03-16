@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import AudioKit
+//import AudioKit
 
 protocol AudioHelperDelegate: class {
 	func fileIsReady(duration : Double)

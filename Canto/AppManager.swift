@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import Crashlytics
+//import Crashlytics
 
 class AppManager: NSObject {
 	
@@ -69,7 +69,7 @@ class AppManager: NSObject {
 				print("Username is : \(self.userInfo.username)")
 			}
 			completionHandler(success)
-			Crashlytics.sharedInstance().setUserName(AppManager.sharedInstance().userInfo.username)
+//			Crashlytics.sharedInstance().setUserName(AppManager.sharedInstance().userInfo.username)
 		})
 	}
 	

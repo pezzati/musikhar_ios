@@ -214,8 +214,8 @@ extension Karaoke_VC : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
-        let post = homeFeed[collectionView.tag].data[indexPath.row]
+		let post = homeFeed[collectionView.tag].data[indexPath.row]
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KaraokeCard", for: indexPath) as! KaraokeCard_CollectionViewCell
         cell.setUp(post: post)
         cell.transform = CGAffineTransform(scaleX: -1, y: 1)
         

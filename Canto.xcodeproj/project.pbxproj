@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1BB272936A07FFD76AC4C8C2 /* Pods_Canto_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9940B66C490D9D84DCAAD479 /* Pods_Canto_OneSignalNotificationServiceExtension.framework */; };
 		1F3871D6F373CCA08DA43475 /* Pods_Canto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB424D168FE0071700F7652F /* Pods_Canto.framework */; };
-		5254451A1EA01C59913C8D45 /* Pods_CantoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF64F879D2542B287E6B41BC /* Pods_CantoUITests.framework */; };
 		5D058DC01FBB0D89006E7230 /* KaraokeCard_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D058DBF1FBB0D89006E7230 /* KaraokeCard_CollectionViewCell.swift */; };
 		5D0C81632095D791002D9A21 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0C81622095D791002D9A21 /* RecordManager.swift */; };
 		5D17126E1FC2CEF60041E74A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D17126C1FC2CEC90041E74A /* QuartzCore.framework */; };
@@ -76,7 +75,6 @@
 		5DD12E2D221EFD8E00BAD18E /* GiftCodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD12E2B221EFD8E00BAD18E /* GiftCodeTableViewCell.swift */; };
 		5DD12E2E221EFD8E00BAD18E /* GiftCodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DD12E2C221EFD8E00BAD18E /* GiftCodeTableViewCell.xib */; };
 		5DEFB12A215C6ECF00DC045A /* KaraokeCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */; };
-		D43B72403482F8A298A67BD0 /* Pods_CantoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB0E397099A23349EBC7B60 /* Pods_CantoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,7 +162,6 @@
 
 /* Begin PBXFileReference section */
 		17870C7E8B44E0D8CF2F39D9 /* Pods-Canto-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Canto-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		37794511A2303F5C1CE06689 /* Pods-CantoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTests/Pods-CantoTests.release.xcconfig"; sourceTree = "<group>"; };
 		5D058DBF1FBB0D89006E7230 /* KaraokeCard_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaraokeCard_CollectionViewCell.swift; sourceTree = "<group>"; };
 		5D0C81622095D791002D9A21 /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		5D17126C1FC2CEC90041E74A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -243,11 +240,8 @@
 		5DD997B4205E849D00AC4597 /* Canto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Canto.entitlements; sourceTree = "<group>"; };
 		5DEFB129215C6ECF00DC045A /* KaraokeCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KaraokeCard.xib; sourceTree = "<group>"; };
 		68FB4526F371BB6CB0C6CCAE /* Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		734F14C1EB06A7A848359D16 /* Pods-CantoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CantoUITests/Pods-CantoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8407EE8CDE64237567484C6B /* Pods-Canto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Canto.release.xcconfig"; path = "Pods/Target Support Files/Pods-Canto/Pods-Canto.release.xcconfig"; sourceTree = "<group>"; };
 		9940B66C490D9D84DCAAD479 /* Pods_Canto_OneSignalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Canto_OneSignalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CDF68C2A736132135391E23 /* Pods-CantoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoTests/Pods-CantoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CDDAFB443716DA72FBA5CE93 /* Pods-CantoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CantoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CantoUITests/Pods-CantoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DD723455F6BDCC01C7B9F6B7 /* Pods-Canto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Canto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Canto/Pods-Canto.debug.xcconfig"; sourceTree = "<group>"; };
 		EB424D168FE0071700F7652F /* Pods_Canto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Canto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB0E397099A23349EBC7B60 /* Pods_CantoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CantoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,7 +271,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D43B72403482F8A298A67BD0 /* Pods_CantoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +278,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5254451A1EA01C59913C8D45 /* Pods_CantoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,10 +302,6 @@
 			children = (
 				DD723455F6BDCC01C7B9F6B7 /* Pods-Canto.debug.xcconfig */,
 				8407EE8CDE64237567484C6B /* Pods-Canto.release.xcconfig */,
-				9CDF68C2A736132135391E23 /* Pods-CantoTests.debug.xcconfig */,
-				37794511A2303F5C1CE06689 /* Pods-CantoTests.release.xcconfig */,
-				CDDAFB443716DA72FBA5CE93 /* Pods-CantoUITests.debug.xcconfig */,
-				734F14C1EB06A7A848359D16 /* Pods-CantoUITests.release.xcconfig */,
 				17870C7E8B44E0D8CF2F39D9 /* Pods-Canto-OneSignalNotificationServiceExtension.debug.xcconfig */,
 				68FB4526F371BB6CB0C6CCAE /* Pods-Canto-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
@@ -560,7 +548,7 @@
 				5D17FB2E2055B95E007E8270 /* Sources */,
 				5D17FB2F2055B95E007E8270 /* Frameworks */,
 				5D17FB302055B95E007E8270 /* Resources */,
-				913F1760163C145560BCBEFD /* [CP] Copy Pods Resources */,
+				DF350714659B726A3318F195 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -579,11 +567,11 @@
 				5D75EC661F3E050B008F57A7 /* Sources */,
 				5D75EC671F3E050B008F57A7 /* Frameworks */,
 				5D75EC681F3E050B008F57A7 /* Resources */,
-				40CA05D20ED31D5578FD70E6 /* [CP] Embed Pods Frameworks */,
 				5D17FB3D2055B95E007E8270 /* Embed App Extensions */,
-				D0704489AC03BD9B7AC373CC /* [CP] Copy Pods Resources */,
 				5DD7197A20DE3CC9008CD170 /* ShellScript */,
 				5DC224B3215295F10000853D /* CopyFiles */,
+				C6904E714F110D7998CB7DD0 /* [CP] Embed Pods Frameworks */,
+				7EAC7761AE77944D0B6447C8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -600,7 +588,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D75EC951F3E050C008F57A7 /* Build configuration list for PBXNativeTarget "CantoTests" */;
 			buildPhases = (
-				4E39D48D8EC58EC6DB880A72 /* [CP] Check Pods Manifest.lock */,
 				5D75EC7A1F3E050C008F57A7 /* Sources */,
 				5D75EC7B1F3E050C008F57A7 /* Frameworks */,
 				5D75EC7C1F3E050C008F57A7 /* Resources */,
@@ -619,7 +606,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D75EC981F3E050C008F57A7 /* Build configuration list for PBXNativeTarget "CantoUITests" */;
 			buildPhases = (
-				7B1B7082020CB3B59F0E117D /* [CP] Check Pods Manifest.lock */,
 				5D75EC851F3E050C008F57A7 /* Sources */,
 				5D75EC861F3E050C008F57A7 /* Frameworks */,
 				5D75EC871F3E050C008F57A7 /* Resources */,
@@ -646,7 +632,7 @@
 				TargetAttributes = {
 					5D17FB312055B95E007E8270 = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = 3M536NNGRQ;
+						DevelopmentTeam = PQH5MT4AHR;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -656,7 +642,7 @@
 					};
 					5D75EC691F3E050B008F57A7 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 3M536NNGRQ;
+						DevelopmentTeam = PQH5MT4AHR;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -689,6 +675,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -792,36 +779,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		40CA05D20ED31D5578FD70E6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Canto/Pods-Canto-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/EVReflection/EVReflection.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Canto/Pods-Canto-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4CB960D82CD5BC92FB362614 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -834,24 +791,6 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Canto-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4E39D48D8EC58EC6DB880A72 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CantoTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -871,58 +810,80 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 7d9f5f71ad787ba61dffa4ab84a46227d4efb701 2babf13e7058432e375b3abf1be35612280224769d8ed381637c2ab59686c84a";
 		};
-		7B1B7082020CB3B59F0E117D /* [CP] Check Pods Manifest.lock */ = {
+		7EAC7761AE77944D0B6447C8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CantoUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		913F1760163C145560BCBEFD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Canto/Pods-Canto-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Canto/Pods-Canto-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D0704489AC03BD9B7AC373CC /* [CP] Copy Pods Resources */ = {
+		C6904E714F110D7998CB7DD0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Canto/Pods-Canto-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Canto/Pods-Canto-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/EVReflection/EVReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Canto/Pods-Canto-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF350714659B726A3318F195 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Canto/Pods-Canto-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Canto-OneSignalNotificationServiceExtension/Pods-Canto-OneSignalNotificationServiceExtension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E6D6F4F1B000D77797F33841 /* [CP] Check Pods Manifest.lock */ = {
@@ -1075,12 +1036,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3M536NNGRQ;
+				DEVELOPMENT_TEAM = PQH5MT4AHR;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.cando.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1096,12 +1057,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3M536NNGRQ;
+				DEVELOPMENT_TEAM = PQH5MT4AHR;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.cando.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -1112,6 +1073,7 @@
 		5D75EC901F3E050C008F57A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1171,6 +1133,7 @@
 		5D75EC911F3E050C008F57A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1224,16 +1187,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD723455F6BDCC01C7B9F6B7 /* Pods-Canto.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Canto/Canto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3M536NNGRQ;
+				DEVELOPMENT_TEAM = PQH5MT4AHR;
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto;
+				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.cando;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Canto/Canto-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1247,16 +1210,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8407EE8CDE64237567484C6B /* Pods-Canto.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Canto/Canto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3M536NNGRQ;
+				DEVELOPMENT_TEAM = PQH5MT4AHR;
 				INFOPLIST_FILE = Canto/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.canto;
+				PRODUCT_BUNDLE_IDENTIFIER = nassab.application.cando;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Canto/Canto-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -1267,7 +1230,6 @@
 		};
 		5D75EC961F3E050C008F57A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CDF68C2A736132135391E23 /* Pods-CantoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1284,7 +1246,6 @@
 		};
 		5D75EC971F3E050C008F57A7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37794511A2303F5C1CE06689 /* Pods-CantoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1301,7 +1262,6 @@
 		};
 		5D75EC991F3E050C008F57A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDDAFB443716DA72FBA5CE93 /* Pods-CantoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 9TTC6ZWX37;
@@ -1317,7 +1277,6 @@
 		};
 		5D75EC9A1F3E050C008F57A7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 734F14C1EB06A7A848359D16 /* Pods-CantoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 9TTC6ZWX37;

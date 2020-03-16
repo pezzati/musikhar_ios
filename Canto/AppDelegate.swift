@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import OneSignal
+//import OneSignal
 import GoogleSignIn
-import Fabric
-import Crashlytics
+//import Fabric
+//import Crashlytics
 
 //Nassab Bundle : nassab.application.canto
 //Sibapp Bundle : com.canto.application
